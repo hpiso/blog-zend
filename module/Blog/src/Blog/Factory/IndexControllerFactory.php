@@ -2,8 +2,8 @@
 namespace Blog\Factory;
 
 use Zend\ServiceManager\FactoryInterface;
-use Blog\Controller\IndexController;
 use Zend\ServiceManager\ServiceLocatorInterface;
+use Blog\Controller\IndexController;
 
 class IndexControllerFactory implements FactoryInterface
 {
