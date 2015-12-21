@@ -1,6 +1,7 @@
 <?php
 
 return array(
+    //Controller config
     'controllers' => array(
         'factories' => array(
             'Blog\Controller\Index' => 'Blog\Factory\IndexControllerFactory',
@@ -28,6 +29,7 @@ return array(
         ),
     ),
 
+    //View config
     'view_manager' => array(
         'template_map' => array(
             'layout/layout'           => __DIR__ . '/../view/layout/layout.phtml'
