@@ -1,0 +1,41 @@
+<?php echo $this->doctype(); ?>
+
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <?php echo $this->headTitle('ZF2 '. $this->translate('Skeleton Application'))->setSeparator(' - ')->setAutoEscape(false) ?>
+
+        <?php echo $this->headMeta()
+            ->appendName('viewport', 'width=device-width, initial-scale=1.0')
+            ->appendHttpEquiv('X-UA-Compatible', 'IE=edge')
+        ?>
+
+        <!-- styles -->
+        <?php echo $this->partial('/partials/globalCss.phtml'); ?>
+
+        <!-- Scripts -->
+        <?php echo $this->headScript()
+            ->prependFile($this->basePath('front/js/pace.min.js'))
+        ; ?>
+
+    </head>
+    <body>
+        <!-- Header -->
+        <?php echo $this->partial('/partials/header.phtml'); ?>
+
+        <!-- Cover -->
+        <?php echo $this->partial('/partials/cover.phtml'); ?>
+
+        <!-- Content -->
+        <div id="content" class="content">
+            <?php echo $this->content; ?>
+        </div>
+
+        <!-- Footer -->
+        <?php echo $this->partial('/partials/footer.phtml'); ?>
+
+        <!-- Javascript -->
+        <?php echo $this->partial('/partials/globalJs.phtml'); ?>
+        <?php echo $this->inlineScript() ?>
+    </body>
+</html>
