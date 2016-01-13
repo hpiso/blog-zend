@@ -12,5 +12,39 @@
  */
 
 return array(
-    // ...
+    //Doctrine
+    'doctrine' => array(
+        'connection' => array(
+            // default connection name
+            'orm_default' => array(
+                'driverClass' => 'Doctrine\DBAL\Driver\PDOMySql\Driver',
+                'params' => array(
+                    'host'     => 'localhost',
+                    'port'     => '3306',
+                    'user'     => 'root',
+                    'password' => '90473977096',
+                    'dbname'   => 'blog-zend',
+                )
+            )
+        ),
+        'driver' => array(
+            // defines an annotation driver with two paths, and names it `my_annotation_driver`
+            'my_annotation_driver' => array(
+                'class' => 'Doctrine\ORM\Mapping\Driver\AnnotationDriver',
+                'cache' => 'array',
+                'paths' => array(
+                    'module/Blog/src/Blog/entity',
+                ),
+            ),
+
+            // default metadata driver, aggregates all other drivers into a single one.
+            // Override `orm_default` only if you know what you're doing
+            'orm_default' => array(
+                'drivers' => array(
+                    // register `my_annotation_driver` for any entity under namespace `My\Namespace`
+                    'Blog\Entity' => 'my_annotation_driver'
+                )
+            )
+        )
+    ),
 );
