@@ -4,23 +4,23 @@ return array(
     //Controller config
     'controllers' => array(
         'invokables' => array(
-            'Blog\Controller\Blog' => 'Blog\Controller\IndexController',
+            'Admin\Controller\Admin' => 'Admin\Controller\IndexController',
         ),
     ),
 
     //Routing config
     'router' => array(
         'routes' => array(
-            'blog' => array(
+            'admin' => array(
                 'type'    => 'segment',
                 'options' => array(
-                    'route'    => '/blog[/:action][/:id]',
+                    'route'    => '/admin[/:action][/:id]',
                     'constraints' => array(
                         'action' => '[a-zA-Z][a-zA-Z0-9_-]*',
                         'id'     => '[0-9]+',
                     ),
                     'defaults' => array(
-                        'controller'    => 'Blog\Controller\Blog',
+                        'controller'    => 'Admin\Controller\Admin',
                         'action'        => 'index',
                     ),
                 ),
@@ -31,10 +31,10 @@ return array(
     //View config
     'view_manager' => array(
         'template_map' => array(
-            'layout/layout'           => __DIR__ . '/../view/layout/layout.phtml',
+            'admin/layout'           => __DIR__ . '/../view/layout/layout.phtml',
         ),
         'template_path_stack' => array(
-            'blog' => __DIR__ . '/../view',
+            'admin' => __DIR__ . '/../view',
         ),
     ),
 );
