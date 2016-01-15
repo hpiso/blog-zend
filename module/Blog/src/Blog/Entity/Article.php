@@ -2,7 +2,6 @@
  
 namespace Blog\Entity;
 
-use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -52,20 +51,13 @@ class Article
     protected $user;
 
     /**
-     * @var @var \Doctrine\Common\Collections\Collection
      *
-     * @ORM\ManyToMany(targetEntity="Blog\Entity\Category")
-     * @ORM\JoinTable(name="articles_categories",
-     *      joinColumns={@ORM\JoinColumn(name="article_id", referencedColumnName="id")},
-     *      inverseJoinColumns={@ORM\JoinColumn(name="category_id", referencedColumnName="id")}
-     * )
+     * @ORM\ManyToOne(targetEntity="Blog\Entity\Category")
+     * @ORM\JoinColumn(name="category_id", referencedColumnName="id")
+     *
      */
-    protected $categories;
+    protected $category;
 
-    public function __construct()
-    {
-        $this->categories = new ArrayCollection();
-    }
 
     /**
      * @return int
@@ -166,17 +158,17 @@ class Article
     /**
      * @return mixed
      */
-    public function getCategories()
+    public function getCategory()
     {
-        return $this->categories;
+        return $this->category;
     }
 
     /**
-     * @param mixed $categories
+     * @param mixed $category
      */
-    public function setCategories($categories)
+    public function setCategory($category)
     {
-        $this->categories = $categories;
+        $this->category = $category;
     }
 
 }
