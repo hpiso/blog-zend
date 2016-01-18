@@ -13,6 +13,7 @@ return array(
         'ZfcBase',
         'ZfcUser',
         'ZfcUserDoctrineORM',
+        'ZfcRbac',
         'Admin',
         'Blog',
     ),
@@ -72,5 +73,9 @@ return array(
 
    // Initial configuration with which to seed the ServiceManager.
    // Should be compatible with Zend\ServiceManager\Config.
-   // 'service_manager' => array(),
+    'service_manager' => [
+        'aliases' => [
+            'Zend\Authentication\AuthenticationService' => 'zfcuser_auth_service'
+        ]
+    ]
 );

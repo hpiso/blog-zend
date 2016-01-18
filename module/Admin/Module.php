@@ -18,17 +18,12 @@ class Module
             $e->getTarget()->layout('admin/layout');
         });
 
-        //Check authentification
-//        $t = $e->getTarget();
-//        $t->getEventManager()->attach(
-//            $t->getServiceManager()->get('ZfcRbac\View\Strategy\RedirectStrategy')
-//        );
+        //Check Authentification
+        $t = $e->getTarget();
 
-//        $sm = $e->getApplication()->getServiceManager();
-//        $auth = $sm->get('zfcuser_auth_service');
-//        if (!$auth->hasIdentity()) {
-//            //redirection
-//        }
+        $t->getEventManager()->attach(
+            $t->getServiceManager()->get('ZfcRbac\View\Strategy\RedirectStrategy')
+        );
     }
 
     public function getConfig()

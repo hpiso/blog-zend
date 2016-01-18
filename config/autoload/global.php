@@ -33,7 +33,7 @@ return array(
                 'class' => 'Doctrine\ORM\Mapping\Driver\AnnotationDriver',
                 'cache' => 'array',
                 'paths' => array(
-                    'module/Blog/src/Blog/entity',
+                    'module/Blog/src/Blog/Entity',
                 ),
             ),
 

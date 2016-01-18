@@ -28,7 +28,7 @@ return [
          * Please note that when an identity is found, it MUST implements the ZfcRbac\Identity\IdentityProviderInterface
          * interface, otherwise it will throw an exception.
          */
-        // 'identity_provider' => 'ZfcRbac\Identity\AuthenticationIdentityProvider',
+         //'identity_provider' => 'ZfcRbac\Identity\AuthenticationIdentityProvider',
 
         /**
          * Set the guest role
@@ -52,7 +52,7 @@ return [
              'ZfcRbac\Guard\RouteGuard' => [
                  'user/login'       => ['guest'],
                  'user/register'    => ['guest'],
-                 //'admin*'           => ['user']
+                 'admin*'           => ['user']
              ]
          ],
 
@@ -66,7 +66,7 @@ return [
          *
          * DENY is the most secure way, but it is more work for the developer
          */
-        // 'protection_policy' => \ZfcRbac\Guard\GuardInterface::POLICY_ALLOW,
+         'protection_policy' => \ZfcRbac\Guard\GuardInterface::POLICY_ALLOW,
 
         /**
          * Configuration for role provider
@@ -107,23 +107,23 @@ return [
             /**
              * Enable redirection when the user is connected
              */
-            // 'redirect_when_connected' => true,
+             'redirect_when_connected' => true,
 
             /**
              * Set the route to redirect when user is connected (of course, it must exist!)
              */
-            //'redirect_to_route_connected' => 'zfcuser',
+            'redirect_to_route_connected' => 'zfcuser',
 
             /**
              * Set the route to redirect when user is disconnected (of course, it must exist!)
              */
-             //'redirect_to_route_disconnected' => 'zfcuser',
+             'redirect_to_route_disconnected' => 'zfcuser',
 
             /**
              * If a user is unauthorized and redirected to another route (login, for instance), should we
              * append the previous URI (the one that was unauthorized) in the query params?
              */
-             //'append_previous_uri' => false,
+             'append_previous_uri' => true,
 
             /**
              * If append_previous_uri option is set to true, this option set the query key to use when
