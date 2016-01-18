@@ -4,7 +4,7 @@ return array(
     //Controller config
     'controllers' => array(
         'invokables' => array(
-            'Admin\Controller\Admin' => 'Admin\Controller\IndexController',
+            'adminController' => 'Admin\Controller\IndexController',
         ),
     ),
 
@@ -20,7 +20,7 @@ return array(
                         'id'     => '[0-9]+',
                     ),
                     'defaults' => array(
-                        'controller'    => 'Admin\Controller\Admin',
+                        'controller'    => 'adminController',
                         'action'        => 'index',
                     ),
                 ),

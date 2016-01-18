@@ -44,11 +44,11 @@ class Article
      */
     protected $state;
 
-    /**
-     * @ORM\ManyToOne(targetEntity="Blog\Entity\User")
-     * @ORM\JoinColumn(name="user_id", referencedColumnName="id")
-     */
-    protected $user;
+//    /**
+//     * @ORM\ManyToOne(targetEntity="Blog\Entity\User")
+//     * @ORM\JoinColumn(name="user_id", referencedColumnName="id")
+//     */
+//    protected $user;
 
     /**
      *

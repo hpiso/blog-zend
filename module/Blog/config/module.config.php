@@ -14,7 +14,7 @@ return array(
             'blog' => array(
                 'type'    => 'segment',
                 'options' => array(
-                    'route'    => '/blog[/:action][/:id]',
+                    'route'    => '/[/:action][/:id]',
                     'constraints' => array(
                         'action' => '[a-zA-Z][a-zA-Z0-9_-]*',
                         'id'     => '[0-9]+',
