@@ -2,14 +2,14 @@
 
 namespace Admin\Controller;
 
-use Zend\Mvc\Controller\AbstractActionController;
 use Zend\View\Model\ViewModel;
 
-class IndexController extends AbstractActionController
+class DashboardController extends BaseController
 {
 
     public function indexAction()
     {
+        //var_dump($this->getEntityManager()->getRepository('Blog\Entity\Article')->findAll());die;
         return new ViewModel();
     }
 

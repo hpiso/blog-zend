@@ -4,7 +4,7 @@ return array(
     //Controller config
     'controllers' => array(
         'invokables' => array(
-            'Blog\Controller\Blog' => 'Blog\Controller\IndexController',
+            'blogController' => 'Blog\Controller\IndexController',
         ),
     ),
 
@@ -20,7 +20,7 @@ return array(
                         'id'     => '[0-9]+',
                     ),
                     'defaults' => array(
-                        'controller'    => 'Blog\Controller\Blog',
+                        'controller'    => 'blogController',
                         'action'        => 'index',
                     ),
                 ),

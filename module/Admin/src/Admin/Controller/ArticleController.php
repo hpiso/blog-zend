@@ -1,11 +1,10 @@
 <?php
 
-namespace Blog\Controller;
+namespace Admin\Controller;
 
-use Admin\Controller\BaseController;
 use Zend\View\Model\ViewModel;
 
-class IndexController extends BaseController
+class ArticleController extends BaseController
 {
 
     public function indexAction()
@@ -16,4 +15,10 @@ class IndexController extends BaseController
             'articles' => $articles
         ]);
     }
+
+    public function addAction()
+    {
+        return new ViewModel();
+    }
+
 }

@@ -25,7 +25,6 @@ class Module
 
         //Check Authentification
         $t = $e->getTarget();
-
         $t->getEventManager()->attach(
             $t->getServiceManager()->get('ZfcRbac\View\Strategy\RedirectStrategy')
         );

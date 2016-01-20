@@ -1,13 +1,26 @@
 <?php echo $this->headScript()
-    ->prependFile($this->basePath('front/js/apps.min.js'))
-    ->prependFile($this->basePath('front/js/jquery.cookie.js'))
-    ->prependFile($this->basePath('front/js/bootstrap.min.js'))
-    ->prependFile($this->basePath('front/js/jquery-migrate-1.1.0.min.js'))
-    ->prependFile($this->basePath('front/js/jquery-1.9.1.min.js'))
+    ->prependFile($this->basePath('assets/admin/js/apps.min.js'))
+    ->prependFile($this->basePath('assets/admin/js/dashboard.min.js'))
+    ->prependFile($this->basePath('assets/admin/js/jquery-jvectormap-world-mill-en.js'))
+    ->prependFile($this->basePath('assets/admin/js/jquery-jvectormap-1.2.2.min.js'))
+    ->prependFile($this->basePath('assets/admin/js/jquery.sparkline.js'))
+    ->prependFile($this->basePath('assets/admin/js/jquery.flot.pie.min.js'))
+    ->prependFile($this->basePath('assets/admin/js/jquery.flot.resize.min.js'))
+    ->prependFile($this->basePath('assets/admin/js/jquery.flot.time.min.js'))
+    ->prependFile($this->basePath('assets/admin/js/jquery.flot.min.js'))
+    ->prependFile($this->basePath('assets/admin/js/jquery.gritter.js'))
+    ->prependFile($this->basePath('assets/admin/js/jquery.cookie.js'))
+    ->prependFile($this->basePath('assets/admin/js/jquery.slimscroll.min.js'))
+    ->prependFile($this->basePath('assets/admin/js/bootstrap.min.js'))
+    ->prependFile($this->basePath('assets/admin/js/jquery-ui.min.js'))
+    ->prependFile($this->basePath('assets/admin/js/jquery-migrate-1.1.0.min.js'))
+    ->prependFile($this->basePath('assets/admin/js/jquery-1.9.1.min.js'))
+    ->prependFile($this->basePath('assets/admin/js/pace.min.js'))
 ; ?>
 
 <script>
     $(document).ready(function() {
         App.init();
+        Dashboard.init();
     });
 </script>
