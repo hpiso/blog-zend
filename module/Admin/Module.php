@@ -18,6 +18,11 @@ class Module
             $e->getTarget()->layout('admin/layout');
         });
 
+        //Load Admin layout
+        $eventManager->getSharedManager()->attach('ZfcUser', 'dispatch', function($e) {
+            $e->getTarget()->layout('admin/layout-login');
+        });
+
         //Check Authentification
         $t = $e->getTarget();
 

@@ -32,9 +32,11 @@ return array(
     'view_manager' => array(
         'template_map' => array(
             'admin/layout'           => __DIR__ . '/../view/layout/layout.phtml',
+            'admin/layout-login'     => __DIR__ . '/../view/layout/layout-login.phtml',
         ),
         'template_path_stack' => array(
-            'admin' => __DIR__ . '/../view',
+            'admin'    => __DIR__ . '/../view',
+            'zfc-user' => __DIR__ . '/../view',
         ),
     ),
 );
