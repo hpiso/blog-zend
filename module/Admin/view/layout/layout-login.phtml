@@ -13,6 +13,7 @@
         <!-- CSS -->
         <link href="http://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700" rel="stylesheet">
         <?php echo $this->headLink(array('rel' => 'shortcut icon', 'type' => 'image/vnd.microsoft.icon', 'href' => $this->basePath() . '/img/favicon.ico'))
+            ->prependStylesheet($this->basePath('assets/admin/css/style.css'))
             ->prependStylesheet($this->basePath('assets/admin/css/default.css'))
             ->prependStylesheet($this->basePath('assets/admin/css/style-responsive.min.css'))
             ->prependStylesheet($this->basePath('assets/admin/css/style.min.css'))
@@ -50,22 +51,6 @@
             <!-- end brand -->
             <div class="login-content">
                 <?php echo $this->content; ?>
-                <form action="index.html" method="POST" class="margin-bottom-0">
-                    <div class="form-group m-b-20">
-                        <input type="text" class="form-control input-lg" placeholder="Email Address" />
-                    </div>
-                    <div class="form-group m-b-20">
-                        <input type="text" class="form-control input-lg" placeholder="Password" />
-                    </div>
-                    <div class="checkbox m-b-20">
-                        <label>
-                            <input type="checkbox" /> Remember Me
-                        </label>
-                    </div>
-                    <div class="login-buttons">
-                        <button type="submit" class="btn btn-success btn-block btn-lg">Sign me in</button>
-                    </div>
-                </form>
             </div>
         </div>
         <!-- end login -->
