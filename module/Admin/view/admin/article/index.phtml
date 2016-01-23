@@ -7,3 +7,49 @@
 <!-- begin page-header -->
 <h1 class="page-header">Articles <small>header small text goes here...</small></h1>
 
+<div class="row">
+    <div class="col-md-12">
+        <div class="panel panel-inverse" data-sortable-id="ui-widget-4">
+            <div class="panel-heading">
+                <h4 class="panel-title">Liste des articles</h4>
+            </div>
+            <div class="panel-body">
+                <div class="col-md-12 text-center">
+                    <a href="<?php echo $this->url('articles', ['action' => 'add']); ?>" class="btn btn-success btn-lg">Ajouter un article</a>
+                </div>
+                <ul class="result-list">
+                    <?php foreach ($articles as $article) : ?>
+                        <li>
+                        <div class="result-image">
+                            <a href="javascript:;"><img src="assets/img/gallery/gallery-1.jpg" alt=""></a>
+                        </div>
+                        <div class="result-info">
+                            <h4 class="title"><a href="javascript:;"><?php echo $this->escapeHtml($article->title);?></a></h4>
+                            <p class="location">United State, BY 10089</p>
+                            <p class="desc">
+                                <?php echo $this->escapeHtml($article->content);?>
+                                Le Lorem Ipsum est simplement du faux texte employé dans
+                                la composition et la mise en page avant impression. Le Lorem Ip
+                                sum est le faux texte standard de
+                                l'imprimerie depuis les années 1500, quand un peintre an
+                            </p>
+                            <div class="btn-row">
+                                <a title="" data-original-title="" href="javascript:;" data-toggle="tooltip" data-container="body" data-title="Analytics"><i class="fa fa-fw fa-bar-chart-o"></i></a>
+                                <a title="" data-original-title="" href="javascript:;" data-toggle="tooltip" data-container="body" data-title="Tasks"><i class="fa fa-fw fa-tasks"></i></a>
+                                <a title="" data-original-title="" href="javascript:;" data-toggle="tooltip" data-container="body" data-title="Configuration"><i class="fa fa-fw fa-cog"></i></a>
+                                <a title="" data-original-title="" href="javascript:;" data-toggle="tooltip" data-container="body" data-title="Performance"><i class="fa fa-fw fa-tachometer"></i></a>
+                                <a title="" data-original-title="" href="javascript:;" data-toggle="tooltip" data-container="body" data-title="Users"><i class="fa fa-fw fa-user"></i></a>
+                            </div>
+                        </div>
+                        <div class="result-price">
+                            <a href="javascript:;" class="btn btn-inverse"><i class="fa fa-eye"></i></a>
+                            <a href="javascript:;" class="btn btn-warning"><i class="fa fa-edit"></i></a>
+                            <a href="javascript:;" class="btn btn-danger"><i class="fa fa-trash"></i></a>
+                        </div>
+                    </li>
+                    <?php endforeach; ?>
+                </ul>
+        </div>
+    </div>
+</div>
+

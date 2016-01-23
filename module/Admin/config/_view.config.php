@@ -4,6 +4,7 @@ return array(
     'template_map' => array(
         'admin/layout'           => __DIR__ . '/../view/layout/layout.phtml',
         'admin/layout-login'     => __DIR__ . '/../view/layout/layout-login.phtml',
+        'admin/menu'             => __DIR__ . '/../view/layout/partials/menu.phtml',
         'admin/global-css'       => __DIR__ . '/../view/layout/partials/global-css.phtml',
         'admin/global-js'        => __DIR__ . '/../view/layout/partials/global-js.phtml',
     ),

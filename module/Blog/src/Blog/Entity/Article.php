@@ -24,25 +24,25 @@ class Article
      * @var string
      * @ORM\Column(name="title", type="string", length=255, nullable=false)
      */
-    protected $title;
+    public $title;
 
     /**
      * @var string
      * @ORM\Column(name="content", type="text")
      */
-    protected $content;
+    public $content;
 
     /**
      * @var string
      * @ORM\Column(name="date", type="datetime")
      */
-    protected $date;
+    public $date;
 
     /**
      * @var Boolean
      * @ORM\Column(name="state", type="boolean")
      */
-    protected $state;
+    public $state;
 
 //    /**
 //     * @ORM\ManyToOne(targetEntity="Blog\Entity\User")
