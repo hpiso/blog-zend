@@ -7,3 +7,21 @@
 <!-- begin page-header -->
 <h1 class="page-header">Créer un article <small>header small text goes here...</small></h1>
 
+<?php
+
+$form->setAttribute('action', $this->url('articles', array('action' => 'add')));
+$form->prepare();
+
+echo $this->form()->openTag($form);
+echo $this->formHidden($form->get('id'));
+echo '<div class="input-group">';
+echo $this->formRow($form->get('title'));
+echo '</div>';
+echo '<div class="input-group">';
+echo $this->formRow($form->get('content'));
+echo '</div>';
+echo '<div class="input-group">';
+echo $this->formSubmit($form->get('submit'));
+echo '</div>';
+echo $this->form()->closeTag();
+
