@@ -40,12 +40,22 @@ class ArticleForm extends Form
         ));
 
         $this->add(array(
+            'name' => 'state',
+            'type' => 'Checkbox',
+            'options' => array(
+                'label' => 'Actif',
+            )
+        ));
+
+        
+
+        $this->add(array(
             'name' => 'submit',
             'type' => 'Submit',
             'attributes' => array(
                 'value' => 'Ajouter',
                 'id' => 'submitbutton',
-                'class' => 'btn btn-primary'
+                'class' => 'btn btn-success'
             ),
         ));
     }

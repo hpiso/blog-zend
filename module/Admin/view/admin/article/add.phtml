@@ -5,23 +5,43 @@
 </ol>
 <!-- end breadcrumb -->
 <!-- begin page-header -->
-<h1 class="page-header">Créer un article <small>header small text goes here...</small></h1>
+<h1 class="page-header">Créer un article</h1>
 
-<?php
+<div class="row">
+    <!-- begin col-6 -->
+    <div class="col-md-6 ui-sortable">
+        <!-- begin panel -->
+        <div class="panel panel-inverse" data-sortable-id="form-stuff-3">
+            <div class="panel-heading">
+                <h4 class="panel-title">Default Style</h4>
+            </div>
+            <div class="panel-body">
+                <?php
 
-$form->setAttribute('action', $this->url('articles', array('action' => 'add')));
-$form->prepare();
+                $form->setAttribute('action', $this->url('articles', array('action' => 'add')));
+                $form->prepare();
 
-echo $this->form()->openTag($form);
-echo $this->formHidden($form->get('id'));
-echo '<div class="input-group">';
-echo $this->formRow($form->get('title'));
-echo '</div>';
-echo '<div class="input-group">';
-echo $this->formRow($form->get('content'));
-echo '</div>';
-echo '<div class="input-group">';
-echo $this->formSubmit($form->get('submit'));
-echo '</div>';
-echo $this->form()->closeTag();
+                echo $this->form()->openTag($form);
+                echo $this->formHidden($form->get('id'));
+                echo '<div class="form-group">';
+                echo $this->formLabel($form->get('title'));
+                echo $this->formInput($form->get('title'));
+                echo '</div>';
+                echo '<div class="form-group">';
+                echo $this->formLabel($form->get('content'));
+                echo $this->formTextarea($form->get('content'));
+                echo '</div>';
+                echo '<div class="form-group">';
+                echo $this->formRow($form->get('state'));
+                echo '</div>';
+                echo '<div class="form-group">';
+                echo $this->formSubmit($form->get('submit'));
+                echo '</div>';
+                echo $this->form()->closeTag();
+                ?>
+            </div>
+        </div>
+    </div>
+</div>
+
 

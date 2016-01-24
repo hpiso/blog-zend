@@ -1,0 +1,41 @@
+<li>
+    <!-- begin post-left-info -->
+    <div class="post-left-info">
+        <div class="post-date">
+            <span class="day"><?php echo $article->date->format('d');?></span>
+            <span class="month"><?php echo strtoupper($article->date->format('M'));?></span>
+        </div>
+        <div class="post-likes">
+            <i class="fa fa-heart-o"></i>
+            <span class="number">1,292</span>
+        </div>
+    </div>
+    <!-- end post-left-info -->
+    <!-- begin post-content -->
+    <div class="post-content">
+        <!-- begin post-image -->
+        <div class="post-image">
+            <a href="post_detail.html"><img src="http://img0.gtsstatic.com/wallpapers/bcfba0abf336fc2d5653927791a2ba80_large.jpeg" alt="" /></a>
+        </div>
+        <!-- end post-image -->
+        <!-- begin post-info -->
+        <div class="post-info">
+            <h4 class="post-title">
+                <a href="post_detail.html"><?php echo $this->escapeHtml($article->title);?></a>
+            </h4>
+            <div class="post-by">
+                Posted By <a href="#">admin</a> <span class="divider">|</span> <a href="#">Sports</a>, <a href="#">Parachute</a>, <a href="#">Blue Sky</a> <span class="divider">|</span> 12 Comments
+            </div>
+            <div class="post-desc">
+                <?php echo mb_strimwidth($this->escapeHtml($article->content),0,350, "...");?>
+            </div>
+        </div>
+        <!-- end post-info -->
+        <!-- begin read-btn-container -->
+        <div class="read-btn-container">
+            <a href="post_detail.html" class="read-btn">Read More <i class="fa fa-angle-double-right"></i></a>
+        </div>
+        <!-- end read-btn-container -->
+    </div>
+    <!-- end post-content -->
+</li>

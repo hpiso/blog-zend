@@ -12,7 +12,8 @@ class ArticleController extends BaseController
 
     public function indexAction()
     {
-        $articles = $this->getEntityManager()->getRepository('Blog\Entity\Article')->findAll();
+        $articles = $this->getEntityManager()->getRepository('Blog\Entity\Article')
+            ->findBy([], ['date' => 'DESC']);
 
         return new ViewModel([
             'articles' => $articles
@@ -31,9 +32,6 @@ class ArticleController extends BaseController
             if ($form->isValid()) {
 
                 $article = $this->getHydrator()->hydrate($form->getData(), $article);
-                $article->setDate(new \DateTime('Now'));
-                $article->setState(true);
-                //$article->setCat(true);
 
                 $em = $this->getEntityManager();
                 $em->persist($article);
