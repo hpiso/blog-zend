@@ -11,7 +11,6 @@ class ArticleForm extends Form
         // we want to ignore the name passed
         parent::__construct('article');
 
-
         $this->add(array(
             'name' => 'id',
             'type' => 'Hidden',
@@ -46,7 +45,7 @@ class ArticleForm extends Form
                 'label' => 'Actif',
             )
         ));
-        
+
         $this->add(array(
             'name' => 'submit',
             'type' => 'Submit',
