@@ -46,9 +46,7 @@ class ArticleForm extends Form
                 'label' => 'Actif',
             )
         ));
-
         
-
         $this->add(array(
             'name' => 'submit',
             'type' => 'Submit',
