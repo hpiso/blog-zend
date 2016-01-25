@@ -19,9 +19,12 @@ class IndexController extends BaseController
                 ['date' => 'DESC'], 5
             );
 
+        $categories = $this->getEntityManager()->getRepository('Blog\Entity\Category')->findAll();
+
         return new ViewModel([
-            'articles'        => $articles,
-            'recentArticles' => $recentArticles
+            'articles'       => $articles,
+            'recentArticles' => $recentArticles,
+            'categories'     => $categories
         ]);
     }
 }

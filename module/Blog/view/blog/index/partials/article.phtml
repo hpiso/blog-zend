@@ -2,8 +2,8 @@
     <!-- begin post-left-info -->
     <div class="post-left-info">
         <div class="post-date">
-            <span class="day"><?php echo $article->date->format('d');?></span>
-            <span class="month"><?php echo strtoupper($article->date->format('M'));?></span>
+            <span class="day"><?php echo $object->date->format('d');?></span>
+            <span class="month"><?php echo strtoupper($object->date->format('M'));?></span>
         </div>
         <div class="post-likes">
             <i class="fa fa-heart-o"></i>
@@ -21,13 +21,13 @@
         <!-- begin post-info -->
         <div class="post-info">
             <h4 class="post-title">
-                <a href="post_detail.html"><?php echo $this->escapeHtml($article->title);?></a>
+                <a href="post_detail.html"><?php echo $this->escapeHtml($object->title);?></a>
             </h4>
             <div class="post-by">
                 Posted By <a href="#">admin</a> <span class="divider">|</span> <a href="#">Sports</a>, <a href="#">Parachute</a>, <a href="#">Blue Sky</a> <span class="divider">|</span> 12 Comments
             </div>
             <div class="post-desc">
-                <?php echo mb_strimwidth($article->content,0,350, "...");?>
+                <?php echo mb_strimwidth($object->content,0,350, "...");?>
             </div>
         </div>
         <!-- end post-info -->

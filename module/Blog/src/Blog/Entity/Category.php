@@ -24,13 +24,13 @@ class Category
      * @var string
      * @ORM\Column(name="name", type="string", length=255, nullable=false)
      */
-    protected $name;
+    public $name;
 
     /**
      * @var string
      * @ORM\Column(name="slug", type="string", length=255, nullable=false)
      */
-    protected $slug;
+    public $slug;
 
     /**
      * @return int
