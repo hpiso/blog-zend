@@ -35,9 +35,10 @@ return array(
                 'categories' => array(
                     'type'    => 'Segment',
                     'options' => array(
-                        'route'    => '/categories[/:action]',
+                        'route'    => '/categories[/:action][/:id]',
                         'constraints' => array(
                             'action' => '[a-zA-Z][a-zA-Z0-9_-]*',
+                            'id'     => '[0-9]+'
                         ),
                         'defaults' => array(
                             'controller'    => 'categoryController',
