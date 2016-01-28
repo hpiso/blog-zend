@@ -92,7 +92,6 @@ class CategoryController extends BaseController
         ]);
     }
 
-    //TODO FAIRE UN FORMULAIRE POUR LA SUPPRESSION
     public function deleteAction()
     {
         $id = $this->params('id');
@@ -102,17 +101,21 @@ class CategoryController extends BaseController
             throw new EntityNotFoundException('Entity Category not found');
         }
 
-        //Remove Category entity
-        $em = $this->getEntityManager();
-        $em->remove($category);
-        $em->flush();
+        $request = $this->getRequest();
 
-        //Add flash message
-        $this->flashMessenger()->addMessage('La catégorie '. $category->getName().' a été supprimé.');
+        if ($request->isPost()) {
+
+            //Remove Category entity
+            $em = $this->getEntityManager();
+            $em->remove($category);
+            $em->flush();
+
+            //Add flash message
+            $this->flashMessenger()->addMessage('La catégorie '. $category->getName().' a été supprimé.');
+        }
 
         //Redirection
         return $this->redirect()->toRoute('admin/categories');
-
     }
 
 }

@@ -4,6 +4,6 @@ return array(
     'invokables' => array(
         'dashboardController' => 'Admin\Controller\DashboardController',
         'articleController'   => 'Admin\Controller\ArticleController',
-        'categoryController'   => 'Admin\Controller\CategoryController',
+        'categoryController'  => 'Admin\Controller\CategoryController',
     ),
 );
