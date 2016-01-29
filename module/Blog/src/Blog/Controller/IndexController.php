@@ -14,18 +14,10 @@ class IndexController extends BaseController
         $articles = $this->getEntityManager()->getRepository('Blog\Entity\Article')
             ->findBy(['state' => 1], ['date' => 'DESC']);
 
-        $recentArticles = $this->getEntityManager()->getRepository('Blog\Entity\Article')
-            ->findBy(
-                ['state' => 1],
-                ['date' => 'DESC'], 5
-            );
-
-        $categories = $this->getEntityManager()->getRepository('Blog\Entity\Category')->findAll();
-
         return new ViewModel([
             'articles'       => $articles,
-            'recentArticles' => $recentArticles,
-            'categories'     => $categories
+            'categories'     => $this->getWidgetElements()['categories'],
+            'recentArticles' => $this->getWidgetElements()['recentArticles'],
         ]);
     }
 
@@ -39,18 +31,31 @@ class IndexController extends BaseController
             throw new EntityNotFoundException('Entity Article not found');
         }
 
+        return new ViewModel([
+            'article'        => $article,
+            'categories'     => $this->getWidgetElements()['categories'],
+            'recentArticles' => $this->getWidgetElements()['recentArticles'],
+        ]);
+    }
+
+    /**
+     * Get all categories and the last 5 articles for the sidebar widget
+     *
+     * @return array
+     */
+    private function getWidgetElements()
+    {
+        $categories = $this->getEntityManager()->getRepository('Blog\Entity\Category')->findAll();
+
         $recentArticles = $this->getEntityManager()->getRepository('Blog\Entity\Article')
             ->findBy(
                 ['state' => 1],
                 ['date' => 'DESC'], 5
             );
 
-        $categories = $this->getEntityManager()->getRepository('Blog\Entity\Category')->findAll();
-
-        return new ViewModel([
-            'recentArticles' => $recentArticles,
+        return [
             'categories'     => $categories,
-            'article'        => $article
-        ]);
+            'recentArticles' => $recentArticles
+        ];
     }
 }
