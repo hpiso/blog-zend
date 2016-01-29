@@ -1,6 +1,6 @@
 <li>
     <div class="info">
-        <h4 class="title"><a href="#"><?php echo $this->escapeHtml($object->title);?></a></h4>
+        <h4 class="title"><a href="<?php echo $this->url('article', ['slug' => $object->slug]); ?>"><?php echo $this->escapeHtml($object->title);?></a></h4>
         <div class="date"><?php echo $object->date->format('d F Y');?></div>
     </div>
 </li>

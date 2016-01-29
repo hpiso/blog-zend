@@ -15,16 +15,16 @@
     <div class="post-content">
         <!-- begin post-image -->
         <div class="post-image">
-            <a href="post_detail.html"><img src="http://img0.gtsstatic.com/wallpapers/bcfba0abf336fc2d5653927791a2ba80_large.jpeg" alt="" /></a>
+            <a href="<?php echo $this->url('article', ['slug' => $object->slug]); ?>"><img src="http://img0.gtsstatic.com/wallpapers/bcfba0abf336fc2d5653927791a2ba80_large.jpeg" alt="" /></a>
         </div>
         <!-- end post-image -->
         <!-- begin post-info -->
         <div class="post-info">
             <h4 class="post-title">
-                <a href="post_detail.html"><?php echo $this->escapeHtml($object->title);?></a>
+                <a href="<?php echo $this->url('article', ['slug' => $object->slug]); ?>"><?php echo $this->escapeHtml($object->title);?></a>
             </h4>
             <div class="post-by">
-                Posted By <a href="#">admin</a> <span class="divider">|</span> <a href="#">Sports</a>, <a href="#">Parachute</a>, <a href="#">Blue Sky</a> <span class="divider">|</span> 12 Comments
+                <?php echo $object->date->format('d F Y') ;?> |</span> <a href="#">Sports</a>, <a href="#">Parachute</a>, <a href="#">Blue Sky</a> <span class="divider">|</span> 12 Comments
             </div>
             <div class="post-desc">
                 <?php echo mb_strimwidth($object->content,0,350, "...");?>
@@ -33,7 +33,7 @@
         <!-- end post-info -->
         <!-- begin read-btn-container -->
         <div class="read-btn-container">
-            <a href="post_detail.html" class="read-btn">Read More <i class="fa fa-angle-double-right"></i></a>
+            <a href="<?php echo $this->url('article', ['slug' => $object->slug]); ?>" class="read-btn">Read More <i class="fa fa-angle-double-right"></i></a>
         </div>
         <!-- end read-btn-container -->
     </div>

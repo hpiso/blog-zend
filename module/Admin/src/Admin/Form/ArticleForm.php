@@ -28,6 +28,17 @@ class ArticleForm extends Form
         ));
 
         $this->add(array(
+            'name' => 'slug',
+            'type' => 'Text',
+            'options' => array(
+                'label' => 'Slug',
+            ),
+            'attributes' => array(
+                'class' => 'form-control',
+            )
+        ));
+
+        $this->add(array(
             'name' => 'content',
             'type' => 'Textarea',
             'options' => array(
