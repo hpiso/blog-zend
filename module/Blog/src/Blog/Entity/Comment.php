@@ -6,42 +6,60 @@ use Doctrine\ORM\Mapping as ORM;
 
 /**
  *
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="Blog\Repository\CommentRepository")
  * @ORM\Table(name="comments")
  *
  */
 class Comment
 {
+
+    public function __construct(){
+        $this->date = new \DateTime();
+        $this->state = false;
+    }
+
     /**
      * @var int
      * @ORM\Id
      * @ORM\Column(type="integer")
      * @ORM\GeneratedValue(strategy="AUTO")
      */
-    protected $id;
+    public $id;
+
+    /**
+     * @var string
+     * @ORM\Column(name="name", type="string", length=255, nullable=false)
+     */
+    public $name;
 
     /**
      * @var string
      * @ORM\Column(name="email", type="string", length=255, nullable=false)
      */
-    protected $email;
+    public $email;
 
     /**
      * @var string
      * @ORM\Column(name="content", type="text")
      */
-    protected $content;
+    public $content;
 
     /**
      * @ORM\Column(name="date", type="datetime")
      */
-    protected $date;
+    public $date;
 
     /**
      * @ORM\ManyToOne(targetEntity="Blog\Entity\Article")
      * @ORM\JoinColumn(name="article_id", referencedColumnName="id")
      */
-    protected $article;
+    public $article;
+
+    /**
+     * @var Boolean
+     * @ORM\Column(name="state", type="boolean")
+     */
+    public $state;
 
     /**
      * @return int
@@ -57,6 +75,22 @@ class Comment
     public function setId($id)
     {
         $this->id = $id;
+    }
+
+    /**
+     * @return string
+     */
+    public function getName()
+    {
+        return $this->name;
+    }
+
+    /**
+     * @param string $name
+     */
+    public function setName($name)
+    {
+        $this->name = $name;
     }
 
     /**
@@ -123,4 +157,19 @@ class Comment
         $this->article = $article;
     }
 
+    /**
+     * @return boolean
+     */
+    public function isState()
+    {
+        return $this->state;
+    }
+
+    /**
+     * @param boolean $state
+     */
+    public function setState($state)
+    {
+        $this->state = $state;
+    }
 }

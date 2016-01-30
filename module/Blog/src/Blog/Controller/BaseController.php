@@ -3,17 +3,17 @@
 namespace Blog\Controller;
 
 use Zend\Mvc\Controller\AbstractActionController;
-use Zend\View\Model\ViewModel;
+use DoctrineModule\Stdlib\Hydrator\DoctrineObject as DoctrineHydrator;
 
 class BaseController extends AbstractActionController
 {
-    protected $em;
-
     public function getEntityManager()
     {
-        if (null === $this->em) {
-            $this->em = $this->getServiceLocator()->get('Doctrine\ORM\EntityManager');
-        }
-        return $this->em;
+        return $this->getServiceLocator()->get('Doctrine\ORM\EntityManager');
+    }
+
+    public function getHydrator()
+    {
+        return new DoctrineHydrator($this->getEntityManager());
     }
 }

@@ -3,6 +3,8 @@
 namespace Blog\Controller;
 
 use Admin\Controller\BaseController;
+use Blog\Entity\Comment;
+use Blog\Form\CommentForm;
 use Doctrine\ORM\EntityNotFoundException;
 use Zend\View\Model\ViewModel;
 
@@ -12,7 +14,7 @@ class IndexController extends BaseController
     public function indexAction()
     {
         $articles = $this->getEntityManager()->getRepository('Blog\Entity\Article')
-            ->findBy(['state' => 1], ['date' => 'DESC']);
+            ->findBy(['state' => true], ['date' => 'DESC']);
 
         return new ViewModel([
             'articles'       => $articles,
@@ -31,8 +33,35 @@ class IndexController extends BaseController
             throw new EntityNotFoundException('Entity Article not found');
         }
 
+        $comments = $this->getEntityManager()->getRepository('Blog\Entity\Comment')
+            ->getActiveByArticle($article->getId());
+
+        $comment = new Comment();
+        $commentForm = new CommentForm();
+        $commentForm->get('submit')->setAttribute('value', 'Ajouter un commentaire');
+
+        $request = $this->getRequest();
+
+        if ($request->isPost()) {
+            $commentForm->setData($request->getPost());
+            if ($commentForm->isValid()) {
+
+                $comment = $this->getHydrator()->hydrate($commentForm->getData(), $comment);
+
+                //Persist and flush entity Category
+                $em = $this->getEntityManager();
+                $em->persist($comment);
+                $em->flush();
+
+                //Redirection
+                return $this->redirect()->toRoute('article', ['slug' => $article->getSlug()]);
+            }
+        }
+
         return new ViewModel([
             'article'        => $article,
+            'comments'       => $comments,
+            'commentForm'    => $commentForm,
             'categories'     => $this->getWidgetElements()['categories'],
             'recentArticles' => $this->getWidgetElements()['recentArticles'],
         ]);
