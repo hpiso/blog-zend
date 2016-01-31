@@ -29,17 +29,19 @@ class CommentForm extends Form
             ),
             'attributes' => array(
                 'class' => 'form-control',
+                'required' => true,
             )
         ));
 
         $this->add(array(
             'name' => 'email',
-            'type' => 'Text',
+            'type' => 'Email',
             'options' => array(
                 'label' => 'Votre Email',
             ),
             'attributes' => array(
                 'class' => 'form-control',
+                'required' => true,
             )
         ));
 

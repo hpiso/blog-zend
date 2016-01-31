@@ -3,6 +3,7 @@
 namespace Blog\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\Common\Collections\ArrayCollection;
 
 /**
  *
@@ -31,6 +32,15 @@ class Category
      * @ORM\Column(name="slug", type="string", length=255, nullable=false)
      */
     public $slug;
+
+    /**
+     * @ORM\OneToMany(targetEntity="Blog\Entity\Category", mappedBy="category")
+     */
+    public $articles;
+
+    public function __construct() {
+        $this->articles = new ArrayCollection();
+    }
 
     /**
      * @return int
@@ -80,4 +90,19 @@ class Category
         $this->slug = $slug;
     }
 
+    /**
+     * @return mixed
+     */
+    public function getArticles()
+    {
+        return $this->articles;
+    }
+
+    /**
+     * @param mixed $articles
+     */
+    public function setArticles($articles)
+    {
+        $this->articles = $articles;
+    }
 }

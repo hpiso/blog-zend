@@ -9,8 +9,15 @@ class DashboardController extends BaseController
 
     public function indexAction()
     {
-        //var_dump($this->getEntityManager()->getRepository('Blog\Entity\Article')->findAll());die;
-        return new ViewModel();
+        $articles = $this->getEntityManager()->getRepository('Blog\Entity\Article')->findAll();
+        $comments = $this->getEntityManager()->getRepository('Blog\Entity\Comment')->findAll();
+        $categories = $this->getEntityManager()->getRepository('Blog\Entity\Category')->findAll();
+
+        return new ViewModel([
+            'articles'   => $articles,
+            'comments'   => $comments,
+            'categories' => $categories
+        ]);
     }
 
 }

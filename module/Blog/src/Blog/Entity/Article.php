@@ -58,11 +58,11 @@ class Article
 
     /**
      *
-     * @ORM\ManyToOne(targetEntity="Blog\Entity\Category")
+     * @ORM\ManyToOne(targetEntity="Blog\Entity\Category", inversedBy="articles")
      * @ORM\JoinColumn(name="category_id", referencedColumnName="id")
      *
      */
-    protected $category;
+    public $category;
 
     public function __construct(){
         $this->date = new \DateTime();

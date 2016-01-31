@@ -6,11 +6,16 @@
         <div class="col-md-9">
             <!-- begin post-detail -->
             <div class="post-detail section-container">
-                <ul class="breadcrumb">
-                    <li><a href="#">Home</a></li>
-                    <li><a href="#">Sports</a></li>
-                    <li class="active"><?php echo $this->escapeHtml($article->title);?></li>
-                </ul>
+                <?php
+                    echo $this->partial('/partials/breadcrumb.phtml', [
+                            'links' => [
+                                'Home' => $this->url('blog'),
+                                $article->category->name => $this->url('category', ['slug' => $article->category->slug]),
+                                $article->title => null
+                            ]
+                        ]
+                    );
+                ?>
                 <h4 class="post-title">
                     <a href="post_detail.html"><?php echo $this->escapeHtml($article->title);?></a>
                 </h4>
@@ -31,7 +36,7 @@
 
             <!-- begin section-container -->
             <div class="section-container">
-                <h4 class="section-title"><span>Tous les commentaires (3)</span></h4>
+                <h4 class="section-title"><span>Tous les commentaires (<?php echo count($comments);?>)</span></h4>
                 <!-- begin comment-list -->
                 <ul class="comment-list">
                     <?php

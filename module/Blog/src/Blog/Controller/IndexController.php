@@ -87,4 +87,28 @@ class IndexController extends BaseController
             'recentArticles' => $recentArticles
         ];
     }
+
+    /**
+     * Get all articles by category
+     */
+    public function categoryAction()
+    {
+        $slug = $this->params('slug');
+        $category = $this->getEntityManager()->getRepository('Blog\Entity\Category')
+            ->findOneBy(['slug' => $slug]);
+
+        if (!$category) {
+            throw new EntityNotFoundException('Entity Category not found');
+        }
+
+        $articles = $this->getEntityManager()->getRepository('Blog\Entity\Article')
+            ->findBy(['category' => $category->getId()]);
+
+        return new ViewModel([
+            'articles'       => $articles,
+            'category'       => $category,
+            'categories'     => $this->getWidgetElements()['categories'],
+            'recentArticles' => $this->getWidgetElements()['recentArticles'],
+        ]);
+    }
 }

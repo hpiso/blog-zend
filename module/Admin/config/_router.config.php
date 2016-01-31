@@ -45,7 +45,24 @@ return array(
                             'action'        => 'index',
                         ),
                     ),
-                )
+                ),
+
+                //Route Commentaire
+                'commentaires' => array(
+                    'type'    => 'Segment',
+                    'options' => array(
+                        'route'    => '/commentaires[/:action][/:id]',
+                        'constraints' => array(
+                            'action' => '[a-zA-Z][a-zA-Z0-9_-]*',
+                            'id'     => '[0-9]+'
+                        ),
+                        'defaults' => array(
+                            'controller'    => 'commentController',
+                            'action'        => 'index',
+                        ),
+                    ),
+                ),
+
             )
         ),
 
