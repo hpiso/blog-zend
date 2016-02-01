@@ -13,6 +13,51 @@
             <div class="panel-heading">
                 <h4 class="panel-title">Liste des commentaires</h4>
             </div>
+            <div class="panel-body">
+               <table class="table">
+                    <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Article</th>
+                        <th>Nom</th>
+                        <th>Courriel</th>
+                        <th>Date</th>
+                        <th>Approuvé</th>
+                        <th>Action</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <?php foreach ($comments as $key => $comment) : ?>
+                        <tr>
+                            <td><?php echo $key+1 ;?></td>
+                            <td><?php echo $comment->article->title?></td>
+                            <td><?php echo $comment->name?></td>
+                            <td><?php echo $comment->email?></td>
+                            <td><?php echo $comment->date->format('d F Y')?></td>
+                            <td><?php if($comment->state == 1){
+                                    echo "<i class=\"fa fa-check\"></i>";
+                                }else{
+                                    echo "<i class=\"fa fa-close\"></i>";
+                                }
+                                ?>
+                            </td>
+                            <td>
+                                <a href="<?php echo $this->url('admin/commentaires', ['action' => 'edit', 'id' => $comment->id]); ?>"
+                                   class="btn btn-warning">
+                                    <i class="fa fa-edit"></i>
+                                </a>
+                                <a href="javascript:;"
+                                   data-toggle="modal"
+                                   data-target="<?php echo '#'.$comment->id?>"
+                                   class="btn btn-danger">
+                                    <i class="fa fa-trash"></i>
+                                </a>
+                            </td>
+                        </tr>
+
+                    <?php endforeach; ?>
+                    </tbody>
+            </div>
         </div>
     </div>
 </div>
