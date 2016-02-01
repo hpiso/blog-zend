@@ -15,6 +15,18 @@ return array(
             ),
         ),
 
+        //Route Contact
+        'contact' => array(
+            'type'    => 'Literal',
+            'options' => array(
+                'route'    => '/contact',
+                'defaults' => array(
+                    'controller'    => 'blogController',
+                    'action'        => 'contact',
+                ),
+            ),
+        ),
+
         //Route article show
         'article' => array(
             'type'    => 'Segment',

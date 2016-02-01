@@ -21,7 +21,7 @@
             <ul class="nav navbar-nav navbar-right">
                 <li><a href="<?php echo $this->url('blog'); ?>">HOME</a></li>
                 <li><a href="#">ABOUT US</a></li>
-                <li><a href="#">CONTACT US</a></li>
+                <li><a href="<?php echo $this->url('contact'); ?>">CONTACT US</a></li>
                 <?php if($this->zfcUserIdentity()): ?>
                     <li class="dropdown">
                         <a href="javascript:;" data-toggle="dropdown">ADMIN <b class="caret"></b></a>
