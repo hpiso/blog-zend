@@ -1,0 +1,39 @@
+<div id="header" class="header navbar navbar-default navbar-fixed-top">
+    <!-- begin container -->
+    <div class="container">
+        <!-- begin navbar-header -->
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#header-navbar">
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a href="<?php echo $this->url('blog'); ?>" class="navbar-brand">
+                <span class="brand-logo"></span>
+                    <span class="brand-text">
+                        BLOG SNOW
+                    </span>
+            </a>
+        </div>
+        <!-- end navbar-header -->
+        <!-- begin navbar-collapse -->
+        <div class="collapse navbar-collapse" id="header-navbar">
+            <ul class="nav navbar-nav navbar-right">
+                <li><a href="<?php echo $this->url('blog'); ?>">HOME</a></li>
+                <li><a href="#">ABOUT US</a></li>
+                <li><a href="#">CONTACT US</a></li>
+                <?php if($this->zfcUserIdentity()): ?>
+                    <li class="dropdown">
+                        <a href="javascript:;" data-toggle="dropdown">ADMIN <b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="<?php echo $this->url('admin'); ?>">Dashboard</a></li>
+                            <li><a href="<?php echo $this->url('zfcuser/logout'); ?>">Logout</a></li>
+                        </ul>
+                    </li>
+                <?php endif?>
+            </ul>
+        </div>
+        <!-- end navbar-collapse -->
+    </div>
+    <!-- end container -->
+</div>

@@ -1,0 +1,36 @@
+<?php echo $this->doctype(); ?>
+
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <?php echo $this->headTitle('Blog') ?>
+
+        <?php echo $this->headMeta()
+            ->appendName('viewport', 'width=device-width, initial-scale=1.0')
+            ->appendHttpEquiv('X-UA-Compatible', 'IE=edge')
+        ?>
+
+        <!-- styles -->
+        <?php echo $this->partial('/partials/global-css.phtml'); ?>
+
+        <!-- Scripts -->
+        <?php echo $this->headScript()
+            ->prependFile($this->basePath('assets/front/js/pace.min.js'))
+        ; ?>
+
+    </head>
+    <body>
+        <!-- Header -->
+        <?php echo $this->partial('/partials/header.phtml'); ?>
+
+        <!-- Content -->
+        <?php echo $this->content; ?>
+
+        <!-- Footer -->
+        <?php echo $this->partial('/partials/footer.phtml'); ?>
+
+        <!-- Javascript -->
+        <?php echo $this->partial('/partials/global-js.phtml'); ?>
+        <?php echo $this->inlineScript() ?>
+    </body>
+</html>

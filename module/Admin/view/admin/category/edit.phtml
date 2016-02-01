@@ -1,0 +1,46 @@
+<!-- begin breadcrumb -->
+<ol class="breadcrumb pull-right">
+    <li><a href="javascript:;">Home</a></li>
+    <li class="active">Dashboard</li>
+</ol>
+<!-- end breadcrumb -->
+<!-- begin page-header -->
+<h1 class="page-header">Catégorie</h1>
+
+<div class="row">
+    <!-- begin col-6 -->
+    <div class="col-md-6 ui-sortable">
+        <!-- begin panel -->
+        <div class="panel panel-inverse" data-sortable-id="form-stuff-3">
+            <div class="panel-heading">
+                <h4 class="panel-title">Modifier une catégorie</h4>
+            </div>
+            <div class="panel-body">
+                <?php
+                $form->setAttribute('action', $this->url('admin/categories',[
+                    'action' => 'edit',
+                    'id' => $category->getId()
+                ]));
+                $form->prepare();
+
+                echo $this->form()->openTag($form);
+                echo $this->formHidden($form->get('id'));
+                echo '<div class="form-group">';
+                echo $this->formLabel($form->get('name'));
+                echo $this->formInput($form->get('name'));
+                echo '</div>';
+                echo '<div class="form-group">';
+                echo $this->formLabel($form->get('slug'));
+                echo $this->formInput($form->get('slug'));
+                echo '</div>';
+                echo '<div class="form-group">';
+                echo $this->formSubmit($form->get('submit'));
+                echo '</div>';
+                echo $this->form()->closeTag();
+                ?>
+            </div>
+        </div>
+    </div>
+</div>
+
+

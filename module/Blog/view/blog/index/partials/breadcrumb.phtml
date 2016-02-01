@@ -1,0 +1,9 @@
+<ul class="breadcrumb">
+    <?php foreach ($links as $linkName => $route) : ?>
+        <?php if(end($links) !== $route): ?>
+            <li><a href="<?php echo $route ?>"><?php echo $linkName ?></a></li>
+        <?php else :?>
+            <li class="active"><?php echo $linkName ?></li>
+        <?php endif ;?>
+    <?php endforeach; ?>
+</ul>

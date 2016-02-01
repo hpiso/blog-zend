@@ -1,0 +1,28 @@
+<li>
+    <!-- begin comment-avatar -->
+    <div class="comment-avatar">
+        <i class="fa fa-user"></i>
+    </div>
+    <!-- end comment-avatar -->
+    <!-- begin comment-container -->
+    <div class="comment-container">
+        <div class="comment-author">
+            <?php echo $this->escapeHtml($object->name);?>
+            <span class="comment-date">
+                on <span class="underline"><?php echo $object->date->format('d F Y');?></span>
+            </span>
+        </div>
+        <div class="comment-content">
+            <?php echo $this->escapeHtml($object->content);?>
+        </div>
+        <div class="comment-btn pull-left">
+            <a href="#"><i class="fa fa-reply"></i> Reply</a>
+        </div>
+        <div class="comment-rating">
+            Like or Dislike:
+            <a href="#" class="m-l-10 text-inverse"><i class="fa fa-thumbs-up text-success"></i> O</a>
+            <a href="#" class="m-l-10 text-inverse"><i class="fa fa-thumbs-down text-danger"></i> 0</a>
+        </div>
+    </div>
+    <!-- end comment-container -->
+</li>

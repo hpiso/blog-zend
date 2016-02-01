@@ -1,0 +1,19 @@
+<?php echo $this->headScript()
+    ->prependFile($this->basePath('assets/front/js/apps.min.js'))
+    ->prependFile($this->basePath('assets/front/js/jquery.cookie.js'))
+    ->prependFile($this->basePath('assets/front/js/bootstrap.min.js'))
+    ->prependFile($this->basePath('assets/front/js/jquery-migrate-1.1.0.min.js'))
+    ->prependFile($this->basePath('assets/front/js/jquery-1.9.1.min.js'))
+; ?>
+
+<script>
+    $(document).ready(function() {
+        App.init();
+    });
+</script>
+
+<script>
+    (function () {
+        $('a[href="' + this.location.pathname + '"]').parents('li,ul').addClass('active');
+    })();
+</script>

@@ -1,0 +1,10 @@
+.login-cover{
+    background-image: url("../img/snowboard-cover.jpg");
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: 60% 62%;
+}
+
+#gritter-notice-wrapper{
+    display: none;
+}

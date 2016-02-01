@@ -1,0 +1,51 @@
+<!-- begin breadcrumb -->
+<ol class="breadcrumb pull-right">
+    <li><a href="javascript:;">Home</a></li>
+    <li class="active">Dashboard</li>
+</ol>
+<!-- end breadcrumb -->
+<!-- begin page-header -->
+<h1 class="page-header">Créer un article</h1>
+
+<div class="row">
+    <!-- begin col-6 -->
+    <div class="col-md-6 ui-sortable">
+        <!-- begin panel -->
+        <div class="panel panel-inverse" data-sortable-id="form-stuff-3">
+            <div class="panel-heading">
+                <h4 class="panel-title">Default Style</h4>
+            </div>
+            <div class="panel-body">
+                <?php
+
+                $form->setAttribute('action', $this->url('admin/articles', array('action' => 'add')));
+                $form->prepare();
+
+                echo $this->form()->openTag($form);
+                echo $this->formHidden($form->get('id'));
+                echo '<div class="form-group">';
+                echo $this->formLabel($form->get('title'));
+                echo $this->formInput($form->get('title'));
+                echo '</div>';
+                echo '<div class="form-group">';
+                echo $this->formLabel($form->get('slug'));
+                echo $this->formInput($form->get('slug'));
+                echo '</div>';
+                echo '<div class="form-group">';
+                echo $this->formLabel($form->get('content'));
+                echo $this->formTextarea($form->get('content'));
+                echo '</div>';
+                echo '<div class="form-group">';
+                echo $this->formRow($form->get('state'));
+                echo '</div>';
+                echo '<div class="form-group">';
+                echo $this->formSubmit($form->get('submit'));
+                echo '</div>';
+                echo $this->form()->closeTag();
+                ?>
+            </div>
+        </div>
+    </div>
+</div>
+
+
