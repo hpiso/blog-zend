@@ -2,10 +2,13 @@
 
 namespace Blog;
 
+use Zend\Di\ServiceLocatorInterface;
+use Zend\ModuleManager\Feature\ViewHelperProviderInterface;
 use Zend\Mvc\ModuleRouteListener;
 use Zend\Mvc\MvcEvent;
+use Blog\View\Helper\CategoryWidget;
 
-class Module
+class Module implements ViewHelperProviderInterface
 {
     public function onBootstrap(MvcEvent $e)
     {
@@ -27,6 +30,16 @@ class Module
                     __NAMESPACE__ => __DIR__ . '/src/' . __NAMESPACE__,
                 ),
             ),
+        );
+    }
+
+    public function getViewHelperConfig()
+    {
+        return array(
+            'invokables' => array(
+                'categoryWidget'      => 'Blog\View\Helper\CategoryWidget',
+                'recentArticleWidget' => 'Blog\View\Helper\RecentArticleWidget'
+            )
         );
     }
 }

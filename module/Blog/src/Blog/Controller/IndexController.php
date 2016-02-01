@@ -17,9 +17,7 @@ class IndexController extends BaseController
             ->findBy(['state' => true], ['date' => 'DESC']);
 
         return new ViewModel([
-            'articles'       => $articles,
-            'categories'     => $this->getWidgetElements()['categories'],
-            'recentArticles' => $this->getWidgetElements()['recentArticles'],
+            'articles' => $articles,
         ]);
     }
 
@@ -59,33 +57,10 @@ class IndexController extends BaseController
         }
 
         return new ViewModel([
-            'article'        => $article,
-            'comments'       => $comments,
-            'commentForm'    => $commentForm,
-            'categories'     => $this->getWidgetElements()['categories'],
-            'recentArticles' => $this->getWidgetElements()['recentArticles'],
+            'article'     => $article,
+            'comments'    => $comments,
+            'commentForm' => $commentForm,
         ]);
-    }
-
-    /**
-     * Get all categories and the last 5 articles for the sidebar widget
-     *
-     * @return array
-     */
-    private function getWidgetElements()
-    {
-        $categories = $this->getEntityManager()->getRepository('Blog\Entity\Category')->findAll();
-
-        $recentArticles = $this->getEntityManager()->getRepository('Blog\Entity\Article')
-            ->findBy(
-                ['state' => 1],
-                ['date' => 'DESC'], 5
-            );
-
-        return [
-            'categories'     => $categories,
-            'recentArticles' => $recentArticles
-        ];
     }
 
     /**
@@ -105,10 +80,8 @@ class IndexController extends BaseController
             ->findBy(['category' => $category->getId()]);
 
         return new ViewModel([
-            'articles'       => $articles,
-            'category'       => $category,
-            'categories'     => $this->getWidgetElements()['categories'],
-            'recentArticles' => $this->getWidgetElements()['recentArticles'],
+            'articles' => $articles,
+            'category' => $category,
         ]);
     }
 
