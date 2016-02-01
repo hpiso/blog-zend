@@ -111,4 +111,15 @@ class IndexController extends BaseController
             'recentArticles' => $this->getWidgetElements()['recentArticles'],
         ]);
     }
+
+
+    /**
+     * Get the contact view
+     */
+    public function contactAction()
+    {
+        return new ViewModel();
+    }
+
+
 }
