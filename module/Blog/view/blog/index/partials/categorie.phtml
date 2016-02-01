@@ -1,3 +1,5 @@
-<li>
-    <a href="<?php echo $this->url('category', ['slug' => $object->slug]); ?>"><?php echo $this->escapeHtml($object->name);?> (20)</a>
-</li>
+<?php foreach ($categories as $category) : ?>
+    <li>
+        <a href="<?php echo $this->url('category', ['slug' => $category->slug]); ?>"><?php echo $this->escapeHtml($category->name);?> (20)</a>
+    </li>
+<?php endforeach; ?>

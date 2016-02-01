@@ -23,8 +23,25 @@
         <!-- Header -->
         <?php echo $this->partial('/partials/header.phtml'); ?>
 
+        <!-- Cover -->
+        <?php echo $this->partial('/partials/cover.phtml'); ?>
+
         <!-- Content -->
-        <?php echo $this->content; ?>
+        <div id="content" class="content">
+            <div class="container">
+                <!-- begin row -->
+                <div class="row row-space-30">
+
+                    <!-- Content -->
+                    <?php echo $this->content; ?>
+
+                    <!-- Sidebar -->
+                    <?php echo $this->partial('/partials/sidebar.phtml'); ?>
+
+                </div>
+                <!-- end row -->
+            </div>
+        </div>
 
         <!-- Footer -->
         <?php echo $this->partial('/partials/footer.phtml'); ?>
