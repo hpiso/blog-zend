@@ -22,4 +22,26 @@ class CommentController extends BaseController
         return new ViewModel();
     }
 
+    public function deleteAction()
+    {
+        $id = $this->params('id');
+        $comment = $this->getEntityManager()->getRepository('Blog\Entity\Comment')->find($id);
+
+        if (!$comment) {
+            throw new EntityNotFoundException('Entity Comment not found');
+        }
+
+        //Remove Category entity
+        $em = $this->getEntityManager();
+        $em->remove($comment);
+        $em->flush();
+
+        //Add flash message
+        $this->flashMessenger()->addMessage('Le commentaire '. $comment->getName().' a été supprimé.');
+
+
+        //Redirection
+        return $this->redirect()->toRoute('admin/commentaires');
+    }
+
 }

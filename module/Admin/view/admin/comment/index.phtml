@@ -14,6 +14,18 @@
                 <h4 class="panel-title">Liste des commentaires</h4>
             </div>
             <div class="panel-body">
+                <?php
+
+                if ($this->flashMessenger()->hasMessages()) {
+                    echo '<div class="alert alert-success" role="alert">';
+                    echo '<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>';
+                    $messages = $this->flashMessenger()->getMessages();
+                    foreach($messages as $message) {
+                        echo $message;
+                    }
+                    echo '</div>';
+                }
+                ?>
                <table class="table">
                     <thead>
                     <tr>
@@ -46,9 +58,7 @@
                                    class="btn btn-warning">
                                     <i class="fa fa-edit"></i>
                                 </a>
-                                <a href="javascript:;"
-                                   data-toggle="modal"
-                                   data-target="<?php echo '#'.$comment->id?>"
+                                <a href="<?php echo $this->url('admin/commentaires', ['action' => 'delete', 'id' => $comment->id]); ?>"
                                    class="btn btn-danger">
                                     <i class="fa fa-trash"></i>
                                 </a>
