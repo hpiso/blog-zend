@@ -5,8 +5,10 @@ namespace Blog\Controller;
 use Admin\Controller\BaseController;
 use Blog\Entity\Comment;
 use Blog\Form\CommentForm;
+use Blog\Form\ContactForm;
 use Doctrine\ORM\EntityNotFoundException;
 use Zend\View\Model\ViewModel;
+use Zend\Mail;
 
 class IndexController extends BaseController
 {
@@ -91,7 +93,28 @@ class IndexController extends BaseController
      */
     public function contactAction()
     {
-        return new ViewModel();
+        $form = new ContactForm();
+
+        $request = $this->getRequest();
+        $data = $request->getPost();  // for POST data
+
+        $form->setData($data);
+
+        // Validate the form
+        if ($form->isValid()) {
+            $mail = new Mail\Message();
+            $mail->setBody($data['message']);
+            $mail->setFrom($data['email'], $data['nom']);
+            $mail->addTo('contact@quizz.com', 'Contact');
+            $mail->setSubject('Contact blog');
+
+            $transport = new Mail\Transport\Sendmail();
+//            $transport->send($mail);
+        }
+
+        return new ViewModel([
+            'form' => $form
+        ]);
     }
 
 

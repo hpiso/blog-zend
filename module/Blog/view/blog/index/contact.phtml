@@ -1,3 +1,11 @@
+<!-- begin breadcrumb -->
+<ol class="breadcrumb pull-right">
+    <li><a href="javascript:;">Home</a></li>
+    <li class="active">Dashboard</li>
+</ol>
+<!-- end breadcrumb -->
+<!-- begin page-header -->
+<h1 class="page-header">Contact</h1>
 <div class="col-md-9">
 <!-- begin section-container -->
 <div class="section-container">
@@ -17,32 +25,41 @@
     <div class="row row-space-30 f-s-12 text-inverse">
         <!-- begin col-8 -->
         <div class="col-md-8">
-            <form class="form-horizontal">
-                <div class="form-group">
-                    <label class="control-label col-md-3">Nom <span class="text-danger">*</span></label>
-                    <div class="col-md-9">
-                        <input type="text" class="form-control">
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label class="control-label col-md-3">Email <span class="text-danger">*</span></label>
-                    <div class="col-md-9">
-                        <input type="text" class="form-control">
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label class="control-label col-md-3">Message <span class="text-danger">*</span></label>
-                    <div class="col-md-9">
-                        <textarea class="form-control" rows="10"></textarea>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label class="control-label col-md-3"></label>
-                    <div class="col-md-9 text-left">
-                        <button type="submit" class="btn btn-inverse btn-lg btn-block">Envoyé Message</button>
-                    </div>
-                </div>
-            </form>
+            <?php
+
+            $form->setAttribute('action', $this->url('contact'));
+            $form->setAttribute('class', 'form-horizontal');
+            $form->prepare();
+
+            echo $this->form()->openTag($form);
+            echo $this->formHidden($form->get('id'));
+            echo '<div class="form-group">';
+            echo '<label class="control-label col-md-3" style="text-align:right">';
+            echo $this->formLabel($form->get('nom'));
+            echo '<span class="text-danger">*</span></label>
+                <div class="col-md-9">';
+            echo $this->formInput($form->get('nom'));
+            echo '</div></div>';
+            echo '<div class="form-group">';
+            echo '<label class="control-label col-md-3" style="text-align:right">';
+            echo $this->formLabel($form->get('email'));
+            echo '<span class="text-danger">*</span></label>
+                <div class="col-md-9">';
+            echo $this->formInput($form->get('email'));
+            echo '</div></div>';
+            echo '<div class="form-group">';
+            echo '<label class="control-label col-md-3" style="text-align:right">';
+            echo $this->formLabel($form->get('message'));
+            echo '<span class="text-danger">*</span></label>
+                <div class="col-md-9">';
+            echo $this->formTextarea($form->get('message'));
+            echo '</div></div>';
+            echo '<div class="form-group">';
+            echo '<label class="control-label col-md-3"></label><div class="col-md-9 text-left">';
+            echo $this->formSubmit($form->get('submit'));
+            echo '</div></div>';
+            echo $this->form()->closeTag();
+            ?>
         </div>
         <!-- end col-8 -->
         <!-- begin col-4 -->
