@@ -13,10 +13,18 @@ class DashboardController extends BaseController
         $comments = $this->getEntityManager()->getRepository('Blog\Entity\Comment')->findAll();
         $categories = $this->getEntityManager()->getRepository('Blog\Entity\Category')->findAll();
 
+        $lastFiveComments = $this->getEntityManager()->getRepository('Blog\Entity\Comment')
+            ->findBy([], ['date' => 'DESC'], 5);
+
+        $lastFiveArticles = $this->getEntityManager()->getRepository('Blog\Entity\Article')
+            ->findBy([], ['date' => 'DESC'], 5);
+
         return new ViewModel([
-            'articles'   => $articles,
-            'comments'   => $comments,
-            'categories' => $categories
+            'articles'         => $articles,
+            'comments'         => $comments,
+            'categories'       => $categories,
+            'lastFiveComments' => $lastFiveComments,
+            'lastFiveArticles' => $lastFiveArticles
         ]);
     }
 

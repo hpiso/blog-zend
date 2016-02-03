@@ -1,148 +1,94 @@
-<div id="content" class="content">
-    <div class="container">
-    <!-- begin row -->
-    <div class="row row-space-30">
-        <!-- begin col-9 -->
-        <div class="col-md-9">
-            <!-- begin post-detail -->
-            <div class="post-detail section-container">
-                <?php
-                    echo $this->partial('/partials/breadcrumb.phtml', [
-                            'links' => [
-                                'Home' => $this->url('blog'),
-                                $article->category->name => $this->url('category', ['slug' => $article->category->slug]),
-                                $article->title => null
-                            ]
-                        ]
-                    );
-                ?>
-                <h4 class="post-title">
-                    <a href="post_detail.html"><?php echo $this->escapeHtml($article->title);?></a>
-                </h4>
-                <div class="post-by">
-                    <?php echo $article->date->format('d F Y') ;?> <span class="divider">|</span> <a href="#">Sports</a>, <a href="#">Mountain</a>, <a href="#">Bike</a> <span class="divider">|</span> 2 Comments
-                </div>
-
-                <div class="post-image">
-                    <img src="assets/img/post1.jpg" alt="" />
-                </div>
-
-                <div class="post-desc">
-                    <?php echo $article->content;?>
-                </div>
-
-            </div>
-            <!-- end post-detail -->
-
-            <!-- begin section-container -->
-            <div class="section-container">
-                <h4 class="section-title"><span>Tous les commentaires (<?php echo count($comments);?>)</span></h4>
-                <!-- begin comment-list -->
-                <ul class="comment-list">
-                    <?php
-                        $this->partialLoop()->setObjectKey('object');
-                        echo $this->partialLoop('/partials/comment.phtml', $comments)
-                    ?>
-                </ul>
-                <!-- end comment-list -->
-            </div>
-            <!-- end section-container -->
-
-            <!-- begin section-container -->
-            <div class="section-container">
-                <h4 class="section-title m-b-20"><span>Ajouter un commentaire</span></h4>
-                <?php
-                $commentForm->setAttribute('action', $this->url('article', ['action' => 'show', 'slug' => $article->slug]));
-                $commentForm->setAttribute('class', 'form-horizontal');
-                $commentForm->prepare();
-
-                echo $this->form()->openTag($commentForm);
-                echo $this->formHidden($commentForm->get('id'));
-                echo $this->formHidden($commentForm->get('article')->setAttribute('value', $article->id));
-                ?>
-                <div class="form-group">
-                    <label class="control-label f-s-12 col-md-2"><?php echo $this->formLabel($commentForm->get('name')) ?>
-                        <span class="text-danger">*</span>
-                    </label>
-                    <div class="col-md-10">
-                        <?php echo $this->formInput($commentForm->get('name')) ?>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label class="control-label f-s-12 col-md-2"><?php echo $this->formLabel($commentForm->get('email')) ?>
-                        <span class="text-danger">*</span>
-                    </label>
-                    <div class="col-md-10">
-                        <?php echo $this->formInput($commentForm->get('email')) ?>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label class="control-label f-s-12 col-md-2"><?php echo $this->formLabel($commentForm->get('content')) ?>
-                        <span class="text-danger">*</span>
-                    </label>
-                    <div class="col-md-10">
-                        <?php echo $this->formTextarea($commentForm->get('content')) ?>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <div class="col-md-10 col-md-offset-2">
-                        <?php echo $this->formSubmit($commentForm->get('submit'));?>
-                    </div>
-                </div>
-
-                <?php
-                    $this->form()->closeTag();
-                ?>
-
-            </div>
-            <!-- end section-container -->
+<div class="col-md-9">
+    <!-- begin post-detail -->
+    <div class="post-detail section-container">
+        <?php
+            echo $this->partial('/partials/breadcrumb.phtml', [
+                    'links' => [
+                        'Home' => $this->url('blog'),
+                        $article->category->name => $this->url('category', ['slug' => $article->category->slug]),
+                        $article->title => null
+                    ]
+                ]
+            );
+        ?>
+        <h4 class="post-title">
+            <a href="post_detail.html"><?php echo $this->escapeHtml($article->title);?></a>
+        </h4>
+        <div class="post-by">
+            <?php echo $article->date->format('d F Y') ;?> <span class="divider">|</span> <a href="#">Sports</a>, <a href="#">Mountain</a>, <a href="#">Bike</a> <span class="divider">|</span> 2 Comments
         </div>
-        <!-- end col-9 -->
-        <!-- begin col-3 -->
-        <div class="col-md-3">
-            <!-- begin section-container -->
-            <div class="section-container">
-                <div class="input-group sidebar-search">
-                    <input type="text" class="form-control" placeholder="Search Our Stories..." />
-                            <span class="input-group-btn">
-                                <button class="btn btn-inverse" type="button"><i class="fa fa-search"></i></button>
-                            </span>
-                </div>
-            </div>
-            <!-- end section-container -->
-            <!-- begin section-container -->
-            <div class="section-container">
-                <h4 class="section-title"><span>Categories</span></h4>
-                <ul class="sidebar-list">
-                    <?php
-                        $this->partialLoop()->setObjectKey('object');
-                        echo $this->partialLoop('/partials/categorie.phtml', $categories)
-                    ?>
-                </ul>
-            </div>
-            <!-- end section-container -->
-            <!-- begin section-container -->
-            <div class="section-container">
-                <h4 class="section-title"><span>Recent Post</span></h4>
-                <ul class="sidebar-recent-post">
-                    <?php echo $this->partialLoop('/partials/recent-article.phtml', $recentArticles) ?>
-                </ul>
-            </div>
-            <!-- end section-container -->
-            <!-- begin section-container -->
-            <div class="section-container">
-                <h4 class="section-title"><span>Follow Us</span></h4>
-                <ul class="sidebar-social-list">
-                    <li><a href="#"><i class="fa fa-facebook"></i></a></li>
-                    <li><a href="#"><i class="fa fa-twitter"></i></a></li>
-                    <li><a href="#"><i class="fa fa-google-plus"></i></a></li>
-                    <li><a href="#"><i class="fa fa-instagram"></i></a></li>
-                </ul>
-            </div>
-            <!-- end section-container -->
+
+        <div class="post-image">
+            <img src="assets/img/post1.jpg" alt="" />
         </div>
-        <!-- end col-3 -->
+
+        <div class="post-desc">
+            <?php echo $article->content;?>
+        </div>
+
     </div>
-    <!-- end row -->
-</div>
+    <!-- end post-detail -->
+
+    <!-- begin section-container -->
+    <div class="section-container">
+        <h4 class="section-title"><span>Tous les commentaires (<?php echo count($comments);?>)</span></h4>
+        <!-- begin comment-list -->
+        <ul class="comment-list">
+            <?php
+                $this->partialLoop()->setObjectKey('object');
+                echo $this->partialLoop('/partials/comment.phtml', $comments)
+            ?>
+        </ul>
+        <!-- end comment-list -->
+    </div>
+    <!-- end section-container -->
+
+    <!-- begin section-container -->
+    <div class="section-container">
+        <h4 class="section-title m-b-20"><span>Ajouter un commentaire</span></h4>
+        <?php
+        $commentForm->setAttribute('action', $this->url('article', ['action' => 'show', 'slug' => $article->slug]));
+        $commentForm->setAttribute('class', 'form-horizontal');
+        $commentForm->prepare();
+
+        echo $this->form()->openTag($commentForm);
+        echo $this->formHidden($commentForm->get('id'));
+        echo $this->formHidden($commentForm->get('article')->setAttribute('value', $article->id));
+        ?>
+        <div class="form-group">
+            <label class="control-label f-s-12 col-md-2"><?php echo $this->formLabel($commentForm->get('name')) ?>
+                <span class="text-danger">*</span>
+            </label>
+            <div class="col-md-10">
+                <?php echo $this->formInput($commentForm->get('name')) ?>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label f-s-12 col-md-2"><?php echo $this->formLabel($commentForm->get('email')) ?>
+                <span class="text-danger">*</span>
+            </label>
+            <div class="col-md-10">
+                <?php echo $this->formInput($commentForm->get('email')) ?>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label f-s-12 col-md-2"><?php echo $this->formLabel($commentForm->get('content')) ?>
+                <span class="text-danger">*</span>
+            </label>
+            <div class="col-md-10">
+                <?php echo $this->formTextarea($commentForm->get('content')) ?>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-md-10 col-md-offset-2">
+                <?php echo $this->formSubmit($commentForm->get('submit'));?>
+            </div>
+        </div>
+
+        <?php
+            $this->form()->closeTag();
+        ?>
+
+    </div>
+    <!-- end section-container -->
 </div>

@@ -48,7 +48,7 @@ return array(
                 ),
 
                 //Route Commentaire
-                'commentaires' => array(
+                'comment' => array(
                     'type'    => 'Segment',
                     'options' => array(
                         'route'    => '/commentaires[/:action][/:id]',

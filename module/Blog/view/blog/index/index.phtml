@@ -1,81 +1,26 @@
-<!-- Cover -->
-<?php echo $this->partial('/partials/cover.phtml'); ?>
+<div class="col-md-9">
+    <!-- begin post-list -->
+    <ul class="post-list">
+        <?php
+            $this->partialLoop()->setObjectKey('object');
+            echo $this->partialLoop('/partials/article.phtml', $articles)
+        ?>
+    </ul>
+    <!-- end post-list -->
 
-<!-- Content -->
-<div id="content" class="content">
-    <div class="container">
-        <!-- begin row -->
-        <div class="row row-space-30">
-            <!-- begin col-9 -->
-            <div class="col-md-9">
-                <!-- begin post-list -->
-                <ul class="post-list">
-                    <?php
-                        $this->partialLoop()->setObjectKey('object');
-                        echo $this->partialLoop('/partials/article.phtml', $articles)
-                    ?>
-                </ul>
-                <!-- end post-list -->
-
-                <div class="section-container">
-                    <!-- begin pagination -->
-                    <div class="pagination-container text-center">
-                        <ul class="pagination m-t-0 m-b-0">
-                            <li class="disabled"><a href="javascript:;">Prev</a></li>
-                            <li class="active"><a href="javascript:;">1</a></li>
-                            <li><a href="javascript:;">2</a></li>
-                            <li><a href="javascript:;">3</a></li>
-                            <li><span class="text">...</span></li>
-                            <li><a href="javascript:;">1797</a></li>
-                            <li><a href="javascript:;">Next</a></li>
-                        </ul>
-                    </div>
-                    <!-- end pagination -->
-                </div>
-            </div>
-            <!-- end col-9 -->
-            <!-- begin col-3 -->
-            <div class="col-md-3">
-                <!-- begin section-container -->
-                <div class="section-container">
-                    <div class="input-group sidebar-search">
-                        <input type="text" class="form-control" placeholder="Search Our Stories..." />
-                            <span class="input-group-btn">
-                                <button class="btn btn-inverse" type="button"><i class="fa fa-search"></i></button>
-                            </span>
-                    </div>
-                </div>
-                <!-- end section-container -->
-                <!-- begin section-container -->
-                <div class="section-container">
-                    <h4 class="section-title"><span>Categories</span></h4>
-                    <ul class="sidebar-list">
-                        <?php echo $this->partialLoop('/partials/categorie.phtml', $categories) ?>
-                    </ul>
-                </div>
-                <!-- end section-container -->
-                <!-- begin section-container -->
-                <div class="section-container">
-                    <h4 class="section-title"><span>Recent Post</span></h4>
-                    <ul class="sidebar-recent-post">
-                        <?php echo $this->partialLoop('/partials/recent-article.phtml', $recentArticles) ?>
-                    </ul>
-                </div>
-                <!-- end section-container -->
-                <!-- begin section-container -->
-                <div class="section-container">
-                    <h4 class="section-title"><span>Follow Us</span></h4>
-                    <ul class="sidebar-social-list">
-                        <li><a href="#"><i class="fa fa-facebook"></i></a></li>
-                        <li><a href="#"><i class="fa fa-twitter"></i></a></li>
-                        <li><a href="#"><i class="fa fa-google-plus"></i></a></li>
-                        <li><a href="#"><i class="fa fa-instagram"></i></a></li>
-                    </ul>
-                </div>
-                <!-- end section-container -->
-            </div>
-            <!-- end col-3 -->
+    <div class="section-container">
+        <!-- begin pagination -->
+        <div class="pagination-container text-center">
+            <ul class="pagination m-t-0 m-b-0">
+                <li class="disabled"><a href="javascript:;">Prev</a></li>
+                <li class="active"><a href="javascript:;">1</a></li>
+                <li><a href="javascript:;">2</a></li>
+                <li><a href="javascript:;">3</a></li>
+                <li><span class="text">...</span></li>
+                <li><a href="javascript:;">1797</a></li>
+                <li><a href="javascript:;">Next</a></li>
+            </ul>
         </div>
-        <!-- end row -->
+        <!-- end pagination -->
     </div>
 </div>
