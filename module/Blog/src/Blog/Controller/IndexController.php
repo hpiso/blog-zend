@@ -10,17 +10,44 @@ use Zend\View\Model\ViewModel;
 
 class IndexController extends BaseController
 {
+    /**
+     * @var int Nombre d'articles affichés par page de blog
+     */
+    private $perPage = 3; // TODO : remplacer par une table options / config en base
 
     public function indexAction()
     {
-        $articles = $this->getEntityManager()->getRepository('Blog\Entity\Article')
-            ->findBy(['state' => true], ['date' => 'DESC']);
+        // Récupère le paramètre dans l'URL. TODO : l'intercepter dans une route
+        $currentPage = (int)$this->params()->fromQuery('page', 1);
+        $currentPage = $currentPage <= 0 ? 1 : $currentPage;
+        $nextPage = null;
+        $previousPage = null;
+
+        // Nombre d'article au total
+        $nbArticles = (int)$this->getEntityManager()->getRepository('Blog\Entity\Article')->getArticleCount();
+
+        // Calcul du nombre de pages en fonction du nombre d'articles
+        $nbPages = $this->getPageCount($nbArticles,$this->perPage);
+
+        $currentPage = $currentPage > $nbPages ? $nbPages : $currentPage;
+
+        $articles = $this->getEntityManager()->getRepository('Blog\Entity\Article')->getArticlePaginator($currentPage, $this->perPage);
+
+        $previousPage = $currentPage - 1 < 1 ? null : $currentPage - 1;
+        $nextPage = $currentPage + 1 > $nbPages ? null : $currentPage + 1;
 
         return new ViewModel([
-            'articles'       => $articles,
-            'categories'     => $this->getWidgetElements()['categories'],
-            'recentArticles' => $this->getWidgetElements()['recentArticles'],
-        ]);
+            'articles' => $articles,
+            'pagination' => [
+                'first' => 1,
+                'last' => $nbPages,
+                'current' => $currentPage,
+                'previous' => $previousPage,
+                'next' => $nextPage,
+                'total' => $nbPages,
+            ],
+            'categories' => $this->getWidgetElements()['categories'],
+            'recentArticles' => $this->getWidgetElements()['recentArticles'],]);
     }
 
     public function showAction()
@@ -29,7 +56,8 @@ class IndexController extends BaseController
         $article = $this->getEntityManager()->getRepository('Blog\Entity\Article')
             ->findOneBy(['slug' => $slug]);
 
-        if (!$article) {
+        if (!$article)
+        {
             throw new EntityNotFoundException('Entity Article not found');
         }
 
@@ -42,9 +70,11 @@ class IndexController extends BaseController
 
         $request = $this->getRequest();
 
-        if ($request->isPost()) {
+        if ($request->isPost())
+        {
             $commentForm->setData($request->getPost());
-            if ($commentForm->isValid()) {
+            if ($commentForm->isValid())
+            {
 
                 $comment = $this->getHydrator()->hydrate($commentForm->getData(), $comment);
 
@@ -59,10 +89,10 @@ class IndexController extends BaseController
         }
 
         return new ViewModel([
-            'article'        => $article,
-            'comments'       => $comments,
-            'commentForm'    => $commentForm,
-            'categories'     => $this->getWidgetElements()['categories'],
+            'article' => $article,
+            'comments' => $comments,
+            'commentForm' => $commentForm,
+            'categories' => $this->getWidgetElements()['categories'],
             'recentArticles' => $this->getWidgetElements()['recentArticles'],
         ]);
     }
@@ -83,7 +113,7 @@ class IndexController extends BaseController
             );
 
         return [
-            'categories'     => $categories,
+            'categories' => $categories,
             'recentArticles' => $recentArticles
         ];
     }
@@ -97,7 +127,8 @@ class IndexController extends BaseController
         $category = $this->getEntityManager()->getRepository('Blog\Entity\Category')
             ->findOneBy(['slug' => $slug]);
 
-        if (!$category) {
+        if (!$category)
+        {
             throw new EntityNotFoundException('Entity Category not found');
         }
 
@@ -105,10 +136,21 @@ class IndexController extends BaseController
             ->findBy(['category' => $category->getId()]);
 
         return new ViewModel([
-            'articles'       => $articles,
-            'category'       => $category,
-            'categories'     => $this->getWidgetElements()['categories'],
+            'articles' => $articles,
+            'category' => $category,
+            'categories' => $this->getWidgetElements()['categories'],
             'recentArticles' => $this->getWidgetElements()['recentArticles'],
         ]);
+    }
+
+    /**
+     * Calcule le nombre de pages disponnibles du blog
+     *
+     * @param $articleCount
+     * @return int
+     */
+    private function getPageCount($articleCount)
+    {
+        return ceil($articleCount / $this->perPage);
     }
 }
