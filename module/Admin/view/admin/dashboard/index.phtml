@@ -82,37 +82,64 @@
             </div>
             <div class="tab-content">
                 <div class="tab-pane fade active in" id="nav-tab-1">
-                    <h3 class="m-t-10">TODO</h3>
-                    <p>
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                        Integer ac dui eu felis hendrerit lobortis. Phasellus elementum, nibh eget adipiscing porttitor,
-                        est diam sagittis orci, a ornare nisi quam elementum tortor.
-                        Proin interdum ante porta est convallis dapibus dictum in nibh.
-                        Aenean quis massa congue metus mollis fermentum eget et tellus.
-                        Aenean tincidunt, mauris ut dignissim lacinia, nisi urna consectetur sapien,
-                        nec eleifend orci eros id lectus.
-                    </p>
+                    <ul class="media-list media-list-with-divider">
+                        <?php foreach ($lastFiveComments as $lastFiveComment) : ?>
+                        <li class="media media-sm">
+                            <div href="javascript:;" class="pull-right">
+                                <button href="#"
+                                        class="btn btn-success">
+                                    <i class="fa fa-eye"></i>
+                                </button>
+                                <button href="#"
+                                        data-toggle="modal"
+                                        data-target="#"
+                                        class="btn btn-danger">
+                                    <i class="fa fa-trash"></i>
+                                </button>
+                            </div>
+                            <div class="media-body">
+                                <a href="javascript:;">
+                                    <h5 class="media-heading">
+                                    <?php echo $lastFiveComment->name; ?>
+                                    <?php if ($lastFiveComment->state) : ?>
+                                        <label class="label label-success">Approuvé</label>
+                                        <i class="fa fa-check text-success"></i>
+                                    <?php else : ?>
+                                        <label class="label label-warning">Non approuvé</label>
+                                        <i class="fa fa-close text-warning"></i>
+                                    <?php endif ; ?>
+                                    </h5>
+                                </a>
+                                <p class="m-b-5"><?php echo mb_strimwidth($lastFiveComment->content,0,150, "...");?></p>
+                                <i class="text-muted">Received on <?php echo $lastFiveComment->date->format('d F Y'); ?></i>
+                            </div>
+                        </li>
+                        <?php endforeach; ?>
+                    </ul>
                 </div>
                 <div class="tab-pane fade" id="nav-tab-2">
-                    <h3 class="m-t-10">TODO</h3>
-                    <p>
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                        Integer ac dui eu felis hendrerit lobortis. Phasellus elementum, nibh eget adipiscing porttitor,
-                        est diam sagittis orci, a ornare nisi quam elementum tortor.
-                        Proin interdum ante porta est convallis dapibus dictum in nibh.
-                        Aenean quis massa congue metus mollis fermentum eget et tellus.
-                        Aenean tincidunt, mauris ut dignissim lacinia, nisi urna consectetur sapien,
-                        nec eleifend orci eros id lectus.
-                    </p>
-                    <p>
-                        Aenean eget odio eu justo mollis consectetur non quis enim.
-                        Vivamus interdum quam tortor, et sollicitudin quam pulvinar sit amet.
-                        Donec facilisis auctor lorem, quis mollis metus dapibus nec. Donec interdum tellus vel mauris vehicula,
-                        at ultrices ex gravida. Maecenas at elit tincidunt, vulputate augue vitae, vulputate neque.
-                        Aenean vel quam ligula. Etiam faucibus aliquam odio eget condimentum.
-                        Cras lobortis, orci nec eleifend ultrices, orci elit pellentesque ex, eu sodales felis urna nec erat.
-                        Fusce lacus est, congue quis nisi quis, sodales volutpat lorem.
-                    </p>
+                    <ul class="media-list media-list-with-divider">
+                        <?php foreach ($lastFiveArticles as $lastFiveArticle) : ?>
+                            <li class="media media-sm">
+                                <div href="javascript:;" class="pull-right">
+                                    <button href="#"
+                                       class="btn btn-warning">
+                                        <i class="fa fa-edit"></i>
+                                    </button>
+                                    <button href="#"
+                                       data-toggle="modal"
+                                       data-target="#"
+                                       class="btn btn-danger">
+                                        <i class="fa fa-trash"></i>
+                                    </button>
+                                </div>
+                                <div class="media-body">
+                                    <a href="javascript:;"><h4 class="media-heading"><?php echo $lastFiveArticle->title; ?></h4></a>
+                                    <p class="m-b-5"><?php echo mb_strimwidth($lastFiveArticle->content,0,150, "...");?></p>
+                                </div>
+                            </li>
+                        <?php endforeach; ?>
+                    </ul>
                 </div>
             </div>
         </div>
