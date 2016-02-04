@@ -7,13 +7,13 @@
     <!-- begin comment-container -->
     <div class="comment-container">
         <div class="comment-author">
-            <?php echo $this->escapeHtml($object->name);?>
+            <?php echo $this->escapeHtml($object->getName());?>
             <span class="comment-date">
-                on <span class="underline"><?php echo $object->date->format('d F Y');?></span>
+                on <span class="underline"><?php echo $object->getDate()->format('d F Y');?></span>
             </span>
         </div>
         <div class="comment-content">
-            <?php echo $this->escapeHtml($object->content);?>
+            <?php echo $this->escapeHtml($object->getContent());?>
         </div>
         <div class="comment-btn pull-left">
             <a href="#"><i class="fa fa-reply"></i> Reply</a>

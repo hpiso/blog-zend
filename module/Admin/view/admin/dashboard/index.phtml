@@ -100,8 +100,8 @@
                             <div class="media-body">
                                 <a href="javascript:;">
                                     <h5 class="media-heading">
-                                    <?php echo $lastFiveComment->name; ?>
-                                    <?php if ($lastFiveComment->state) : ?>
+                                    <?php echo $lastFiveComment->getName(); ?>
+                                    <?php if ($lastFiveComment->isState()) : ?>
                                         <label class="label label-success">Approuvé</label>
                                         <i class="fa fa-check text-success"></i>
                                     <?php else : ?>
@@ -110,8 +110,8 @@
                                     <?php endif ; ?>
                                     </h5>
                                 </a>
-                                <p class="m-b-5"><?php echo mb_strimwidth($lastFiveComment->content,0,150, "...");?></p>
-                                <i class="text-muted">Received on <?php echo $lastFiveComment->date->format('d F Y'); ?></i>
+                                <p class="m-b-5"><?php echo mb_strimwidth($lastFiveComment->getContent(),0,150, "...");?></p>
+                                <i class="text-muted">Received on <?php echo $lastFiveComment->getDate()->format('d F Y'); ?></i>
                             </div>
                         </li>
                         <?php endforeach; ?>
@@ -134,8 +134,8 @@
                                     </button>
                                 </div>
                                 <div class="media-body">
-                                    <a href="javascript:;"><h4 class="media-heading"><?php echo $lastFiveArticle->title; ?></h4></a>
-                                    <p class="m-b-5"><?php echo mb_strimwidth($lastFiveArticle->content,0,150, "...");?></p>
+                                    <a href="javascript:;"><h4 class="media-heading"><?php echo $lastFiveArticle->getTitle(); ?></h4></a>
+                                    <p class="m-b-5"><?php echo mb_strimwidth($lastFiveArticle->getContent(),0,150, "...");?></p>
                                 </div>
                             </li>
                         <?php endforeach; ?>

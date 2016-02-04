@@ -18,37 +18,37 @@ class Article
      * @ORM\Column(type="integer")
      * @ORM\GeneratedValue(strategy="AUTO")
      */
-    public $id;
+    protected $id;
 
     /**
      * @var string
      * @ORM\Column(name="title", type="string", length=255, nullable=false)
      */
-    public $title;
+    protected $title;
 
     /**
      * @var string
      * @ORM\Column(name="slug", type="string", length=255, nullable=false)
      */
-    public $slug;
+    protected $slug;
 
     /**
      * @var string
      * @ORM\Column(name="content", type="text")
      */
-    public $content;
+    protected $content;
 
     /**
      * @var string
      * @ORM\Column(name="date", type="datetime")
      */
-    public $date;
+    protected $date;
 
     /**
      * @var Boolean
      * @ORM\Column(name="state", type="boolean")
      */
-    public $state;
+    protected $state;
 
 //    /**
 //     * @ORM\ManyToOne(targetEntity="Blog\Entity\User")

@@ -2,7 +2,7 @@
 echo $this->partial('/partials/breadcrumb.phtml', [
         'links' => [
             'Home' => $this->url('blog'),
-            $category->name => null,
+            $category->getName() => null,
         ]
     ]
 );

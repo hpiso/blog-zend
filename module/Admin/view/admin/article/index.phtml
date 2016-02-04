@@ -25,12 +25,12 @@
                         </div>
                         <div class="result-info">
                             <h4 class="title">
-                                <a href="javascript:;"><?php echo $this->escapeHtml($article->title);?></a>
+                                <a href="javascript:;"><?php echo $this->escapeHtml($article->getTitle());?></a>
                             </h4>
 
                             <p class="location">United State, BY 10089</p>
                             <p class="desc">
-                                <?php echo $this->escapeHtml($article->content);?>
+                                <?php echo $this->escapeHtml($article->getContent());?>
                                 Le Lorem Ipsum est simplement du faux texte employé dans
                                 la composition et la mise en page avant impression. Le Lorem Ip
                                 sum est le faux texte standard de
