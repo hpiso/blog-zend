@@ -10,14 +10,26 @@ use Zend\View\Model\ViewModel;
 
 class IndexController extends BaseController
 {
+    const MAX_PER_PAGE = 5;
 
     public function indexAction()
     {
+        // Récupère le paramètre dans l'URL. TODO : l'intercepter dans une route
+        $currentPage = (int)$this->params()->fromQuery('page', 1);
+        $currentPage = $currentPage <= 0 ? 1 : $currentPage;
+
+        // Nombre d'article au total
+        $nbArticles = (int)$this->getEntityManager()->getRepository('Blog\Entity\Article')->getArticleCount();
+
+        $pagination = $this->getServiceLocator()->get('pagination')
+            ->constructPagination($nbArticles, $currentPage,$this::MAX_PER_PAGE);
+
         $articles = $this->getEntityManager()->getRepository('Blog\Entity\Article')
-            ->findBy(['state' => true], ['date' => 'DESC']);
+            ->getArticlePaginator($pagination['current'], $this::MAX_PER_PAGE);
 
         return new ViewModel([
-            'articles' => $articles,
+            'articles'   => $articles,
+            'pagination' => $pagination,
         ]);
     }
 
