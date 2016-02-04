@@ -19,24 +19,24 @@ class Category
      * @ORM\Column(type="integer")
      * @ORM\GeneratedValue(strategy="AUTO")
      */
-    public $id;
+    protected $id;
 
     /**
      * @var string
      * @ORM\Column(name="name", type="string", length=255, nullable=false)
      */
-    public $name;
+    protected $name;
 
     /**
      * @var string
      * @ORM\Column(name="slug", type="string", length=255, nullable=false)
      */
-    public $slug;
+    protected $slug;
 
     /**
      * @ORM\OneToMany(targetEntity="Blog\Entity\Category", mappedBy="category")
      */
-    public $articles;
+    protected $articles;
 
     public function __construct() {
         $this->articles = new ArrayCollection();

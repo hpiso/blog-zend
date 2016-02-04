@@ -1,5 +1,5 @@
 <?php foreach ($categories as $category) : ?>
     <li>
-        <a href="<?php echo $this->url('category', ['slug' => $category->slug]); ?>"><?php echo $this->escapeHtml($category->name);?> (20)</a>
+        <a href="<?php echo $this->url('category', ['slug' => $category->getSlug()]); ?>"><?php echo $this->escapeHtml($category->getName());?> (20)</a>
     </li>
 <?php endforeach; ?>

@@ -1,8 +1,8 @@
 <?php foreach ($recentArticles as $recentArticle) : ?>
     <li>
         <div class="info">
-            <h4 class="title"><a href="<?php echo $this->url('article', ['slug' => $recentArticle->slug]); ?>"><?php echo $this->escapeHtml($recentArticle->title);?></a></h4>
-            <div class="date"><?php echo $recentArticle->date->format('d F Y');?></div>
+            <h4 class="title"><a href="<?php echo $this->url('article', ['slug' => $recentArticle->getSlug()]); ?>"><?php echo $this->escapeHtml($recentArticle->getTitle());?></a></h4>
+            <div class="date"><?php echo $recentArticle->getDate()->format('d F Y');?></div>
         </div>
     </li>
 <?php endforeach; ?>

@@ -5,17 +5,17 @@
             echo $this->partial('/partials/breadcrumb.phtml', [
                     'links' => [
                         'Home' => $this->url('blog'),
-                        $article->category->name => $this->url('category', ['slug' => $article->category->slug]),
-                        $article->title => null
+                        $article->getCategory()->getName() => $this->url('category', ['slug' => $article->getCategory()->getSlug()]),
+                        $article->getTitle() => null
                     ]
                 ]
             );
         ?>
         <h4 class="post-title">
-            <a href="post_detail.html"><?php echo $this->escapeHtml($article->title);?></a>
+            <a href="post_detail.html"><?php echo $this->escapeHtml($article->getTitle());?></a>
         </h4>
         <div class="post-by">
-            <?php echo $article->date->format('d F Y') ;?> <span class="divider">|</span> <a href="#">Sports</a>, <a href="#">Mountain</a>, <a href="#">Bike</a> <span class="divider">|</span> 2 Comments
+            <?php echo $article->getDate()->format('d F Y') ;?> <span class="divider">|</span> <a href="#">Sports</a>, <a href="#">Mountain</a>, <a href="#">Bike</a> <span class="divider">|</span> 2 Comments
         </div>
 
         <div class="post-image">
@@ -23,7 +23,7 @@
         </div>
 
         <div class="post-desc">
-            <?php echo $article->content;?>
+            <?php echo $article->getContent();?>
         </div>
 
     </div>
@@ -47,13 +47,13 @@
     <div class="section-container">
         <h4 class="section-title m-b-20"><span>Ajouter un commentaire</span></h4>
         <?php
-        $commentForm->setAttribute('action', $this->url('article', ['action' => 'show', 'slug' => $article->slug]));
+        $commentForm->setAttribute('action', $this->url('article', ['action' => 'show', 'slug' => $article->getSlug()]));
         $commentForm->setAttribute('class', 'form-horizontal');
         $commentForm->prepare();
 
         echo $this->form()->openTag($commentForm);
         echo $this->formHidden($commentForm->get('id'));
-        echo $this->formHidden($commentForm->get('article')->setAttribute('value', $article->id));
+        echo $this->formHidden($commentForm->get('article')->setAttribute('value', $article->getId()));
         ?>
         <div class="form-group">
             <label class="control-label f-s-12 col-md-2"><?php echo $this->formLabel($commentForm->get('name')) ?>

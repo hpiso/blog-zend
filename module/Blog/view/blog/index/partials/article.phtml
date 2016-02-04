@@ -2,8 +2,8 @@
     <!-- begin post-left-info -->
     <div class="post-left-info">
         <div class="post-date">
-            <span class="day"><?php echo $object->date->format('d');?></span>
-            <span class="month"><?php echo strtoupper($object->date->format('M'));?></span>
+            <span class="day"><?php echo $object->getDate()->format('d');?></span>
+            <span class="month"><?php echo strtoupper($object->getDate()->format('M'));?></span>
         </div>
         <div class="post-likes">
             <i class="fa fa-heart-o"></i>
@@ -15,25 +15,25 @@
     <div class="post-content">
         <!-- begin post-image -->
         <div class="post-image">
-            <a href="<?php echo $this->url('article', ['slug' => $object->slug]); ?>"><img src="http://img0.gtsstatic.com/wallpapers/bcfba0abf336fc2d5653927791a2ba80_large.jpeg" alt="" /></a>
+            <a href="<?php echo $this->url('article', ['slug' => $object->getSlug()]); ?>"><img src="http://img0.gtsstatic.com/wallpapers/bcfba0abf336fc2d5653927791a2ba80_large.jpeg" alt="" /></a>
         </div>
         <!-- end post-image -->
         <!-- begin post-info -->
         <div class="post-info">
             <h4 class="post-title">
-                <a href="<?php echo $this->url('article', ['slug' => $object->slug]); ?>"><?php echo $this->escapeHtml($object->title);?></a>
+                <a href="<?php echo $this->url('article', ['slug' => $object->getSlug()]); ?>"><?php echo $this->escapeHtml($object->getTitle());?></a>
             </h4>
             <div class="post-by">
-                <?php echo $object->date->format('d F Y') ;?> |</span> <a href="#">Sports</a>, <a href="#">Parachute</a>, <a href="#">Blue Sky</a> <span class="divider">|</span> 12 Comments
+                <?php echo $object->getDate()->format('d F Y') ;?> |</span> <a href="#">Sports</a>, <a href="#">Parachute</a>, <a href="#">Blue Sky</a> <span class="divider">|</span> 12 Comments
             </div>
             <div class="post-desc">
-                <?php echo mb_strimwidth($object->content,0,350, "...");?>
+                <?php echo mb_strimwidth($object->getContent(),0,350, "...");?>
             </div>
         </div>
         <!-- end post-info -->
         <!-- begin read-btn-container -->
         <div class="read-btn-container">
-            <a href="<?php echo $this->url('article', ['slug' => $object->slug]); ?>" class="read-btn">Read More <i class="fa fa-angle-double-right"></i></a>
+            <a href="<?php echo $this->url('article', ['slug' => $object->getSlug()]); ?>" class="read-btn">Read More <i class="fa fa-angle-double-right"></i></a>
         </div>
         <!-- end read-btn-container -->
     </div>
