@@ -85,11 +85,11 @@
                     <ul class="media-list media-list-with-divider">
                         <?php foreach ($lastFiveComments as $lastFiveComment) : ?>
                         <li class="media media-sm">
-                            <div href="javascript:;" class="pull-right">
-                                <button href="#"
+                            <div class="pull-right">
+                                <a href="<?php echo $this->url('admin/comment', ['action' => 'show', 'id' => $lastFiveComment->getId()]); ?>"
                                         class="btn btn-success">
                                     <i class="fa fa-eye"></i>
-                                </button>
+                                </a>
                                 <button href="#"
                                         data-toggle="modal"
                                         data-target="#"

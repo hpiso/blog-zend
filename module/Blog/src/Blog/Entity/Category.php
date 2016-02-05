@@ -34,7 +34,7 @@ class Category
     protected $slug;
 
     /**
-     * @ORM\OneToMany(targetEntity="Blog\Entity\Category", mappedBy="category")
+     * @ORM\OneToMany(targetEntity="Blog\Entity\Article", mappedBy="category")
      */
     protected $articles;
 
