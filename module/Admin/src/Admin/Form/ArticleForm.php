@@ -2,6 +2,8 @@
 
 namespace Admin\Form;
 
+use Zend\InputFilter;
+use Zend\Form\Element;
 use Zend\Form\Form;
 
 class ArticleForm extends Form
@@ -26,6 +28,21 @@ class ArticleForm extends Form
                 'class' => 'form-control',
             )
         ));
+
+        $file = new Element\File('image');
+        $file->setLabel('Image')
+            ->setAttribute('id', 'image');
+        $this->add($file);
+
+//        $this->add(array(
+//            'name' => 'image',
+//            'attributes' => array(
+//                'type'  => 'file',
+//            ),
+//            'options' => array(
+//                'label' => 'Image',
+//            )
+//        ));
 
         $this->add(array(
             'name' => 'slug',
@@ -66,5 +83,25 @@ class ArticleForm extends Form
                 'class' => 'btn btn-success'
             ),
         ));
+
+//        $this->addInputFilter();
     }
+
+//    public function addInputFilter()
+//    {
+//        $inputFilter = new InputFilter\InputFilter();
+//        // File Input
+//        $fileInput = new InputFilter\FileInput('image');
+//        $fileInput->setRequired(true);
+//        $fileInput->getFilterChain()->attachByName(
+//            'filerenameupload',
+//            array(
+//                'target'    => '/data/tmpuploads/avatar.png',
+//                'randomize' => true,
+//            )
+//        );
+//        $inputFilter->add($fileInput);
+//
+//        $this->setInputFilter($inputFilter);
+//    }
 }

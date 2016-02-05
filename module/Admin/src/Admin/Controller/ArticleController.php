@@ -26,11 +26,21 @@ class ArticleController extends BaseController
         $article = new Article();
 
         $request = $this->getRequest();
-
         if ($request->isPost()) {
-            $form->setData($request->getPost());
+
+            $post = $request->getPost();
+            $post['image'] = $_SERVER['DOCUMENT_ROOT'].'/upload/'.$request->getFiles()['image']['name'];
+
+            $form->setData($post);
+
+
             if ($form->isValid()) {
 
+                if( !empty($_FILES['image']) ) {
+                    $picture_temp = $_FILES['image']['tmp_name'];
+                    $picture = $_FILES['image']['name'];
+                    move_uploaded_file($picture_temp,$_SERVER['DOCUMENT_ROOT'].'/upload/'.$picture);
+                }
                 $article = $this->getHydrator()->hydrate($form->getData(), $article);
 
                 $em = $this->getEntityManager();
