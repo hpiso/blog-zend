@@ -3,6 +3,7 @@
 namespace Blog\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Zend\Validator\Constraints as Assert;
 
 /**
  *
@@ -25,6 +26,12 @@ class Article
      * @ORM\Column(name="title", type="string", length=255, nullable=false)
      */
     protected $title;
+
+    /**
+     * @var string
+     * @ORM\Column(name="image", type="string", length=255)
+     */
+    public $image;
 
     /**
      * @var string
@@ -98,6 +105,26 @@ class Article
     public function setTitle($title)
     {
         $this->title = $title;
+    }
+
+    /**
+     * Set image
+     *
+     * @param string $image
+     */
+    public function setImage($image)
+    {
+        $this->image = $image;
+    }
+
+    /**
+     * Get image
+     *
+     * @return string
+     */
+    public function getImage()
+    {
+        return $this->image;
     }
 
     /**
