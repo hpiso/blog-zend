@@ -31,7 +31,7 @@ class Article
      * @var string
      * @ORM\Column(name="image", type="string", length=255)
      */
-    public $image;
+    protected $image;
 
     /**
      * @var string

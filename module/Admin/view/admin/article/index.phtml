@@ -21,7 +21,7 @@
                     <?php foreach ($articles as $article) : ?>
                         <li>
                         <div class="result-image">
-                            <a href="javascript:;"><img src="<?php echo $article->image ?>" alt=""></a>
+                            <a href="javascript:;"><img src="<?php echo $article->getImage() ?>" alt=""></a>
                         </div>
                         <div class="result-info">
                             <h4 class="title">

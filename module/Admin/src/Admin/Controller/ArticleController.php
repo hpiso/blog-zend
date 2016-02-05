@@ -29,7 +29,7 @@ class ArticleController extends BaseController
         if ($request->isPost()) {
 
             $post = $request->getPost();
-            $post['image'] = $_SERVER['DOCUMENT_ROOT'].'/upload/'.$request->getFiles()['image']['name'];
+            $post['image'] = '/upload/'.$request->getFiles()['image']['name'];
 
             $form->setData($post);
 
