@@ -31,10 +31,24 @@ class CommentController extends BaseController
         $commentForm = new CommentForm();
         $commentForm->get('submit')->setAttribute('value', 'Valider');
 
+        if ($comment->isState() == 1) {
+            $commentForm->get('state')->setAttribute('checked', 'checked');
+        }
         $request = $this->getRequest();
 
+
         if ($request->isPost()) {
-            $commentForm->setData($request->getPost());
+
+            $commentData = $request->getPost();
+
+            if(isset($commentData->state)){
+                $commentData->state = 1;
+            } else {
+                $commentData->state = 0;
+            }
+
+            $commentForm->setData($commentData);
+
             if ($commentForm->isValid()) {
                 
                 $comment = $this->getHydrator()->hydrate($commentForm->getData(), $comment);
@@ -74,7 +88,7 @@ class CommentController extends BaseController
 
 
         //Redirection
-        return $this->redirect()->toRoute('admin/commentaires');
+        return $this->redirect()->toRoute('admin/comment');
     }
 
 }

@@ -42,11 +42,11 @@
                     <?php foreach ($comments as $key => $comment) : ?>
                         <tr>
                             <td><?php echo $key+1 ;?></td>
-                            <td><?php echo $comment->article->title?></td>
-                            <td><?php echo $comment->name?></td>
-                            <td><?php echo $comment->email?></td>
-                            <td><?php echo $comment->date->format('d F Y')?></td>
-                            <td><?php if($comment->state == 1){
+                            <td><?php echo $comment->getArticle()->getTitle()?></td>
+                            <td><?php echo $comment->getName()?></td>
+                            <td><?php echo $comment->getEmail()?></td>
+                            <td><?php echo $comment->getDate()->format('d F Y')?></td>
+                            <td><?php if($comment->isState() == 1){
                                     echo "<i class=\"fa fa-check\"></i>";
                                 }else{
                                     echo "<i class=\"fa fa-close\"></i>";
@@ -54,11 +54,11 @@
                                 ?>
                             </td>
                             <td>
-                                <a href="<?php echo $this->url('admin/comment', ['action' => 'show', 'id' => $comment->id]); ?>"
+                                <a href="<?php echo $this->url('admin/comment', ['action' => 'show', 'id' => $comment->getId()]); ?>"
                                    class="btn btn-warning">
                                     <i class="fa fa-edit"></i>
                                 </a>
-                                <a href="<?php echo $this->url('admin/commentaires', ['action' => 'delete', 'id' => $comment->id]); ?>"
+                                <a href="<?php echo $this->url('admin/comment', ['action' => 'delete', 'id' => $comment->getId()]); ?>"
                                    class="btn btn-danger">
                                     <i class="fa fa-trash"></i>
                                 </a>

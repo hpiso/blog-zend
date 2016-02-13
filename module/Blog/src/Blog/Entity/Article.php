@@ -3,6 +3,7 @@
 namespace Blog\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Zend\Validator\Constraints as Assert;
 
 /**
  *
@@ -18,37 +19,43 @@ class Article
      * @ORM\Column(type="integer")
      * @ORM\GeneratedValue(strategy="AUTO")
      */
-    public $id;
+    protected $id;
 
     /**
      * @var string
      * @ORM\Column(name="title", type="string", length=255, nullable=false)
      */
-    public $title;
+    protected $title;
+
+    /**
+     * @var string
+     * @ORM\Column(name="image", type="string", length=255)
+     */
+    protected $image;
 
     /**
      * @var string
      * @ORM\Column(name="slug", type="string", length=255, nullable=false)
      */
-    public $slug;
+    protected $slug;
 
     /**
      * @var string
      * @ORM\Column(name="content", type="text")
      */
-    public $content;
+    protected $content;
 
     /**
      * @var string
      * @ORM\Column(name="date", type="datetime")
      */
-    public $date;
+    protected $date;
 
     /**
      * @var Boolean
      * @ORM\Column(name="state", type="boolean")
      */
-    public $state;
+    protected $state;
 
 //    /**
 //     * @ORM\ManyToOne(targetEntity="Blog\Entity\User")
@@ -98,6 +105,26 @@ class Article
     public function setTitle($title)
     {
         $this->title = $title;
+    }
+
+    /**
+     * Set image
+     *
+     * @param string $image
+     */
+    public function setImage($image)
+    {
+        $this->image = $image;
+    }
+
+    /**
+     * Get image
+     *
+     * @return string
+     */
+    public function getImage()
+    {
+        return $this->image;
     }
 
     /**

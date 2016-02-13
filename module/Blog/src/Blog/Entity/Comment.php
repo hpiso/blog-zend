@@ -24,42 +24,42 @@ class Comment
      * @ORM\Column(type="integer")
      * @ORM\GeneratedValue(strategy="AUTO")
      */
-    public $id;
+    protected $id;
 
     /**
      * @var string
      * @ORM\Column(name="name", type="string", length=255, nullable=false)
      */
-    public $name;
+    protected $name;
 
     /**
      * @var string
      * @ORM\Column(name="email", type="string", length=255, nullable=false)
      */
-    public $email;
+    protected $email;
 
     /**
      * @var string
      * @ORM\Column(name="content", type="text")
      */
-    public $content;
+    protected $content;
 
     /**
      * @ORM\Column(name="date", type="datetime")
      */
-    public $date;
+    protected $date;
 
     /**
      * @ORM\ManyToOne(targetEntity="Blog\Entity\Article")
      * @ORM\JoinColumn(name="article_id", referencedColumnName="id")
      */
-    public $article;
+    protected $article;
 
     /**
      * @var Boolean
      * @ORM\Column(name="state", type="boolean")
      */
-    public $state;
+    protected $state;
 
     /**
      * @return int

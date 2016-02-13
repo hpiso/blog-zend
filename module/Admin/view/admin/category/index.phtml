@@ -39,16 +39,16 @@
                     <?php foreach ($categories as $key => $category) : ?>
                         <tr>
                             <td><?php echo $key+1 ;?></td>
-                            <td><?php echo $this->escapeHtml($category->name);?></td>
-                            <td><?php echo $this->escapeHtml($category->slug);?></td>
+                            <td><?php echo $this->escapeHtml($category->getName());?></td>
+                            <td><?php echo $this->escapeHtml($category->getSlug());?></td>
                             <td>
-                                <a href="<?php echo $this->url('admin/categories', ['action' => 'edit', 'id' => $category->id]); ?>"
+                                <a href="<?php echo $this->url('admin/categories', ['action' => 'edit', 'id' => $category->getId()]); ?>"
                                    class="btn btn-warning">
                                     <i class="fa fa-edit"></i>
                                 </a>
                                 <a href="javascript:;"
                                    data-toggle="modal"
-                                   data-target="<?php echo $this->escapeHtml('#'.$category->id);?>"
+                                   data-target="<?php echo $this->escapeHtml('#'.$category->getId());?>"
                                    class="btn btn-danger">
                                     <i class="fa fa-trash"></i>
                                 </a>
@@ -56,7 +56,7 @@
                         </tr>
 
                         <!-- Modal -->
-                        <div class="modal fade" id="<?php echo $this->escapeHtml($category->id);?>" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                        <div class="modal fade" id="<?php echo $this->escapeHtml($category->getId());?>" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
                             <div class="modal-dialog" role="document">
                                 <div class="modal-content">
                                     <div class="modal-header">
@@ -64,8 +64,8 @@
                                         <h4 class="modal-title" id="myModalLabel">Supprimer une catégorie</h4>
                                     </div>
                                     <div class="modal-body">
-                                        <form method="post" action="<?php echo $this->url('admin/categories', ['action' => 'delete', 'id' => $category->id]); ?>">
-                                            <p>Etes vous sur de vouloir supprimer la catégorie <strong><?php echo $this->escapeHtml($category->name);?></strong> ?</p>
+                                        <form method="post" action="<?php echo $this->url('admin/categories', ['action' => 'delete', 'id' => $category->getId()]); ?>">
+                                            <p>Etes vous sur de vouloir supprimer la catégorie <strong><?php echo $this->escapeHtml($category->getName());?></strong> ?</p>
                                             <input type="submit" value="OK" class="btn btn-success"/>
                                         </form>
                                     </div>
