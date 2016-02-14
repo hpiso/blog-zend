@@ -1,6 +1,7 @@
 <?php echo $this->headScript()
     ->prependFile($this->basePath('assets/admin/js/apps.min.js'))
     ->prependFile($this->basePath('assets/admin/js/dashboard.min.js'))
+    ->prependFile($this->basePath('assets/admin/js/bootstrap-colorpicker.min.js'))
     ->prependFile($this->basePath('assets/admin/js/jquery-jvectormap-world-mill-en.js'))
     ->prependFile($this->basePath('assets/admin/js/jquery-jvectormap-1.2.2.min.js'))
     ->prependFile($this->basePath('assets/admin/js/jquery.sparkline.js'))
@@ -29,4 +30,11 @@
     (function () {
         $('a[href="' + this.location.pathname + '"]').parents('li,ul').addClass('active');
     })();
+</script>
+
+
+<script>
+    $(function(){
+        $('.color-picker').colorpicker();
+    });
 </script>
