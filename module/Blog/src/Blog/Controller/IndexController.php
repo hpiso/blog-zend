@@ -22,10 +22,10 @@ class IndexController extends BaseController
         $nbArticles = (int)$this->getEntityManager()->getRepository('Blog\Entity\Article')->getArticleCount();
 
         $pagination = $this->getServiceLocator()->get('pagination')
-            ->constructPagination($nbArticles, $currentPage,$this::MAX_PER_PAGE);
+            ->constructPagination($nbArticles, $currentPage, $this->getMaxPerPage());
 
         $articles = $this->getEntityManager()->getRepository('Blog\Entity\Article')
-            ->getArticlePaginator($pagination['current'], $this::MAX_PER_PAGE);
+            ->getArticlePaginator($pagination['current'], $this->getMaxPerPage());
 
         return new ViewModel([
             'articles'   => $articles,
@@ -106,5 +106,12 @@ class IndexController extends BaseController
         return new ViewModel();
     }
 
+    private function getMaxPerPage() {
+        $setting = $this->getEntityManager()->getRepository('Blog\Entity\Setting')->findOneByState(true);
 
+        if (!$setting) {
+            return self::MAX_PER_PAGE;
+        }
+        return $setting->getPagination();
+    }
 }

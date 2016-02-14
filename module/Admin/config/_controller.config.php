@@ -6,5 +6,6 @@ return array(
         'articleController'   => 'Admin\Controller\ArticleController',
         'categoryController'  => 'Admin\Controller\CategoryController',
         'commentController'   => 'Admin\Controller\CommentController',
+        'settingController'   => 'Admin\Controller\SettingController',
     ),
 );

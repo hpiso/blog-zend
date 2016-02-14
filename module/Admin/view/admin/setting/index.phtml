@@ -1,0 +1,51 @@
+<!-- begin breadcrumb -->
+<ol class="breadcrumb pull-right">
+    <li><a href="javascript:;">Home</a></li>
+    <li class="active">Dashboard</li>
+</ol>
+<!-- end breadcrumb -->
+<!-- begin page-header -->
+<h1 class="page-header">Settings</h1>
+
+<div class="row">
+    <div class="col-md-6 ui-sortable">
+        <div class="panel panel-inverse" data-sortable-id="table-basic-1">
+            <div class="panel-heading">
+                <h4 class="panel-title">Paramètre du blog</h4>
+            </div>
+            <div class="panel-body">
+                <?php
+
+                if ($this->flashMessenger()->hasMessages()) {
+                    echo '<div class="alert alert-success" role="alert">';
+                    echo '<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>';
+                    $messages = $this->flashMessenger()->getMessages();
+                    foreach($messages as $message) {
+                        echo $message;
+                    }
+                    echo '</div>';
+                }
+                ?>
+                <?php
+                $settingForm->setAttribute('action', $this->url('admin/setting'));
+                $settingForm->prepare();
+
+                echo $this->form()->openTag($settingForm);
+                echo $this->formHidden($settingForm->get('id'));
+                echo '<div class="form-group">';
+                    echo $this->formLabel($settingForm->get('pagination'));
+                    echo $this->formSelect($settingForm->get('pagination'));
+                    echo '</div>';
+                echo '<div class="form-group">';
+                    echo $this->formLabel($settingForm->get('navbarColor'));
+                    echo $this->formInput($settingForm->get('navbarColor'));
+                    echo '</div>';
+                echo '<div class="form-group">';
+                    echo $this->formSubmit($settingForm->get('submit'));
+                    echo '</div>';
+                echo $this->form()->closeTag();
+                ?>
+            </div>
+        </div>
+    </div>
+</div>

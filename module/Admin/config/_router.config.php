@@ -63,6 +63,22 @@ return array(
                     ),
                 ),
 
+                //Route Setting
+                'setting' => array(
+                    'type'    => 'Segment',
+                    'options' => array(
+                        'route'    => '/setting[/:action][/:id]',
+                        'constraints' => array(
+                            'action' => '[a-zA-Z][a-zA-Z0-9_-]*',
+                            'id'     => '[0-9]+'
+                        ),
+                        'defaults' => array(
+                            'controller'    => 'settingController',
+                            'action'        => 'index',
+                        ),
+                    ),
+                ),
+
             )
         ),
 
