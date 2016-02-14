@@ -28,19 +28,25 @@ class Setting
 
     /**
      * @var int
-     * @ORM\Column(name="pagination", type="smallint")
+     * @ORM\Column(name="pagination", type="smallint", nullable=false)
      */
     public $pagination;
 
     /**
      * @var string
-     * @ORM\Column(name="navbar_color", type="string", length=20)
+     * @ORM\Column(name="navbar_color", type="string", length=20, nullable=false)
      */
     public $navbarColor;
 
     /**
+     * @var string
+     * @ORM\Column(name="background_color", type="string", length=20, nullable=false)
+     */
+    public $backgroundColor;
+
+    /**
      * @var Boolean
-     * @ORM\Column(name="state", type="boolean")
+     * @ORM\Column(name="state", type="boolean", nullable=false)
      */
     public $state;
 
@@ -124,6 +130,20 @@ class Setting
         $this->state = $state;
     }
 
+    /**
+     * @return string
+     */
+    public function getBackgroundColor()
+    {
+        return $this->backgroundColor;
+    }
 
+    /**
+     * @param string $backgroundColor
+     */
+    public function setBackgroundColor($backgroundColor)
+    {
+        $this->backgroundColor = $backgroundColor;
+    }
 
 }

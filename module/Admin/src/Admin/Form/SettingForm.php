@@ -46,6 +46,17 @@ class SettingForm extends Form
         ));
 
         $this->add(array(
+            'name' => 'backgroundColor',
+            'type' => 'Text',
+            'options' => array(
+                'label' => 'Couleur du background',
+            ),
+            'attributes' => array(
+                'class' => 'form-control'
+            )
+        ));
+
+        $this->add(array(
             'name' => 'submit',
             'type' => 'Submit',
             'attributes' => array(

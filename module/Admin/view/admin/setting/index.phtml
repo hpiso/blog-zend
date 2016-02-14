@@ -35,11 +35,15 @@
                 echo '<div class="form-group">';
                     echo $this->formLabel($settingForm->get('pagination'));
                     echo $this->formSelect($settingForm->get('pagination'));
-                    echo '</div>';
+                echo '</div>';
+                echo '<div class="form-group">';
+                echo $this->formLabel($settingForm->get('backgroundColor'));
+                echo $this->formInput($settingForm->get('backgroundColor'));
+                echo '</div>';
                 echo '<div class="form-group">';
                     echo $this->formLabel($settingForm->get('navbarColor'));
                     echo $this->formInput($settingForm->get('navbarColor'));
-                    echo '</div>';
+                echo '</div>';
                 echo '<div class="form-group">';
                     echo $this->formSubmit($settingForm->get('submit'));
                     echo '</div>';

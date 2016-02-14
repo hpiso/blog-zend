@@ -19,6 +19,7 @@ class SettingController extends BaseController
             $setting = new Setting();
             $setting->setConfigName('Default config');
             $setting->setPagination(5);
+            $setting->setBackgroundColor('#ffffff');
             $setting->setNavbarColor('#ffffff');
             $setting->setState(true);
         }
