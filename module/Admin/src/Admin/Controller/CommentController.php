@@ -31,10 +31,24 @@ class CommentController extends BaseController
         $commentForm = new CommentForm();
         $commentForm->get('submit')->setAttribute('value', 'Valider');
 
+        if ($comment->isState() == 1) {
+            $commentForm->get('state')->setAttribute('checked', 'checked');
+        }
         $request = $this->getRequest();
 
+
         if ($request->isPost()) {
-            $commentForm->setData($request->getPost());
+
+            $commentData = $request->getPost();
+
+            if(isset($commentData->state)){
+                $commentData->state = 1;
+            } else {
+                $commentData->state = 0;
+            }
+
+            $commentForm->setData($commentData);
+
             if ($commentForm->isValid()) {
                 
                 $comment = $this->getHydrator()->hydrate($commentForm->getData(), $comment);
@@ -53,6 +67,28 @@ class CommentController extends BaseController
             'comment'     => $comment,
             'commentForm' => $commentForm
         ]);
+    }
+
+    public function deleteAction()
+    {
+        $id = $this->params('id');
+        $comment = $this->getEntityManager()->getRepository('Blog\Entity\Comment')->find($id);
+
+        if (!$comment) {
+            throw new EntityNotFoundException('Entity Comment not found');
+        }
+
+        //Remove Category entity
+        $em = $this->getEntityManager();
+        $em->remove($comment);
+        $em->flush();
+
+        //Add flash message
+        $this->flashMessenger()->addMessage('Le commentaire '. $comment->getName().' a été supprimé.');
+
+
+        //Redirection
+        return $this->redirect()->toRoute('admin/comment');
     }
 
 }
