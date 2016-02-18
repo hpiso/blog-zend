@@ -79,6 +79,18 @@ return array(
                     ),
                 ),
 
+                //Route AJAX pour update activer un commentaire
+                'contact' => array(
+                    'type'    => 'Literal',
+                    'options' => array(
+                        'route'    => '/comment/update',
+                        'defaults' => array(
+                            'controller'    => 'dashboardController',
+                            'action'        => 'updateStateComment',
+                        ),
+                    ),
+                ),
+
             )
         ),
 

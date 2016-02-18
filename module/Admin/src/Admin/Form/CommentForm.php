@@ -21,9 +21,6 @@ class CommentForm extends Form
             'type' => 'Checkbox',
             'options' => array(
                 'label' => 'Approuvé',
-            ),
-            'attributes' => array(
-                'class' => 'form-control',
             )
         ));
 

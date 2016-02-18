@@ -75,7 +75,14 @@
                 <!-- begin nav-tabs -->
                 <div class="tab-overflow overflow-right">
                     <ul class="nav nav-tabs nav-tabs-inverse">
-                        <li class="active"><a aria-expanded="true" href="#nav-tab-1" data-toggle="tab">5 derniers commentaires</a></li>
+                        <li class="active" style="min-width:200px; ">
+                            <a aria-expanded="true" href="#nav-tab-1" data-toggle="tab">
+                                5 derniers commentaires
+                                <span id="loader">
+                                <img style="width:20px;" src="<?php echo $this->basePath('/assets/admin/img/loader.gif'); ?>" />
+                            </span>
+                            </a>
+                        </li>
                         <li class=""><a aria-expanded="false" href="#nav-tab-2" data-toggle="tab">5 derniers articles</a></li>
                     </ul>
                 </div>
@@ -84,36 +91,45 @@
                 <div class="tab-pane fade active in" id="nav-tab-1">
                     <ul class="media-list media-list-with-divider">
                         <?php foreach ($lastFiveComments as $lastFiveComment) : ?>
-                        <li class="media media-sm">
-                            <div class="pull-right">
-                                <a href="<?php echo $this->url('admin/comment', ['action' => 'show', 'id' => $lastFiveComment->getId()]); ?>"
-                                        class="btn btn-success">
-                                    <i class="fa fa-eye"></i>
-                                </a>
-                                <button href="#"
-                                        data-toggle="modal"
-                                        data-target="#"
-                                        class="btn btn-danger">
-                                    <i class="fa fa-trash"></i>
-                                </button>
+                            <div id="<?php echo 'comment-'.$lastFiveComment->getId(); ?>">
+                                <li class="media media-sm">
+                                    <div class="pull-right">
+                                        <?php if ($lastFiveComment->isState()) : ?>
+                                            <button href="#" data-comment-id="<?php echo $lastFiveComment->getId(); ?>"
+                                                    class="btn btn-success last-five-comment">
+                                                <i class="fa fa-check"></i>
+                                            </button>
+                                        <?php else : ?>
+                                            <button href="#" data-comment-id="<?php echo $lastFiveComment->getId(); ?>"
+                                                    class="btn btn-warning last-five-comment">
+                                                <i class="fa fa-close"></i>
+                                            </button>
+                                        <?php endif ; ?>
+                                        <a href="<?php echo $this->url('admin/comment', ['action' => 'show', 'id' => $lastFiveComment->getId()]); ?>"
+                                                class="btn btn-inverse">
+                                            <i class="fa fa-eye"></i>
+                                        </a>
+                                    </div>
+                                    <div class="media-body">
+                                        <a href="javascript:;">
+                                            <h5 class="media-heading">
+                                            <?php echo $lastFiveComment->getName(); ?>
+                                            <?php if ($lastFiveComment->isState()) : ?>
+                                                <label class="label label-success">Approuvé</label>
+                                            <?php else : ?>
+                                                <label class="label label-warning">Non approuvé</label>
+                                            <?php endif ; ?>
+                                            </h5>
+                                        </a>
+                                        <p class="m-b-5"><?php echo mb_strimwidth($lastFiveComment->getContent(),0,150, "...");?></p>
+                                        <i class="text-muted">
+                                            Reçu le <?php echo $lastFiveComment->getDate()->format('d F Y'); ?>
+                                             dans l'article "<?php echo $lastFiveComment->getArticle()->getTitle(); ?>"
+                                        </i>
+                                    </div>
+                                </li>
                             </div>
-                            <div class="media-body">
-                                <a href="javascript:;">
-                                    <h5 class="media-heading">
-                                    <?php echo $lastFiveComment->getName(); ?>
-                                    <?php if ($lastFiveComment->isState()) : ?>
-                                        <label class="label label-success">Approuvé</label>
-                                        <i class="fa fa-check text-success"></i>
-                                    <?php else : ?>
-                                        <label class="label label-warning">Non approuvé</label>
-                                        <i class="fa fa-close text-warning"></i>
-                                    <?php endif ; ?>
-                                    </h5>
-                                </a>
-                                <p class="m-b-5"><?php echo mb_strimwidth($lastFiveComment->getContent(),0,150, "...");?></p>
-                                <i class="text-muted">Received on <?php echo $lastFiveComment->getDate()->format('d F Y'); ?></i>
-                            </div>
-                        </li>
+                            <hr>
                         <?php endforeach; ?>
                     </ul>
                 </div>
@@ -123,14 +139,8 @@
                             <li class="media media-sm">
                                 <div href="javascript:;" class="pull-right">
                                     <button href="#"
-                                       class="btn btn-warning">
-                                        <i class="fa fa-edit"></i>
-                                    </button>
-                                    <button href="#"
-                                       data-toggle="modal"
-                                       data-target="#"
-                                       class="btn btn-danger">
-                                        <i class="fa fa-trash"></i>
+                                       class="btn btn-inverse">
+                                        <i class="fa fa-eye"></i>
                                     </button>
                                 </div>
                                 <div class="media-body">
@@ -146,3 +156,27 @@
         <!-- end panel -->
     </div>
 </div>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
+<script>
+    (function(){
+        $('#loader').hide();
+        $('body').on('click','.last-five-comment', function(ev) {
+            ev.preventDefault();
+            $('#loader').show();
+            var commentId = $(this).data("comment-id");
+
+            $.ajax({
+                url: "/admin/comment/update",
+                type: 'POST',
+                data: {'commentId': commentId},
+                success: function(data){
+                    $('#comment-'+commentId).html(data);
+                    $('#loader').hide();
+                }
+            });
+
+        });
+    })();
+</script>
+

@@ -19,10 +19,10 @@
                     <ul class="media-list underline m-b-20 p-b-15">
                         <li class="media media-sm clearfix">
                             <div class="media-body">
-                                    <span class="email-from text-inverse f-w-600">
-                                        from <?php echo $comment->getEmail()?>
-
-                                    </span><span class="text-muted m-l-5"><i class="fa fa-clock-o fa-fw"></i> <?php echo $comment->getDate()->format('d F Y H:i:s')?></span><br />
+                                <span class="email-from text-inverse f-w-600">
+                                    From <?php echo $comment->getEmail()?>
+                                </span>
+                                <span class="text-muted m-l-5"><i class="fa fa-clock-o fa-fw"></i> <?php echo $comment->getDate()->format('d F Y H:i:s')?></span><br />
                             </div>
                         </li>
                     </ul>
@@ -30,9 +30,6 @@
                     <p class="f-s-12 text-inverse">
                         <?php echo $comment->getContent()?>
                     </p>
-
-                    <br />
-                    <br />
                     <p class="f-s-12 text-inverse">
                         <?php
 
