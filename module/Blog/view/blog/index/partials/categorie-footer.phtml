@@ -1,0 +1,7 @@
+<?php foreach ($categories as $category) : ?>
+    <li>
+        <a href="<?php echo $this->url('category', ['slug' => $category->getSlug()]); ?>">
+            <?php echo $this->escapeHtml($category->getName());?> (<?php echo count($category->getArticles()); ?>)
+        </a>
+    </li>
+<?php endforeach; ?>

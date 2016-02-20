@@ -39,6 +39,8 @@ class Module implements ViewHelperProviderInterface
             'invokables' => array(
                 'categoryWidget'      => 'Blog\View\Helper\CategoryWidget',
                 'recentArticleWidget' => 'Blog\View\Helper\RecentArticleWidget',
+                'categoryFooter'      => 'Blog\View\Helper\CategoryFooter',
+                'recentArticleFooter' => 'Blog\View\Helper\RecentArticleFooter',
                 'navbarColor'         => 'Blog\View\Helper\NavbarColor',
                 'backgroundColor'     => 'Blog\View\Helper\BackgroundColor',
             )
