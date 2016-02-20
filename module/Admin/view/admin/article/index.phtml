@@ -18,7 +18,7 @@
                     <a href="<?php echo $this->url('admin/articles', ['action' => 'add']); ?>" class="btn btn-success btn-lg">Ajouter un article</a>
                 </div>
                 <ul class="result-list">
-                    <?php foreach ($articles as $article) : ?>
+                    <?php foreach ($articles as $key => $article) : ?>
                         <li>
                         <div class="result-image">
                             <a href="javascript:;"><img src="<?php echo $article->image ?>" alt=""></a>
@@ -46,13 +46,42 @@
                         </div>
                         <div class="result-price">
                             <a href="javascript:;" class="btn btn-inverse"><i class="fa fa-eye"></i></a>
-                            <a href="javascript:;" class="btn btn-warning"><i class="fa fa-edit"></i></a>
-                            <a href="javascript:;" class="btn btn-danger"><i class="fa fa-trash"></i></a>
+                            <a href="<?php echo $this->url('admin/articles', ['action' => 'edit', 'id' => $article->getId()]); ?>"
+                               class="btn btn-warning">
+                                <i class="fa fa-edit"></i>
+                            </a>
+                            <a href="javascript:;"
+                               data-toggle="modal"
+                               data-target="<?php echo $this->escapeHtml('#'.$article->getId());?>"
+                               class="btn btn-danger">
+                                <i class="fa fa-trash"></i>
+                            </a>
                         </div>
                     </li>
+                        <!-- Modal -->
+                        <div class="modal fade" id="<?php echo $this->escapeHtml($article->getId());?>" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                            <div class="modal-dialog" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                        <h4 class="modal-title" id="myModalLabel">Supprimer un article</h4>
+                                    </div>
+                                    <div class="modal-body">
+                                        <form method="post" action="<?php echo $this->url('admin/articles', ['action' => 'delete', 'id' => $article->getId()]); ?>">
+                                            <p>Etes vous sur de vouloir supprimer l'article <strong><?php echo $this->escapeHtml($article->getTitle());?></strong> ?</p>
+                                            <input type="submit" value="OK" class="btn btn-success"/>
+                                        </form>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     <?php endforeach; ?>
                 </ul>
         </div>
     </div>
+
 </div>
 

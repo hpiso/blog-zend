@@ -20,9 +20,10 @@ return array(
                 'articles' => array(
                     'type'    => 'Segment',
                     'options' => array(
-                        'route'    => '/articles[/:action]',
+                        'route'    => '/articles[/:action][/:id]',
                         'constraints' => array(
                             'action' => '[a-zA-Z][a-zA-Z0-9_-]*',
+                            'id'     => '[0-9]+'
                         ),
                         'defaults' => array(
                             'controller'    => 'articleController',
