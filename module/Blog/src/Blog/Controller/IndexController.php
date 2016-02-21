@@ -66,6 +66,15 @@ class IndexController extends BaseController
                 $em->persist($comment);
                 $em->flush();
 
+                $eventManager = $this->getEventManager();
+                $eventManager->trigger('comment.add', null, [
+                    'comment_id' => $comment->getId(),
+                    'comment_name' => $comment->getName(),
+                    'comment_email' => $comment->getEmail(),
+                    'article_title' => $comment->getArticle()->getTitle(),
+                    'article_id' => $comment->getArticle()->getId(),
+                ]);
+
                 //Envoie du mail
                 $this->getServiceLocator()->get('mail')
                     ->sendMail($comment->getEmail(), $comment->getName(), $comment->getContent());

@@ -128,12 +128,6 @@ class CategoryController extends BaseController
 
         if ($request->isPost())
         {
-
-            //Remove Category entity
-            $em = $this->getEntityManager();
-            $em->remove($category);
-            $em->flush();
-
             $eventManager = $this->getEventManager();
             $eventManager->trigger('category.delete', null, [
                 'category_id' => $category->getId(),
@@ -141,6 +135,11 @@ class CategoryController extends BaseController
                 'user_id' => $this->zfcUserAuthentication()->getIdentity()->getId(),
                 'user_email' => $this->zfcUserAuthentication()->getIdentity()->getEmail()
             ]);
+            
+            //Remove Category entity
+            $em = $this->getEntityManager();
+            $em->remove($category);
+            $em->flush();
 
             //Add flash message
             $this->flashMessenger()->addMessage('La catégorie ' . $category->getName() . ' a été supprimé.');

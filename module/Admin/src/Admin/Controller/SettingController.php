@@ -40,6 +40,14 @@ class SettingController extends BaseController
                 $em->persist($setting);
                 $em->flush();
 
+
+                $this->getEventManager()->trigger('setting.edit', null, [
+                    'user_id' => $this->zfcUserAuthentication()->getIdentity()->getId(),
+                    'user_email' => $this->zfcUserAuthentication()->getIdentity()->getEmail(),
+                    'config_id' => $setting->getId(),
+                    'config_name' => $setting->getConfigName(),
+                ]);
+
                 //Add flash message
                 $this->flashMessenger()->addMessage('La configuration a bien été changé.');
 

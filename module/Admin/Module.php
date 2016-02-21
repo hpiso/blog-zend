@@ -81,35 +81,39 @@ class Module
         });
         $sharedEventManager->attach('Admin\Controller\CategoryController', 'category.edit', function ($e)
         {
-            $this->logger->warn('User ' . $e->getParam('user_email') . ' (id:' . $e->getParam('user_id') . ') edited article "' . $e->getParam('category_name') . '" (id:' . $e->getParam('category_id') . ').');
+            $this->logger->warn('User ' . $e->getParam('user_email') . ' (id:' . $e->getParam('user_id') . ') edited category "' . $e->getParam('category_name') . '" (id:' . $e->getParam('category_id') . ').');
         });
         $sharedEventManager->attach('Admin\Controller\CategoryController', 'category.delete', function ($e)
         {
-            $this->logger->info('User ' . $e->getParam('user_email') . ' (id:' . $e->getParam('user_id') . ') deleted article "' . $e->getParam('category_name') . '" (id:' . $e->getParam('category_id') . ').');
+            $this->logger->info('User ' . $e->getParam('user_email') . ' (id:' . $e->getParam('user_id') . ') deleted category "' . $e->getParam('category_name') . '" (id:' . $e->getParam('category_id') . ').');
         });
 
         //Évènements des commentaires
-        $sharedEventManager->attach('Admin\Controller\CommentController', 'comment.add', function ($e)
+        $sharedEventManager->attach('Blog\Controller\IndexController', 'comment.add', function ($e)
         {
-            $this->logger->info($e->getParam('user_email') . ' wrote a comment (id:' . $e->getParam('comment_id') . ') on article "' . $e->getParam('article_title') . '" (id:' . $e->getParam('article_id') . ').');
+            $this->logger->info($e->getParam('comment_name') . '(' . $e->getParam('comment_email') . ') wrote a comment (id:' . $e->getParam('comment_id') . ') on article "' . $e->getParam('article_title') . '" (id:' . $e->getParam('article_id') . ').');
         });
         $sharedEventManager->attach('Admin\Controller\CommentController', 'comment.delete', function ($e)
         {
             $this->logger->warn('User ' . $e->getParam('user_email') . ' (id:' . $e->getParam('user_id') . ') deleted comment (id:' . $e->getParam('comment_id') . ') on article "' . $e->getParam('article_title') . '" (id:' . $e->getParam('article_id') . ').');
         });
-        $sharedEventManager->attach('Admin\Controller\CommentController', 'comment.approve', function ($e)
+        $sharedEventManager->attach('Admin\Controller\CommentController', 'comment.edit', function ($e)
+        {
+            $this->logger->warn('User ' . $e->getParam('user_email') . ' (id:' . $e->getParam('user_id') . ') edited comment (id:' . $e->getParam('comment_id') . ') on article "' . $e->getParam('article_title') . '" (id:' . $e->getParam('article_id') . ').');
+        });
+        $sharedEventManager->attach('Admin\Controller\DashboardController', 'comment.approve', function ($e)
         {
             $this->logger->info('User ' . $e->getParam('user_email') . ' (id:' . $e->getParam('user_id') . ') approved comment (id:' . $e->getParam('comment_id') . ') on article "' . $e->getParam('article_title') . '" (id:' . $e->getParam('article_id') . ').');
         });
-        $sharedEventManager->attach('Admin\Controller\CommentController', 'comment.reject', function ($e)
+        $sharedEventManager->attach('Admin\Controller\DashboardController', 'comment.reject', function ($e)
         {
             $this->logger->warn('User ' . $e->getParam('user_email') . ' (id:' . $e->getParam('user_id') . ') rejected comment (id:' . $e->getParam('comment_id') . ') on article "' . $e->getParam('article_title') . '" (id:' . $e->getParam('article_id') . ').');
         });
 
         //Évènements des options
-        $sharedEventManager->attach('Admin\Controller\SettingController', 'setting.add', function ($e)
+        $sharedEventManager->attach('Admin\Controller\SettingController', 'setting.edit', function ($e)
         {
-            $this->logger->info('User ' . $e->getParam('user_email') . ' (id:' . $e->getParam('user_id') . ') added a configuration setting"' . $e->getParam('config_name') . '" (id:' . $e->getParam('config_id') . ').');
+            $this->logger->info('User ' . $e->getParam('user_email') . ' (id:' . $e->getParam('user_id') . ') edited "' . $e->getParam('config_name') . '" (id:' . $e->getParam('config_id') . ').');
         });
 
 
@@ -122,11 +126,11 @@ class Module
         });
         $zfcAuthEvents->attach('authenticate.success', function ($e)
         {
-            $this->logger->notice('User successfully login the application from' . $_SERVER['REMOTE_ADDR']);
+            $this->logger->notice('User successfully logged in the application from' . $_SERVER['REMOTE_ADDR']);
         });
         $zfcAuthEvents->attach('authenticate.fail', function ($e)
         {
-            $this->logger->warn('Someone failed to login from ' . $_SERVER['REMOTE_ADDR'] . ' with credentials ');
+            $this->logger->warn('Someone failed to login from ' . $_SERVER['REMOTE_ADDR'] . ' with valid username');
         });
         $zfcAuthEvents->attach('logout', function ($e)
         {

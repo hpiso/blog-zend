@@ -30,6 +30,7 @@ class DashboardController extends BaseController
 
     public function updateStateCommentAction()
     {
+        $eventManager = $this->getEventManager();
         if ($this->getRequest()->isXmlHttpRequest()) {
 
             $em = $this->getEntityManager();
@@ -49,6 +50,14 @@ class DashboardController extends BaseController
 
             $em->persist($comment);
             $em->flush();
+
+            $eventManager->trigger($comment->isState() ? 'comment.approve' : 'comment.reject', null, [
+                'comment_id' => $comment->getId(),
+                'article_id' => $comment->getArticle()->getId(),
+                'article_title' => $comment->getArticle()->getTitle(),
+                'user_id' => $this->zfcUserAuthentication()->getIdentity()->getId(),
+                'user_email' => $this->zfcUserAuthentication()->getIdentity()->getEmail()
+            ]);
 
             $view = new ViewModel(['comment' => $comment]);
             $view->setTemplate('admin/updateComment');
