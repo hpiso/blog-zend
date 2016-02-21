@@ -2,6 +2,7 @@
  
 namespace Blog\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use Zend\Validator\Constraints as Assert;
 
@@ -57,11 +58,10 @@ class Article
      */
     public $state;
 
-//    /**
-//     * @ORM\ManyToOne(targetEntity="Blog\Entity\User")
-//     * @ORM\JoinColumn(name="user_id", referencedColumnName="id")
-//     */
-//    protected $user;
+    /**
+     * @ORM\OneToMany(targetEntity="Blog\Entity\Comment", mappedBy="article")
+     */
+    public $comments;
 
     /**
      *
@@ -73,6 +73,7 @@ class Article
 
     public function __construct(){
         $this->date = new \DateTime();
+        $this->comments = new ArrayCollection();
     }
 
     /**
@@ -221,6 +222,22 @@ class Article
     public function setCategory($category)
     {
         $this->category = $category;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getComments()
+    {
+        return $this->comments;
+    }
+
+    /**
+     * @param mixed $comments
+     */
+    public function setComments($comments)
+    {
+        $this->comments = $comments;
     }
 
 }

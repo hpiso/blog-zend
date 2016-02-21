@@ -1,0 +1,8 @@
+<?php foreach ($recentArticles as $recentArticle) : ?>
+    <li>
+        <h4>
+            <a href="<?php echo $this->url('article', ['slug' => $recentArticle->getSlug()]); ?>"><?php echo $this->escapeHtml($recentArticle->getTitle());?></a>
+            <span class="time"><?php echo $recentArticle->getDate()->format('d F Y');?></span>
+        </h4>
+    </li>
+<?php endforeach; ?>

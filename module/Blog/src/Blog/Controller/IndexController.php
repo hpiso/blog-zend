@@ -63,6 +63,14 @@ class IndexController extends BaseController
                 $em->persist($comment);
                 $em->flush();
 
+                //Envoie du mail
+                $this->getServiceLocator()->get('mail')
+                    ->sendMail($comment->getEmail(), $comment->getName(), $comment->getContent());
+
+                //Add flash message
+                $this->flashMessenger()->addMessage('Votre commentaire a été ajouté,
+                il est en attente de validation par l\'administrateur');
+
                 //Redirection
                 return $this->redirect()->toRoute('article', ['slug' => $article->getSlug()]);
             }
