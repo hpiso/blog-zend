@@ -4,6 +4,7 @@ namespace Admin\Controller;
 
 use Admin\Form\ArticleForm;
 use Blog\Entity\Article;
+use Doctrine\ORM\EntityNotFoundException;
 use Zend\View\Model\ViewModel;
 
 
@@ -74,6 +75,73 @@ class ArticleController extends BaseController
         return new ViewModel([
             'form' => $form
         ]);
+    }
+
+    public function editAction()
+    {
+        $id = $this->params('id');
+        $article = $this->getEntityManager()->getRepository('Blog\Entity\Article')->find($id);
+
+        if (!$article) {
+            throw new EntityNotFoundException('Entity Article not found');
+        }
+
+        $form = new ArticleForm();
+        $form->setData(get_object_vars($article));
+        $form->get('submit')->setAttribute('value', 'Modifier');
+
+        $request = $this->getRequest();
+
+        if ($request->isPost()) {
+            $form->setData($request->getPost());
+            if ($form->isValid()) {
+
+                $article = $this->getHydrator()->hydrate($form->getData(), $article);
+
+                //Persist and flush entity Article
+                $em = $this->getEntityManager();
+                $em->persist($article);
+                $em->flush();
+
+                //Add flash message
+                $this->flashMessenger()->addMessage('L\'article '. $form->getData()['title'].' a été modifié.');
+
+                //Redirection
+                return $this->redirect()->toRoute('admin/articles');
+            }
+        }
+        $form->setData(['Slug'=>'okok']);
+        return new ViewModel([
+            'form'     => $form,
+            'article' => $article
+        ]);
+    }
+
+    public function deleteAction()
+    {
+        $id = $this->params('id');
+        $article = $this->getEntityManager()->getRepository('Blog\Entity\Article')->find($id);
+        if (!$article) {
+            throw new EntityNotFoundException('Entity Article not found');
+        }
+
+        $request = $this->getRequest();
+
+        if ($request->isPost()) {
+
+            //Remove Article entity
+            $em = $this->getEntityManager();
+            $em->remove($article);
+            $em->flush();
+            if(!empty($article->getImage())) {
+                unlink($article->getImage());
+            }
+            //Add flash message
+            $this->flashMessenger()->addMessage('L\'article '. $article->getTitle().' a été supprimé.');
+        }
+
+        //Redirection
+        return $this->redirect()->toRoute('admin/articles');
     }
 
 }

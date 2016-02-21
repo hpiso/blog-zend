@@ -1,0 +1,36 @@
+<li class="media media-sm">
+    <div class="pull-right">
+        <?php if ($comment->isState()) : ?>
+            <button href="#" data-comment-id="<?php echo $comment->getId(); ?>"
+                    class="btn btn-success last-five-comment">
+                <i class="fa fa-check"></i>
+            </button>
+        <?php else : ?>
+            <button href="#" data-comment-id="<?php echo $comment->getId(); ?>"
+                    class="btn btn-warning last-five-comment">
+                <i class="fa fa-close"></i>
+            </button>
+        <?php endif ; ?>
+        <a href="<?php echo $this->url('admin/comment', ['action' => 'show', 'id' => $comment->getId()]); ?>"
+           class="btn btn-inverse">
+            <i class="fa fa-eye"></i>
+        </a>
+    </div>
+    <div class="media-body">
+        <a href="javascript:;">
+            <h5 class="media-heading">
+                <?php echo $comment->getName(); ?>
+                <?php if ($comment->isState()) : ?>
+                    <label class="label label-success">Approuvé</label>
+                <?php else : ?>
+                    <label class="label label-warning">Non approuvé</label>
+                <?php endif ; ?>
+            </h5>
+        </a>
+        <p class="m-b-5"><?php echo mb_strimwidth($comment->getContent(),0,150, "...");?></p>
+        <i class="text-muted">
+            Reçu le <?php echo $comment->getDate()->format('d F Y'); ?>
+            dans l'article "<?php echo $comment->getArticle()->getTitle(); ?>"
+        </i>
+    </div>
+</li>

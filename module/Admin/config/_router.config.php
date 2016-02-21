@@ -20,9 +20,10 @@ return array(
                 'articles' => array(
                     'type'    => 'Segment',
                     'options' => array(
-                        'route'    => '/articles[/:action]',
+                        'route'    => '/articles[/:action][/:id]',
                         'constraints' => array(
                             'action' => '[a-zA-Z][a-zA-Z0-9_-]*',
+                            'id'     => '[0-9]+'
                         ),
                         'defaults' => array(
                             'controller'    => 'articleController',
@@ -59,6 +60,34 @@ return array(
                         'defaults' => array(
                             'controller'    => 'commentController',
                             'action'        => 'index',
+                        ),
+                    ),
+                ),
+
+                //Route Setting
+                'setting' => array(
+                    'type'    => 'Segment',
+                    'options' => array(
+                        'route'    => '/setting[/:action][/:id]',
+                        'constraints' => array(
+                            'action' => '[a-zA-Z][a-zA-Z0-9_-]*',
+                            'id'     => '[0-9]+'
+                        ),
+                        'defaults' => array(
+                            'controller'    => 'settingController',
+                            'action'        => 'index',
+                        ),
+                    ),
+                ),
+
+                //Route AJAX pour update activer un commentaire
+                'contact' => array(
+                    'type'    => 'Literal',
+                    'options' => array(
+                        'route'    => '/comment/update',
+                        'defaults' => array(
+                            'controller'    => 'dashboardController',
+                            'action'        => 'updateStateComment',
                         ),
                     ),
                 ),

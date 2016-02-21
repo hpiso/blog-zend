@@ -74,7 +74,7 @@ class CategoryController extends BaseController
         }
 
         $form = new CategoryForm();
-        $form->setData(get_object_vars($category));
+        $form->setData((array) $category);
         $form->get('submit')->setAttribute('value', 'Modifier');
 
         $request = $this->getRequest();

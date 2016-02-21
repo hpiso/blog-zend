@@ -1,0 +1,61 @@
+<!-- begin breadcrumb -->
+<ol class="breadcrumb pull-right">
+    <li><a href="javascript:;">Home</a></li>
+    <li class="active">Dashboard</li>
+</ol>
+<!-- end breadcrumb -->
+<!-- begin page-header -->
+<h1 class="page-header">Settings</h1>
+
+<div class="row">
+    <div class="col-md-6 ui-sortable">
+        <div class="panel panel-inverse" data-sortable-id="table-basic-1">
+            <div class="panel-heading">
+                <h4 class="panel-title">Paramètre du blog</h4>
+            </div>
+            <div class="panel-body">
+                <?php
+
+                if ($this->flashMessenger()->hasMessages()) {
+                    echo '<div class="alert alert-success" role="alert">';
+                    echo '<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>';
+                    $messages = $this->flashMessenger()->getMessages();
+                    foreach($messages as $message) {
+                        echo $message;
+                    }
+                    echo '</div>';
+                }
+                ?>
+                <?php
+                $settingForm->setAttribute('action', $this->url('admin/setting'));
+                $settingForm->prepare();
+                echo $this->form()->openTag($settingForm);
+                echo $this->formHidden($settingForm->get('id'));
+                ?>
+
+                <div class="form-group">
+                    <?php echo $this->formLabel($settingForm->get('pagination')); ?>
+                    <?php echo $this->formSelect($settingForm->get('pagination')); ?>
+                </div>
+                <div class="form-group">
+                    <?php echo $this->formLabel($settingForm->get('backgroundColor')); ?>
+                    <div class="input-group color-picker">
+                        <?php echo $this->formInput($settingForm->get('backgroundColor')); ?>
+                        <span class="input-group-addon"><i></i></span>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <?php echo $this->formLabel($settingForm->get('navbarColor')); ?>
+                    <div class="input-group color-picker">
+                        <?php echo $this->formInput($settingForm->get('navbarColor')); ?>
+                        <span class="input-group-addon"><i></i></span>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <?php echo $this->formSubmit($settingForm->get('submit')); ?>
+                </div>
+                <?php echo $this->form()->closeTag(); ?>
+            </div>
+        </div>
+    </div>
+</div>

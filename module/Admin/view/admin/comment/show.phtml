@@ -14,31 +14,53 @@
                 <h4 class="panel-title">Détail d'un commentaire</h4>
             </div>
             <div class="panel-body">
-                <p>Name: <?php echo $comment->name?></p>
-                <p>email: <?php echo $comment->email?></p>
-                <p>content: <?php echo $comment->content?></p>
+                <div class="wrapper">
+                    <h4 class="m-b-15 m-t-0 p-b-10 underline"><?php echo $comment->getName()?></h4>
+                    <ul class="media-list underline m-b-20 p-b-15">
+                        <li class="media media-sm clearfix">
+                            <div class="media-body">
+                                <span class="email-from text-inverse f-w-600">
+                                    From <?php echo $comment->getEmail()?>
+                                </span>
+                                <span class="text-muted m-l-5"><i class="fa fa-clock-o fa-fw"></i> <?php echo $comment->getDate()->format('d F Y H:i:s')?></span><br />
+                            </div>
+                        </li>
+                    </ul>
 
-                <?php
+                    <p class="f-s-12 text-inverse">
+                        <?php echo $comment->getContent()?>
+                    </p>
+                    <p class="f-s-12 text-inverse">
+                        <?php
 
-                $commentForm->setAttribute('action', $this->url('admin/comment', [
-                        'action' => 'show',
-                        'id'     => $comment->getId()
-                    ]
-                ));
-                $commentForm->prepare();
+                        $commentForm->setAttribute('action', $this->url('admin/comment', [
+                                'action' => 'show',
+                                'id'     => $comment->getId()
+                            ]
+                        ));
+                        $commentForm->prepare();
 
-                echo $this->form()->openTag($commentForm);
-                echo $this->formHidden($commentForm->get('id'));
-                echo '<div class="form-group">';
-                echo $this->formLabel($commentForm->get('state'));
-                echo $this->formInput($commentForm->get('state'));
-                echo '</div>';
-                echo '<div class="form-group">';
-                echo $this->formSubmit($commentForm->get('submit'));
-                echo '</div>';
-                echo $this->form()->closeTag();
-                ?>
-
+                        echo $this->form()->openTag($commentForm);
+                        echo $this->formHidden($commentForm->get('id'));
+                        echo '<div class="form-group">';
+                        echo $this->formLabel($commentForm->get('state'));
+                        echo $this->formInput($commentForm->get('state'));
+                        echo '</div>';
+                        echo '<div class="form-group">';
+                        echo $this->formSubmit($commentForm->get('submit'));
+                        ?>
+                        <a href="<?php echo $this->url('admin/comment', ['action' => 'delete', 'id' => $comment->getId()]); ?>" class="btn btn-danger">
+                            Supprimer
+                        </a>
+                        <a href="<?php echo $this->url('admin/comment', ['action' => 'index']); ?>" class="btn btn-warning">
+                            Retour
+                        </a>
+                        <?php
+                        echo '</div>';
+                        echo $this->form()->closeTag();
+                        ?>
+                    </p>
+                </div>
             </div>
         </div>
     </div>

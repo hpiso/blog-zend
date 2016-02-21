@@ -2,6 +2,7 @@
  
 namespace Blog\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use Zend\Validator\Constraints as Assert;
 
@@ -19,49 +20,48 @@ class Article
      * @ORM\Column(type="integer")
      * @ORM\GeneratedValue(strategy="AUTO")
      */
-    protected $id;
+    public $id;
 
     /**
      * @var string
      * @ORM\Column(name="title", type="string", length=255, nullable=false)
      */
-    protected $title;
+    public $title;
 
     /**
      * @var string
      * @ORM\Column(name="image", type="string", length=255)
      */
-    protected $image;
+    public $image;
 
     /**
      * @var string
      * @ORM\Column(name="slug", type="string", length=255, nullable=false)
      */
-    protected $slug;
+    public $slug;
 
     /**
      * @var string
      * @ORM\Column(name="content", type="text")
      */
-    protected $content;
+    public $content;
 
     /**
      * @var string
      * @ORM\Column(name="date", type="datetime")
      */
-    protected $date;
+    public $date;
 
     /**
      * @var Boolean
      * @ORM\Column(name="state", type="boolean")
      */
-    protected $state;
+    public $state;
 
-//    /**
-//     * @ORM\ManyToOne(targetEntity="Blog\Entity\User", inversedBy="users")
-//     * @ORM\JoinColumn(name="user_id", referencedColumnName="id")
-//     */
-//    protected $author;
+    /**
+     * @ORM\OneToMany(targetEntity="Blog\Entity\Comment", mappedBy="article")
+     */
+    public $comments;
 
     /**
      *
@@ -73,6 +73,7 @@ class Article
 
     public function __construct(){
         $this->date = new \DateTime();
+        $this->comments = new ArrayCollection();
     }
 
     /**
@@ -221,6 +222,22 @@ class Article
     public function setCategory($category)
     {
         $this->category = $category;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getComments()
+    {
+        return $this->comments;
+    }
+
+    /**
+     * @param mixed $comments
+     */
+    public function setComments($comments)
+    {
+        $this->comments = $comments;
     }
 
 }

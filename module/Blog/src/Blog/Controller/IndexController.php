@@ -22,10 +22,10 @@ class IndexController extends BaseController
         $nbArticles = (int)$this->getEntityManager()->getRepository('Blog\Entity\Article')->getArticleCount();
 
         $pagination = $this->getServiceLocator()->get('pagination')
-            ->constructPagination($nbArticles, $currentPage, $this::MAX_PER_PAGE);
+            ->constructPagination($nbArticles, $currentPage, $this->getMaxPerPage());
 
         $articles = $this->getEntityManager()->getRepository('Blog\Entity\Article')
-            ->getArticlePaginator($pagination['current'], $this::MAX_PER_PAGE);
+            ->getArticlePaginator($pagination['current'], $this->getMaxPerPage());
 
         return new ViewModel([
             'articles' => $articles,
@@ -65,6 +65,14 @@ class IndexController extends BaseController
                 $em = $this->getEntityManager();
                 $em->persist($comment);
                 $em->flush();
+
+                //Envoie du mail
+                $this->getServiceLocator()->get('mail')
+                    ->sendMail($comment->getEmail(), $comment->getName(), $comment->getContent());
+
+                //Add flash message
+                $this->flashMessenger()->addMessage('Votre commentaire a été ajouté,
+                il est en attente de validation par l\'administrateur');
 
                 $eventManager = $this->getEventManager();
                 $eventManager->trigger('comment.add', null, compact($comment));
@@ -113,5 +121,12 @@ class IndexController extends BaseController
         return new ViewModel();
     }
 
+    private function getMaxPerPage() {
+        $setting = $this->getEntityManager()->getRepository('Blog\Entity\Setting')->findOneByState(true);
 
+        if (!$setting) {
+            return self::MAX_PER_PAGE;
+        }
+        return $setting->getPagination();
+    }
 }

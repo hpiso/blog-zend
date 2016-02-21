@@ -2,6 +2,18 @@
     <!-- begin post-detail -->
     <div class="post-detail section-container">
         <?php
+        if ($this->flashMessenger()->hasMessages()) {
+            echo '<div class="alert alert-success" role="alert">';
+            echo '<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>';
+            $messages = $this->flashMessenger()->getMessages();
+            foreach($messages as $message) {
+                echo $message;
+            }
+            echo '</div>';
+        }
+        ?>
+
+        <?php
             echo $this->partial('/partials/breadcrumb.phtml', [
                     'links' => [
                         'Home' => $this->url('blog'),

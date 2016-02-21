@@ -6,8 +6,10 @@ use Zend\ServiceManager\ServiceLocatorAwareInterface;
 use Zend\ServiceManager\ServiceLocatorInterface;
 use Zend\View\Helper\AbstractHelper;
 
-class CategoryWidget extends AbstractHelper implements ServiceLocatorAwareInterface
+class BackgroundColor extends AbstractHelper implements ServiceLocatorAwareInterface
 {
+    const DEFAULT_BACKGROUND_COLOR = '#ffffff'; //white
+
     /**
      * @var ServiceLocatorInterface
      */
@@ -27,9 +29,12 @@ class CategoryWidget extends AbstractHelper implements ServiceLocatorAwareInterf
     public function __invoke()
     {
         $em = $this->getServiceLocator()->getServiceLocator()->get('Doctrine\ORM\EntityManager');
-        $categories = $em->getRepository('Blog\Entity\Category')->findAll();
+        $setting = $em->getRepository('Blog\Entity\Setting')->findOneByState(true);
 
-        return $this->getView()->render('blog/index/partials/categorie', ['categories' => $categories]);
+        if (!$setting) {
+            return self::DEFAULT_BACKGROUND_COLOR;
+        }
 
+        return $setting->getBackgroundColor();
     }
 }

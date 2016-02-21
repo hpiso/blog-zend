@@ -20,10 +20,7 @@ class CommentForm extends Form
             'name' => 'state',
             'type' => 'Checkbox',
             'options' => array(
-                'label' => 'Actif',
-            ),
-            'attributes' => array(
-                'class' => 'form-control',
+                'label' => 'Approuvé',
             )
         ));
 
