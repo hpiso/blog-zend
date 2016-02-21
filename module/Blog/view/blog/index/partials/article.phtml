@@ -26,7 +26,7 @@
             <div class="post-by">
                 <?php echo $object->getDate()->format('d F Y') ;?> |</span> <a href="#">Sports</a>,
                 <a href="#">Parachute</a>, <a href="#">Blue Sky</a>
-                <span class="divider">|</span> 12 Comments
+                <span class="divider">|</span> <?php echo count($object->getComments()); ?> Comments
             </div>
             <div class="post-desc">
                 <?php echo mb_strimwidth($object->getContent(),0,350, "...");?>
