@@ -2,6 +2,7 @@
 
 return array(
     'invokables' => [
-        'pagination' => 'Blog\Service\Pagination'
+        'pagination' => 'Blog\Service\Pagination',
+        'mail'       => 'Blog\Service\Mail'
     ]
 );

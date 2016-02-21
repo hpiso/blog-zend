@@ -86,7 +86,6 @@ class CommentController extends BaseController
         //Add flash message
         $this->flashMessenger()->addMessage('Le commentaire '. $comment->getName().' a été supprimé.');
 
-
         //Redirection
         return $this->redirect()->toRoute('admin/comment');
     }
