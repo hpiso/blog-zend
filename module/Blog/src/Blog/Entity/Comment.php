@@ -50,7 +50,7 @@ class Comment
     public $date;
 
     /**
-     * @ORM\ManyToOne(targetEntity="Blog\Entity\Article")
+     * @ORM\ManyToOne(targetEntity="Blog\Entity\Article", inversedBy="comments")
      * @ORM\JoinColumn(name="article_id", referencedColumnName="id")
      */
     public $article;

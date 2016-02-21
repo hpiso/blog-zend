@@ -24,7 +24,9 @@
                 <a href="<?php echo $this->url('article', ['slug' => $object->getSlug()]); ?>"><?php echo $this->escapeHtml($object->getTitle());?></a>
             </h4>
             <div class="post-by">
-                <?php echo $object->getDate()->format('d F Y') ;?> |</span> <a href="#">Sports</a>, <a href="#">Parachute</a>, <a href="#">Blue Sky</a> <span class="divider">|</span> 12 Comments
+                <?php echo $object->getDate()->format('d F Y') ;?> |</span> <a href="#">Sports</a>,
+                <a href="#">Parachute</a>, <a href="#">Blue Sky</a>
+                <span class="divider">|</span> 12 Comments
             </div>
             <div class="post-desc">
                 <?php echo mb_strimwidth($object->getContent(),0,350, "...");?>
