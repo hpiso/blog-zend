@@ -58,10 +58,10 @@ class Article
     protected $state;
 
 //    /**
-//     * @ORM\ManyToOne(targetEntity="Blog\Entity\User")
+//     * @ORM\ManyToOne(targetEntity="Blog\Entity\User", inversedBy="users")
 //     * @ORM\JoinColumn(name="user_id", referencedColumnName="id")
 //     */
-//    protected $user;
+//    protected $author;
 
     /**
      *

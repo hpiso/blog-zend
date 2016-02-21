@@ -39,10 +39,13 @@ class CommentController extends BaseController
                 
                 $comment = $this->getHydrator()->hydrate($commentForm->getData(), $comment);
 
-                //Persist and flush entity Category
+                //Persist and flush entity Comment
                 $em = $this->getEntityManager();
                 $em->persist($comment);
                 $em->flush();
+
+                $eventManager = $this->getEventManager();
+                $eventManager->trigger('comment.add', null, compact($comment));
 
                 //Redirection
                 return $this->redirect()->toRoute('admin/comment');

@@ -22,13 +22,13 @@ class IndexController extends BaseController
         $nbArticles = (int)$this->getEntityManager()->getRepository('Blog\Entity\Article')->getArticleCount();
 
         $pagination = $this->getServiceLocator()->get('pagination')
-            ->constructPagination($nbArticles, $currentPage,$this::MAX_PER_PAGE);
+            ->constructPagination($nbArticles, $currentPage, $this::MAX_PER_PAGE);
 
         $articles = $this->getEntityManager()->getRepository('Blog\Entity\Article')
             ->getArticlePaginator($pagination['current'], $this::MAX_PER_PAGE);
 
         return new ViewModel([
-            'articles'   => $articles,
+            'articles' => $articles,
             'pagination' => $pagination,
         ]);
     }
@@ -39,7 +39,8 @@ class IndexController extends BaseController
         $article = $this->getEntityManager()->getRepository('Blog\Entity\Article')
             ->findOneBy(['slug' => $slug]);
 
-        if (!$article) {
+        if (!$article)
+        {
             throw new EntityNotFoundException('Entity Article not found');
         }
 
@@ -52,16 +53,21 @@ class IndexController extends BaseController
 
         $request = $this->getRequest();
 
-        if ($request->isPost()) {
+        if ($request->isPost())
+        {
             $commentForm->setData($request->getPost());
-            if ($commentForm->isValid()) {
+            if ($commentForm->isValid())
+            {
 
                 $comment = $this->getHydrator()->hydrate($commentForm->getData(), $comment);
 
-                //Persist and flush entity Category
+                //Persist and flush entity Comment
                 $em = $this->getEntityManager();
                 $em->persist($comment);
                 $em->flush();
+
+                $eventManager = $this->getEventManager();
+                $eventManager->trigger('comment.add', null, compact($comment));
 
                 //Redirection
                 return $this->redirect()->toRoute('article', ['slug' => $article->getSlug()]);
@@ -69,8 +75,8 @@ class IndexController extends BaseController
         }
 
         return new ViewModel([
-            'article'     => $article,
-            'comments'    => $comments,
+            'article' => $article,
+            'comments' => $comments,
             'commentForm' => $commentForm,
         ]);
     }
@@ -84,7 +90,8 @@ class IndexController extends BaseController
         $category = $this->getEntityManager()->getRepository('Blog\Entity\Category')
             ->findOneBy(['slug' => $slug]);
 
-        if (!$category) {
+        if (!$category)
+        {
             throw new EntityNotFoundException('Entity Category not found');
         }
 

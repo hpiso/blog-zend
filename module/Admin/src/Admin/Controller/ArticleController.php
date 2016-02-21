@@ -24,6 +24,7 @@ class ArticleController extends BaseController
     {
         $form = new ArticleForm();
         $article = new Article();
+        $eventManager = $this->getEventManager();
 
         $request = $this->getRequest();
         if ($request->isPost()) {
@@ -32,7 +33,6 @@ class ArticleController extends BaseController
             $post['image'] = '/upload/'.$request->getFiles()['image']['name'];
 
             $form->setData($post);
-
 
             if ($form->isValid()) {
 
@@ -47,6 +47,27 @@ class ArticleController extends BaseController
                 $em->persist($article);
                 $em->flush();
 
+                $eventManager->trigger('article.add', null, [
+                    'article_id' => $article->getId(),
+                    'article_title' => $article->getTitle(),
+                    'user_id' => $this->zfcUserAuthentication()->getIdentity()->getId(),
+                    'user_email' => $this->zfcUserAuthentication()->getIdentity()->getEmail()
+                ]);
+
+//                  TODO : à deplacer
+//                $eventManager->trigger('article.delete', null, [
+//                    'article_id' => $article->getId(),
+//                    'article_title' => $article->getTitle(),
+//                    'user_id' => $this->zfcUserAuthentication()->getIdentity()->getId(),
+//                    'user_email' => $this->zfcUserAuthentication()->getIdentity()->getEmail()
+//                ]);
+
+//                $eventManager->trigger('article.edit', null, [
+//                    'article_id' => $article->getId(),
+//                    'article_title' => $article->getTitle(),
+//                    'user_id' => $this->zfcUserAuthentication()->getIdentity()->getId(),
+//                    'user_email' => $this->zfcUserAuthentication()->getIdentity()->getEmail()
+//                ]);
             }
         }
 
