@@ -19,12 +19,16 @@ class DashboardController extends BaseController
         $lastFiveArticles = $this->getEntityManager()->getRepository('Blog\Entity\Article')
             ->findBy([], ['date' => 'DESC'], 5);
 
+        $lastTenLogs = $this->getEntityManager()->getRepository('Blog\Entity\Log')
+            ->findBy([], ['date' => 'DESC'], 10);
+
         return new ViewModel([
             'articles'         => $articles,
             'comments'         => $comments,
             'categories'       => $categories,
             'lastFiveComments' => $lastFiveComments,
-            'lastFiveArticles' => $lastFiveArticles
+            'lastFiveArticles' => $lastFiveArticles,
+            'lastTenLogs'      => $lastTenLogs
         ]);
     }
 

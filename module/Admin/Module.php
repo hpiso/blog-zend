@@ -126,7 +126,7 @@ class Module
         });
         $zfcAuthEvents->attach('authenticate.success', function ($e)
         {
-            $this->logger->notice('User successfully logged in the application from' . $_SERVER['REMOTE_ADDR']);
+            $this->logger->notice('User successfully logged in the application from ' . $_SERVER['REMOTE_ADDR']);
         });
         $zfcAuthEvents->attach('authenticate.fail', function ($e)
         {

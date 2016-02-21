@@ -80,6 +80,18 @@ return array(
                     ),
                 ),
 
+                //Route Log
+                'log' => array(
+                    'type'    => 'Literal',
+                    'options' => array(
+                        'route'    => '/log',
+                        'defaults' => array(
+                            'controller'    => 'LogController',
+                            'action'        => 'index',
+                        ),
+                    ),
+                ),
+
                 //Route AJAX pour update activer un commentaire
                 'contact' => array(
                     'type'    => 'Literal',
