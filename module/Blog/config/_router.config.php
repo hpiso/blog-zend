@@ -46,9 +46,10 @@ return array(
         'category' => array(
             'type'    => 'Segment',
             'options' => array(
-                'route'    => '/category[/:slug]',
+                'route'    => '/category[/:slug][/:page]',
                 'constraints' => array(
                     'slug' => '[a-zA-Z][a-zA-Z0-9_-]*',
+                    'id'   => '[0-9]+'
                 ),
                 'defaults' => array(
                     'controller'    => 'blogController',
