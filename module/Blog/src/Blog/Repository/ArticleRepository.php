@@ -12,6 +12,8 @@ class ArticleRepository extends EntityRepository
     public function getArticlePaginator($offset = 0, $max = 5)
     {
         $qb = $this->createQueryBuilder('a')
+            ->where('a.state = :state')
+            ->setParameter('state', true)
             ->orderBy('a.date', 'DESC')
             ->setFirstResult(($offset - 1) * $max)
             ->setMaxResults($max);

@@ -24,7 +24,14 @@
             );
         ?>
         <h4 class="post-title">
-            <a href="post_detail.html"><?php echo $this->escapeHtml($article->getTitle());?></a>
+            <a href="#"><?php echo $this->escapeHtml($article->getTitle());?></a>
+            <?php if($this->zfcUserIdentity()): ?>
+                <a  class="btn btn-default"
+                    href="<?php echo $this->url('admin/articles', ['action' => 'edit', 'id' => $article->getId()]); ?>">
+                    <i class="fa fa-pencil"></i>
+                    Modifier l'article
+                </a>
+            <?php endif?>
         </h4>
         <div class="post-by">
             <?php echo $article->getDate()->format('d F Y') ;?> <span class="divider">|</span> <a href="#">Sports</a>, <a href="#">Mountain</a>, <a href="#">Bike</a> <span class="divider">|</span> 2 Comments
