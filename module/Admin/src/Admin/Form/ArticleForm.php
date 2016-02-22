@@ -40,9 +40,6 @@ class ArticleForm extends Form
         $this->add(array(
             'type' => 'Zend\Form\Element\Select',
             'required' => true,
-            'attributes' => array(
-                'multiple' => 'multiple',
-            ),
             'name' => 'category_id',
             'options' => array(
                 'label' => 'Category',

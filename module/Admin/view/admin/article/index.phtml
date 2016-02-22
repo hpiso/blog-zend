@@ -35,6 +35,7 @@
                         <tr>
                             <th>Image</th>
                             <th>Titre</th>
+                            <th>Catégorie associée</th>
                             <th>Date de création</th>
                             <th>Etat</th>
                             <th>Action</th>
@@ -45,6 +46,7 @@
                             <tr>
                                 <td><img src="<?php echo $article->getImage() ?>" width="140px" height="140px" class="img-rounded" alt=""></td>
                                 <td><?php echo $this->escapeHtml($article->getTitle());?></td>
+                                <td><?php echo $article->getCategory()->getName();?></td>
                                 <td><?php echo $article->getDate()->format('d F Y')?></td>
                                 <td>
                                     <?php if ($article->isState()) : ?>

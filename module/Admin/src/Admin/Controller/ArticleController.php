@@ -25,7 +25,7 @@ class ArticleController extends BaseController
     public function addAction()
     {
         $categories = $this->getEntityManager()->getRepository('Blog\Entity\Category')->findAll();
-        $tabCate = array();
+        $tabCate = [];
         foreach ($categories as $category) {
             $tabCate[$category->getId()] = $category->getName();
         }
@@ -40,13 +40,13 @@ class ArticleController extends BaseController
             $post = $request->getPost();
             $post['image'] = '/upload/'.$request->getFiles()['image']['name'];
 
-            $category = $this->getEntityManager()->getRepository('Blog\Entity\Category')->find($post['category_id'][0]);
+            $category = $this->getEntityManager()->getRepository('Blog\Entity\Category')->find($post['category_id']);
 
             $form->setData($post);
 
             if ($form->isValid()) {
 
-                if( !empty($_FILES['image']) ) {
+                if(!empty($_FILES['image']) ) {
                     $picture_temp = $_FILES['image']['tmp_name'];
                     $picture = $_FILES['image']['name'];
                     move_uploaded_file($picture_temp,$_SERVER['DOCUMENT_ROOT'].'/upload/'.$picture);
@@ -87,7 +87,7 @@ class ArticleController extends BaseController
         }
 
         $categories = $this->getEntityManager()->getRepository('Blog\Entity\Category')->findAll();
-        $tabCate = array();
+        $tabCate = [];
         foreach ($categories as $category) {
             $tabCate[$category->getId()] = $category->getName();
         }
@@ -97,7 +97,6 @@ class ArticleController extends BaseController
         $form->get('submit')->setAttribute('value', 'Modifier');
 
         $request = $this->getRequest();
-
         if ($request->isPost()) {
             $post = $request->getPost();
             if(!isset($post['image'])) {
@@ -110,7 +109,9 @@ class ArticleController extends BaseController
             $form->setData($post);
             if ($form->isValid()) {
 
-                $article = $this->getHydrator()->hydrate($form->getData(), $article);
+                $category = $this->getEntityManager()->getRepository('Blog\Entity\Category')->find($post['category_id']);
+                $article  = $this->getHydrator()->hydrate($form->getData(), $article);
+                $article->setCategory($category);
 
                 //Persist and flush entity Article
                 $em = $this->getEntityManager();
@@ -153,11 +154,7 @@ class ArticleController extends BaseController
             //Remove Article entity
             $em = $this->getEntityManager();
             $em->remove($article);
-//            var_dump($article);die;
             $em->flush();
-            if(!empty($article->getImage())) {
-//                unlink($_SERVER['DOCUMENT_ROOT'].$article->getImage());
-            }
 
             $eventManager = $this->getEventManager();
             $eventManager->trigger('article.delete', null, [

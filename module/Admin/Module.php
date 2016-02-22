@@ -18,7 +18,7 @@ class Module
             'driver' => 'Pdo_Mysql',
             'host' => 'localhost',
             'user'     => 'root',
-            'password' => '',
+            'password' => '90473977096',
             'dbname'   => 'blog-zend',
         ]);
 
