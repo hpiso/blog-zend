@@ -53,7 +53,7 @@
                                         <label class="label label-warning">Désactivé</label>
                                     <?php endif ; ?>
                                 </td>
-                                <td><a href="<?php echo $this->url('article', ['action' => 'slug', 'id' => $article->getSlug()]); ?>" class="btn btn-inverse"><i class="fa fa-eye"></i></a>
+                                <td><a href="<?php echo $this->url('article', ['action' => 'slug', 'slug' => $article->getSlug()]); ?>" class="btn btn-inverse"><i class="fa fa-eye"></i></a>
                                     <a href="<?php echo $this->url('admin/articles', ['action' => 'edit', 'id' => $article->getId()]); ?>"
                                        class="btn btn-warning">
                                         <i class="fa fa-edit"></i>

@@ -33,6 +33,11 @@
                 echo $this->formInput($form->get('title'));
                 echo '</div>';
                 echo '<div class="form-group">';
+                echo $this->formLabel($form->get('category_id'));
+                echo '<br>';
+                echo $this->formSelect($form->get('category_id'));
+                echo '</div>';
+                echo '<div class="form-group">';
                 echo $this->formLabel($form->get('slug'));
                 echo $this->formInput($form->get('slug'));
                 echo '</div>';
