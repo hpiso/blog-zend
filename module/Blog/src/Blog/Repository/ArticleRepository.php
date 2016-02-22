@@ -25,7 +25,13 @@ class ArticleRepository extends EntityRepository
 
     public function getArticleCount()
     {
-        return $this->createQueryBuilder('a')->select('count(a)')->getQuery()->getSingleScalarResult();
+        $qb = $this->createQueryBuilder('a');
+
+        $qb->select('count(a)')
+            ->where('a.state = :state')
+            ->setParameter('state', true);
+
+        return $qb->getQuery()->getSingleScalarResult();
     }
 
 }
