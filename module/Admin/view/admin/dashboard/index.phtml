@@ -138,14 +138,14 @@
                     <ul class="media-list media-list-with-divider">
                         <?php foreach ($lastFiveArticles as $lastFiveArticle) : ?>
                             <li class="media media-sm">
-                                <div href="javascript:;" class="pull-right">
-                                    <button href="#"
+                                <div class="pull-right">
+                                    <a href="<?php echo $this->url('article', ['action' => 'slug', 'slug' => $lastFiveArticle->getSlug()]); ?>""
                                        class="btn btn-inverse">
                                         <i class="fa fa-eye"></i>
-                                    </button>
+                                    </a>
                                 </div>
                                 <div class="media-body">
-                                    <a href="javascript:;"><h4 class="media-heading"><?php echo $lastFiveArticle->getTitle(); ?></h4></a>
+                                    <a href="<?php echo $this->url('article', ['action' => 'slug', 'slug' => $lastFiveArticle->getSlug()]); ?>"><h4 class="media-heading"><?php echo $lastFiveArticle->getTitle(); ?></h4></a>
                                     <p class="m-b-5"><?php echo mb_strimwidth($lastFiveArticle->getContent(),0,150, "...");?></p>
                                 </div>
                             </li>
