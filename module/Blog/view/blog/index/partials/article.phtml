@@ -7,7 +7,6 @@
         </div>
         <div class="post-likes">
             <i class="fa fa-heart-o"></i>
-            <span class="number">1,292</span>
         </div>
     </div>
     <!-- end post-left-info -->
@@ -15,7 +14,7 @@
     <div class="post-content">
         <!-- begin post-image -->
         <div class="post-image">
-            <a href="<?php echo $this->url('article', ['slug' => $object->getSlug()]); ?>"><img src="http://img0.gtsstatic.com/wallpapers/bcfba0abf336fc2d5653927791a2ba80_large.jpeg" alt="" /></a>
+            <a href="<?php echo $this->url('article', ['slug' => $object->getSlug()]); ?>"><img src="<?php echo $object->getImage(); ?>" alt="" /></a>
         </div>
         <!-- end post-image -->
         <!-- begin post-info -->
