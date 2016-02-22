@@ -19,17 +19,22 @@ class DashboardController extends BaseController
         $lastFiveArticles = $this->getEntityManager()->getRepository('Blog\Entity\Article')
             ->findBy([], ['date' => 'DESC'], 5);
 
+        $lastTenLogs = $this->getEntityManager()->getRepository('Blog\Entity\Log')
+            ->findBy([], ['date' => 'DESC'], 10);
+
         return new ViewModel([
             'articles'         => $articles,
             'comments'         => $comments,
             'categories'       => $categories,
             'lastFiveComments' => $lastFiveComments,
-            'lastFiveArticles' => $lastFiveArticles
+            'lastFiveArticles' => $lastFiveArticles,
+            'lastTenLogs'      => $lastTenLogs
         ]);
     }
 
     public function updateStateCommentAction()
     {
+        $eventManager = $this->getEventManager();
         if ($this->getRequest()->isXmlHttpRequest()) {
 
             $em = $this->getEntityManager();
@@ -49,6 +54,14 @@ class DashboardController extends BaseController
 
             $em->persist($comment);
             $em->flush();
+
+            $eventManager->trigger($comment->isState() ? 'comment.approve' : 'comment.reject', null, [
+                'comment_id' => $comment->getId(),
+                'article_id' => $comment->getArticle()->getId(),
+                'article_title' => $comment->getArticle()->getTitle(),
+                'user_id' => $this->zfcUserAuthentication()->getIdentity()->getId(),
+                'user_email' => $this->zfcUserAuthentication()->getIdentity()->getEmail()
+            ]);
 
             $view = new ViewModel(['comment' => $comment]);
             $view->setTemplate('admin/updateComment');

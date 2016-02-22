@@ -25,6 +25,7 @@ class ArticleController extends BaseController
     {
         $form = new ArticleForm();
         $article = new Article();
+        $eventManager = $this->getEventManager();
 
         $request = $this->getRequest();
         if ($request->isPost()) {
@@ -33,7 +34,6 @@ class ArticleController extends BaseController
             $post['image'] = '/upload/'.$request->getFiles()['image']['name'];
 
             $form->setData($post);
-
 
             if ($form->isValid()) {
 
@@ -48,6 +48,12 @@ class ArticleController extends BaseController
                 $em->persist($article);
                 $em->flush();
 
+                $eventManager->trigger('article.add', null, [
+                    'article_id' => $article->getId(),
+                    'article_title' => $article->getTitle(),
+                    'user_id' => $this->zfcUserAuthentication()->getIdentity()->getId(),
+                    'user_email' => $this->zfcUserAuthentication()->getIdentity()->getEmail()
+                ]);
             }
         }
 
@@ -82,6 +88,14 @@ class ArticleController extends BaseController
                 $em->persist($article);
                 $em->flush();
 
+                $eventManager = $this->getEventManager();
+                $eventManager->trigger('article.edit', null, [
+                    'article_id' => $article->getId(),
+                    'article_title' => $article->getTitle(),
+                    'user_id' => $this->zfcUserAuthentication()->getIdentity()->getId(),
+                    'user_email' => $this->zfcUserAuthentication()->getIdentity()->getEmail()
+                ]);
+
                 //Add flash message
                 $this->flashMessenger()->addMessage('L\'article '. $form->getData()['title'].' a été modifié.');
 
@@ -115,6 +129,15 @@ class ArticleController extends BaseController
             if(!empty($article->getImage())) {
                 unlink($article->getImage());
             }
+
+            $eventManager = $this->getEventManager();
+            $eventManager->trigger('article.delete', null, [
+                'article_id' => $article->getId(),
+                'article_title' => $article->getTitle(),
+                'user_id' => $this->zfcUserAuthentication()->getIdentity()->getId(),
+                'user_email' => $this->zfcUserAuthentication()->getIdentity()->getEmail()
+            ]);
+
             //Add flash message
             $this->flashMessenger()->addMessage('L\'article '. $article->getTitle().' a été supprimé.');
         }

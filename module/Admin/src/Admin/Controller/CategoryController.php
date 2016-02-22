@@ -22,15 +22,19 @@ class CategoryController extends BaseController
 
     public function addAction()
     {
+        $eventManager = $this->getEventManager();
+
         $form = new CategoryForm();
         $form->get('submit')->setAttribute('value', 'Ajouter');
         $category = new Category();
 
         $request = $this->getRequest();
 
-        if ($request->isPost()) {
+        if ($request->isPost())
+        {
             $form->setData($request->getPost());
-            if ($form->isValid()) {
+            if ($form->isValid())
+            {
 
                 $category = $this->getHydrator()->hydrate($form->getData(), $category);
 
@@ -39,8 +43,15 @@ class CategoryController extends BaseController
                 $em->persist($category);
                 $em->flush();
 
+                $eventManager->trigger('category.add', null, [
+                    'category_id' => $category->getId(),
+                    'category_name' => $category->getName(),
+                    'user_id' => $this->zfcUserAuthentication()->getIdentity()->getId(),
+                    'user_email' => $this->zfcUserAuthentication()->getIdentity()->getEmail()
+                ]);
+
                 //Add flash message
-                $this->flashMessenger()->addMessage('La catégorie '. $form->getData()['name'].' a été ajouté.');
+                $this->flashMessenger()->addMessage('La catégorie ' . $form->getData()['name'] . ' a été ajoutée.');
 
                 //Redirection
                 return $this->redirect()->toRoute('admin/categories');
@@ -57,7 +68,8 @@ class CategoryController extends BaseController
         $id = $this->params('id');
         $category = $this->getEntityManager()->getRepository('Blog\Entity\Category')->find($id);
 
-        if (!$category) {
+        if (!$category)
+        {
             throw new EntityNotFoundException('Entity Category not found');
         }
 
@@ -67,9 +79,11 @@ class CategoryController extends BaseController
 
         $request = $this->getRequest();
 
-        if ($request->isPost()) {
+        if ($request->isPost())
+        {
             $form->setData($request->getPost());
-            if ($form->isValid()) {
+            if ($form->isValid())
+            {
 
                 $category = $this->getHydrator()->hydrate($form->getData(), $category);
 
@@ -78,8 +92,16 @@ class CategoryController extends BaseController
                 $em->persist($category);
                 $em->flush();
 
+                $eventManager = $this->getEventManager();
+                $eventManager->trigger('category.edit', null, [
+                    'category_id' => $category->getId(),
+                    'category_name' => $category->getName(),
+                    'user_id' => $this->zfcUserAuthentication()->getIdentity()->getId(),
+                    'user_email' => $this->zfcUserAuthentication()->getIdentity()->getEmail()
+                ]);
+
                 //Add flash message
-                $this->flashMessenger()->addMessage('La catégorie '. $form->getData()['name'].' a été modifié.');
+                $this->flashMessenger()->addMessage('La catégorie ' . $form->getData()['name'] . ' a été modifié.');
 
                 //Redirection
                 return $this->redirect()->toRoute('admin/categories');
@@ -87,7 +109,7 @@ class CategoryController extends BaseController
         }
 
         return new ViewModel([
-            'form'     => $form,
+            'form' => $form,
             'category' => $category
         ]);
     }
@@ -97,21 +119,30 @@ class CategoryController extends BaseController
         $id = $this->params('id');
         $category = $this->getEntityManager()->getRepository('Blog\Entity\Category')->find($id);
 
-        if (!$category) {
+        if (!$category)
+        {
             throw new EntityNotFoundException('Entity Category not found');
         }
 
         $request = $this->getRequest();
 
-        if ($request->isPost()) {
-
+        if ($request->isPost())
+        {
+            $eventManager = $this->getEventManager();
+            $eventManager->trigger('category.delete', null, [
+                'category_id' => $category->getId(),
+                'category_name' => $category->getName(),
+                'user_id' => $this->zfcUserAuthentication()->getIdentity()->getId(),
+                'user_email' => $this->zfcUserAuthentication()->getIdentity()->getEmail()
+            ]);
+            
             //Remove Category entity
             $em = $this->getEntityManager();
             $em->remove($category);
             $em->flush();
 
             //Add flash message
-            $this->flashMessenger()->addMessage('La catégorie '. $category->getName().' a été supprimé.');
+            $this->flashMessenger()->addMessage('La catégorie ' . $category->getName() . ' a été supprimé.');
         }
 
         //Redirection
