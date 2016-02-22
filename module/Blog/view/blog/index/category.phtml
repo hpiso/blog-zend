@@ -22,19 +22,35 @@ echo $this->partial('/partials/breadcrumb.phtml', [
 </ul>
 <!-- end post-list -->
 
-<div class="section-container">
-    <!-- begin pagination -->
-    <div class="pagination-container text-center">
-        <ul class="pagination m-t-0 m-b-0">
-            <li class="disabled"><a href="javascript:;">Prev</a></li>
-            <li class="active"><a href="javascript:;">1</a></li>
-            <li><a href="javascript:;">2</a></li>
-            <li><a href="javascript:;">3</a></li>
-            <li><span class="text">...</span></li>
-            <li><a href="javascript:;">1797</a></li>
-            <li><a href="javascript:;">Next</a></li>
-        </ul>
+    <div class="section-container">
+        <!-- begin pagination -->
+        <div class="pagination-container text-center">
+            <ul class="pagination m-t-0 m-b-0">
+                <li><a href="<?= $this->Url('category', ['slug' => $category->getSlug(), 'page' => $pagination['first']])?>">First</a></li>
+                <li class="<?php echo $pagination['previous'] == null ? 'disabled' : '' ?>">
+                    <?php if (isset($pagination['previous'])): ?>
+                        <a href="<?= $this->Url('category', ['slug' => $category->getSlug(), 'page' => $pagination['previous']])?>">Previous</a>
+                    <?php else: ?>
+                        <span class="text">Previous</span>
+                    <?php endif; ?>
+                </li>
+                <?php if(isset($pagination['previous'])): ?>
+                    <li><a href="<?= $this->Url('category', ['slug' => $category->getSlug(), 'page' => $pagination['previous']])?>"><?= $pagination['previous'] ?></a></li>
+                <?php endif; ?>
+                <li class="active"><a href="<?= $this->Url('category', ['slug' => $category->getSlug(), 'page' => $pagination['current']])?>"><?php echo $pagination['current'] ?></a></li>
+                <?php if(isset($pagination['next'])): ?>
+                    <li><a href="<?= $this->Url('category', ['slug' => $category->getSlug(), 'page' => $pagination['next']])?>"><?= $pagination['next'] ?></a></li>
+                <?php endif; ?>
+                <li class="<?php echo $pagination['next'] == null ? 'disabled' : '' ?>">
+                    <?php if (isset($pagination['next'])): ?>
+                        <a href="<?= $this->Url('category', ['slug' => $category->getSlug(), 'page' => $pagination['next']])?>">Next</a>
+                    <?php else: ?>
+                        <span class="text">Next</span>
+                    <?php endif; ?>
+                </li>
+                <li><a href="<?= $this->Url('category', ['slug' => $category->getSlug(), 'page' => $pagination['last']])?>">Last</a></li>
+            </ul>
+        </div>
+        <!-- end pagination -->
     </div>
-    <!-- end pagination -->
-</div>
 </div>

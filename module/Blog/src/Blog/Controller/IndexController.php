@@ -112,12 +112,25 @@ class IndexController extends BaseController
             throw new EntityNotFoundException('Entity Category not found');
         }
 
+        $currentPage = $this->params('page');
+
+        if (!$currentPage) {
+            $currentPage = 1;
+        }
+
+        $nbArticles = $this->getEntityManager()->getRepository('Blog\Entity\Article')
+            ->getArticleByCategoryCount($category->getId());
+
+        $pagination = $this->getServiceLocator()->get('pagination')
+            ->constructPagination($nbArticles, $currentPage, $this->getMaxPerPage());
+
         $articles = $this->getEntityManager()->getRepository('Blog\Entity\Article')
-            ->findBy(['category' => $category->getId()]);
+            ->getArticleByCategoryPaginator($pagination['current'], $this->getMaxPerPage(), $category);
 
         return new ViewModel([
             'articles' => $articles,
             'category' => $category,
+            'pagination' => $pagination,
         ]);
     }
 
