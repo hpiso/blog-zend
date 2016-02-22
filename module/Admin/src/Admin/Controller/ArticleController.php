@@ -54,6 +54,11 @@ class ArticleController extends BaseController
                     'user_id' => $this->zfcUserAuthentication()->getIdentity()->getId(),
                     'user_email' => $this->zfcUserAuthentication()->getIdentity()->getEmail()
                 ]);
+
+                //Add flash message
+                $this->flashMessenger()->addMessage('Article ajouté');
+
+                return $this->redirect()->toRoute('admin/articles');
             }
         }
 
