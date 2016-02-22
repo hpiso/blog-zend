@@ -4,6 +4,7 @@ namespace Admin\Controller;
 
 use Admin\Form\ArticleForm;
 use Blog\Entity\Article;
+use Blog\Entity\Category;
 use Doctrine\ORM\EntityNotFoundException;
 use Zend\View\Model\ViewModel;
 
@@ -23,7 +24,13 @@ class ArticleController extends BaseController
 
     public function addAction()
     {
-        $form = new ArticleForm();
+        $categories = $this->getEntityManager()->getRepository('Blog\Entity\Category')->findAll();
+        $tabCate = array();
+        foreach ($categories as $category) {
+            $tabCate[$category->getId()] = $category->getName();
+        }
+
+        $form = new ArticleForm('article',$tabCate);
         $article = new Article();
         $eventManager = $this->getEventManager();
 
@@ -32,6 +39,8 @@ class ArticleController extends BaseController
 
             $post = $request->getPost();
             $post['image'] = '/upload/'.$request->getFiles()['image']['name'];
+
+            $category = $this->getEntityManager()->getRepository('Blog\Entity\Category')->find($post['category_id'][0]);
 
             $form->setData($post);
 
@@ -43,6 +52,7 @@ class ArticleController extends BaseController
                     move_uploaded_file($picture_temp,$_SERVER['DOCUMENT_ROOT'].'/upload/'.$picture);
                 }
                 $article = $this->getHydrator()->hydrate($form->getData(), $article);
+                $article->setCategory($category);
 
                 $em = $this->getEntityManager();
                 $em->persist($article);
@@ -76,14 +86,28 @@ class ArticleController extends BaseController
             throw new EntityNotFoundException('Entity Article not found');
         }
 
-        $form = new ArticleForm();
+        $categories = $this->getEntityManager()->getRepository('Blog\Entity\Category')->findAll();
+        $tabCate = array();
+        foreach ($categories as $category) {
+            $tabCate[$category->getId()] = $category->getName();
+        }
+
+        $form = new ArticleForm('article',$tabCate);
         $form->setData(get_object_vars($article));
         $form->get('submit')->setAttribute('value', 'Modifier');
 
         $request = $this->getRequest();
 
         if ($request->isPost()) {
-            $form->setData($request->getPost());
+            $post = $request->getPost();
+            if(!isset($post['image'])) {
+                $post['image'] = $article->getImage();
+            }
+            if(!isset($post['category_id'])) {
+                $post['category_id'] = $article->getCategory()->getId();
+            }
+
+            $form->setData($post);
             if ($form->isValid()) {
 
                 $article = $this->getHydrator()->hydrate($form->getData(), $article);
@@ -108,7 +132,6 @@ class ArticleController extends BaseController
                 return $this->redirect()->toRoute('admin/articles');
             }
         }
-        $form->setData(['Slug'=>'okok']);
         return new ViewModel([
             'form'     => $form,
             'article' => $article
@@ -130,9 +153,10 @@ class ArticleController extends BaseController
             //Remove Article entity
             $em = $this->getEntityManager();
             $em->remove($article);
+//            var_dump($article);die;
             $em->flush();
             if(!empty($article->getImage())) {
-                unlink($article->getImage());
+//                unlink($_SERVER['DOCUMENT_ROOT'].$article->getImage());
             }
 
             $eventManager = $this->getEventManager();

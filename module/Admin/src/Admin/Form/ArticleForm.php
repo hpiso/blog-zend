@@ -8,7 +8,7 @@ use Zend\Form\Form;
 
 class ArticleForm extends Form
 {
-    public function __construct($name = null)
+    public function __construct($name = null, $categories)
     {
         // we want to ignore the name passed
         parent::__construct('article');
@@ -20,6 +20,7 @@ class ArticleForm extends Form
 
         $this->add(array(
             'name' => 'title',
+            'required' => true,
             'type' => 'Text',
             'options' => array(
                 'label' => 'Title',
@@ -34,18 +35,24 @@ class ArticleForm extends Form
             ->setAttribute('id', 'image');
         $this->add($file);
 
-//        $this->add(array(
-//            'name' => 'image',
-//            'attributes' => array(
-//                'type'  => 'file',
-//            ),
-//            'options' => array(
-//                'label' => 'Image',
-//            )
-//        ));
+
+
+        $this->add(array(
+            'type' => 'Zend\Form\Element\Select',
+            'required' => true,
+            'attributes' => array(
+                'multiple' => 'multiple',
+            ),
+            'name' => 'category_id',
+            'options' => array(
+                'label' => 'Category',
+                'value_options' => $categories
+            ),
+        ));
 
         $this->add(array(
             'name' => 'slug',
+            'required' => true,
             'type' => 'Text',
             'options' => array(
                 'label' => 'Slug',
@@ -57,6 +64,7 @@ class ArticleForm extends Form
 
         $this->add(array(
             'name' => 'content',
+            'required' => true,
             'type' => 'Textarea',
             'options' => array(
                 'label' => 'Contenu',

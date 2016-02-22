@@ -16,9 +16,9 @@ class Module
     {
         $db = new Adapter([
             'driver' => 'Pdo_Mysql',
-            'host' => '127.0.0.1',
+            'host' => 'localhost',
             'user'     => 'root',
-            'password' => '90473977096',
+            'password' => '',
             'dbname'   => 'blog-zend',
         ]);
 
