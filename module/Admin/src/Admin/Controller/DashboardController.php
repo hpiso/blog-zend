@@ -12,6 +12,7 @@ class DashboardController extends BaseController
         $articles   = $this->getEntityManager()->getRepository('Blog\Entity\Article')->findAll();
         $comments   = $this->getEntityManager()->getRepository('Blog\Entity\Comment')->findAll();
         $categories = $this->getEntityManager()->getRepository('Blog\Entity\Category')->findAll();
+        $logs       = $this->getEntityManager()->getRepository('Blog\Entity\Log')->findAll();
 
         $lastFiveComments = $this->getEntityManager()->getRepository('Blog\Entity\Comment')
             ->findBy([], ['date' => 'DESC'], 5);
@@ -26,6 +27,7 @@ class DashboardController extends BaseController
             'articles'         => $articles,
             'comments'         => $comments,
             'categories'       => $categories,
+            'logs'             => $logs,
             'lastFiveComments' => $lastFiveComments,
             'lastFiveArticles' => $lastFiveArticles,
             'lastTenLogs'      => $lastTenLogs

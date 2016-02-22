@@ -16,7 +16,7 @@
                 <p><?php echo count($articles); ?></p>
             </div>
             <div class="stats-link">
-                <a href="javascript:;">View Detail <i class="fa fa-arrow-circle-o-right"></i></a>
+                <a href="<?php echo $this->url('admin/articles'); ?>">View Detail <i class="fa fa-arrow-circle-o-right"></i></a>
             </div>
         </div>
     </div>
@@ -30,7 +30,7 @@
                 <p><?php echo count($comments); ?></p>
             </div>
             <div class="stats-link">
-                <a href="javascript:;">View Detail <i class="fa fa-arrow-circle-o-right"></i></a>
+                <a href="<?php echo $this->url('admin/comment'); ?>">View Detail <i class="fa fa-arrow-circle-o-right"></i></a>
             </div>
         </div>
     </div>
@@ -44,7 +44,7 @@
                 <p><?php echo count($categories); ?></p>
             </div>
             <div class="stats-link">
-                <a href="javascript:;">View Detail <i class="fa fa-arrow-circle-o-right"></i></a>
+                <a href="<?php echo $this->url('admin/categories'); ?>">View Detail <i class="fa fa-arrow-circle-o-right"></i></a>
             </div>
         </div>
     </div>
@@ -54,11 +54,11 @@
         <div class="widget widget-stats bg-red">
             <div class="stats-icon"><i class="fa fa-clock-o"></i></div>
             <div class="stats-info">
-                <h4>AVG TIME ON SITE</h4>
-                <p>00:12:23</p>
+                <h4>LOGS</h4>
+                <p><?php echo count($logs); ?></p>
             </div>
             <div class="stats-link">
-                <a href="javascript:;">View Detail <i class="fa fa-arrow-circle-o-right"></i></a>
+                <a href="<?php echo $this->url('admin/log'); ?>">View Detail <i class="fa fa-arrow-circle-o-right"></i></a>
             </div>
         </div>
     </div>
@@ -138,14 +138,14 @@
                     <ul class="media-list media-list-with-divider">
                         <?php foreach ($lastFiveArticles as $lastFiveArticle) : ?>
                             <li class="media media-sm">
-                                <div href="javascript:;" class="pull-right">
-                                    <button href="#"
+                                <div class="pull-right">
+                                    <a href="<?php echo $this->url('article', ['action' => 'slug', 'slug' => $lastFiveArticle->getSlug()]); ?>""
                                        class="btn btn-inverse">
                                         <i class="fa fa-eye"></i>
-                                    </button>
+                                    </a>
                                 </div>
                                 <div class="media-body">
-                                    <a href="javascript:;"><h4 class="media-heading"><?php echo $lastFiveArticle->getTitle(); ?></h4></a>
+                                    <a href="<?php echo $this->url('article', ['action' => 'slug', 'slug' => $lastFiveArticle->getSlug()]); ?>"><h4 class="media-heading"><?php echo $lastFiveArticle->getTitle(); ?></h4></a>
                                     <p class="m-b-5"><?php echo mb_strimwidth($lastFiveArticle->getContent(),0,150, "...");?></p>
                                 </div>
                             </li>
