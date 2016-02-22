@@ -2,6 +2,8 @@
     ->prependFile($this->basePath('assets/admin/js/apps.min.js'))
     ->prependFile($this->basePath('assets/admin/js/dashboard.min.js'))
     ->prependFile($this->basePath('assets/admin/js/bootstrap-colorpicker.min.js'))
+    ->prependFile($this->basePath('assets/admin/js/dataTables.bootstrap.min.js'))
+    ->prependFile($this->basePath('assets/admin/js/jquery.dataTables.min.js'))
     ->prependFile($this->basePath('assets/admin/js/jquery-jvectormap-world-mill-en.js'))
     ->prependFile($this->basePath('assets/admin/js/jquery-jvectormap-1.2.2.min.js'))
     ->prependFile($this->basePath('assets/admin/js/jquery.sparkline.js'))
@@ -17,6 +19,7 @@
     ->prependFile($this->basePath('assets/admin/js/jquery-migrate-1.1.0.min.js'))
     ->prependFile($this->basePath('assets/admin/js/jquery-1.9.1.min.js'))
     ->prependFile($this->basePath('assets/admin/js/pace.min.js'))
+    ->prependFile('//cdn.tinymce.com/4/tinymce.min.js')
 ; ?>
 
 <script>
@@ -32,9 +35,18 @@
     })();
 </script>
 
+<script>
+    $(document).ready( function () {
+        $('#table_log').DataTable({
+            paging: true,
+            pageLength: 25,
+        });
+    } );
+</script>
 
 <script>
     $(function(){
+        tinymce.init({ selector:'textarea' });
         $('.color-picker').colorpicker();
     });
 </script>

@@ -53,10 +53,20 @@ class CommentController extends BaseController
                 
                 $comment = $this->getHydrator()->hydrate($commentForm->getData(), $comment);
 
-                //Persist and flush entity Category
+                //Persist and flush entity Comment
                 $em = $this->getEntityManager();
                 $em->persist($comment);
                 $em->flush();
+
+                $eventManager = $this->getEventManager();
+                $eventManager->trigger('comment.edit', null, [
+                    'comment_id' => $comment->getId(),
+                    'comment_email' => $comment->getEmail(),
+                    'article_title' => $comment->getArticle()->getTitle(),
+                    'article_id' => $comment->getArticle()->getId(),
+                    'user_id' => $this->zfcUserAuthentication()->getIdentity()->getId(),
+                    'user_email' => $this->zfcUserAuthentication()->getIdentity()->getEmail()
+                ]);
 
                 //Redirection
                 return $this->redirect()->toRoute('admin/comment');
@@ -82,6 +92,16 @@ class CommentController extends BaseController
         $em = $this->getEntityManager();
         $em->remove($comment);
         $em->flush();
+
+        $eventManager = $this->getEventManager();
+        $eventManager->trigger('comment.delete', null, [
+            'comment_id' => $comment->getId(),
+            'comment_email' => $comment->getEmail(),
+            'user_id' => $this->zfcUserAuthentication()->getIdentity()->getId(),
+            'user_email' => $this->zfcUserAuthentication()->getIdentity()->getEmail(),
+            'article_title' => $comment->getArticle()->getTitle(),
+            'article_id' => $comment->getArticle()->getId()
+        ]);
 
         //Add flash message
         $this->flashMessenger()->addMessage('Le commentaire '. $comment->getName().' a été supprimé.');

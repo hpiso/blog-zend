@@ -28,7 +28,7 @@ class IndexController extends BaseController
             ->getArticlePaginator($pagination['current'], $this->getMaxPerPage());
 
         return new ViewModel([
-            'articles'   => $articles,
+            'articles' => $articles,
             'pagination' => $pagination,
         ]);
     }
@@ -39,7 +39,8 @@ class IndexController extends BaseController
         $article = $this->getEntityManager()->getRepository('Blog\Entity\Article')
             ->findOneBy(['slug' => $slug]);
 
-        if (!$article) {
+        if (!$article)
+        {
             throw new EntityNotFoundException('Entity Article not found');
         }
 
@@ -52,16 +53,27 @@ class IndexController extends BaseController
 
         $request = $this->getRequest();
 
-        if ($request->isPost()) {
+        if ($request->isPost())
+        {
             $commentForm->setData($request->getPost());
-            if ($commentForm->isValid()) {
+            if ($commentForm->isValid())
+            {
 
                 $comment = $this->getHydrator()->hydrate($commentForm->getData(), $comment);
 
-                //Persist and flush entity Category
+                //Persist and flush entity Comment
                 $em = $this->getEntityManager();
                 $em->persist($comment);
                 $em->flush();
+
+                $eventManager = $this->getEventManager();
+                $eventManager->trigger('comment.add', null, [
+                    'comment_id' => $comment->getId(),
+                    'comment_name' => $comment->getName(),
+                    'comment_email' => $comment->getEmail(),
+                    'article_title' => $comment->getArticle()->getTitle(),
+                    'article_id' => $comment->getArticle()->getId(),
+                ]);
 
                 //Envoie du mail
                 $this->getServiceLocator()->get('mail')
@@ -71,14 +83,17 @@ class IndexController extends BaseController
                 $this->flashMessenger()->addMessage('Votre commentaire a été ajouté,
                 il est en attente de validation par l\'administrateur');
 
+                $eventManager = $this->getEventManager();
+                $eventManager->trigger('comment.add', null, compact($comment));
+
                 //Redirection
                 return $this->redirect()->toRoute('article', ['slug' => $article->getSlug()]);
             }
         }
 
         return new ViewModel([
-            'article'     => $article,
-            'comments'    => $comments,
+            'article' => $article,
+            'comments' => $comments,
             'commentForm' => $commentForm,
         ]);
     }
@@ -92,7 +107,8 @@ class IndexController extends BaseController
         $category = $this->getEntityManager()->getRepository('Blog\Entity\Category')
             ->findOneBy(['slug' => $slug]);
 
-        if (!$category) {
+        if (!$category)
+        {
             throw new EntityNotFoundException('Entity Category not found');
         }
 
